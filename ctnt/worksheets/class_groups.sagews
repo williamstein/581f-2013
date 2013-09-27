@@ -1,6 +1,6 @@
 ︠e90e3cc5-447e-4427-9607-9f646657f341︠
-K.<i> = NumberField(x^2 + 2013); K
-︡76e21d9f-cd77-4901-9490-9dfb6b4c297f︡{"stdout":"Number Field in i with defining polynomial x^2 + 2013\n"}︡
+K = QuadraticField(-2013); K
+︡575786e1-aa55-4959-9bbd-9b6af0c64bc8︡{"stdout":"Number Field in a with defining polynomial x^2 + 2013\n"}︡
 ︠6e1d6575-3b40-4644-986b-97d294d36f7e︠
 C = K.class_group(); C
 ︡9891e0e5-cbb6-48d5-ac7d-49574843acf6︡{"stdout":"Class group of order 16 with structure C4 x C2 x C2 of Number Field in i with defining polynomial x^2 + 2013\n"}︡
@@ -31,6 +31,11 @@ v = [h(d) for d in [2..500] if is_squarefree(d)]; v
 v.count(1)
 ︡97583b8b-3f61-48dc-b732-f7bc3294f340︡{"stdout":"141\n"}︡
 ︠c6656a05-ea8a-4670-adcd-e4a483846d85︠
+
+
+latex(EllipticCurve('5077a'))
+︡d1d065e7-c7ed-4d6e-a1e7-c63e8e8163cb︡{"stdout":"y^2 + y = x^3 - 7x + 6 "}︡{"stdout":"\n"}︡
+︠8afab6d8-6cc0-4472-b015-718ed2d037cb︠
 
 
 

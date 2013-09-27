@@ -16,42 +16,20 @@
 - Create a project on <https://cloud.sagemath.com> devoted to this class with your name and "581f" in its title, and add me "William A Stein" as a collaborator.
 
 
-## Topics
+## Schedule
 
-- Primes
-    - infinitely many primes
-    - prime number theorem
-    - Riemann hypothesis
-    - generalization of each to number fields
+- Each day we'll do quick status reports at the beginning of class to see what each person has contributed.
 
+<br>
 
-- number fields
-    - finiteness of class group
-    - gauss class number problem
-    - infinitely many number fields of class number 1 (Cohen-lenstra, Bharghava)
+- Wednesday, Sept 27:
+    - class groups, FLT, etc. (see how far we get)
 
+<br>
 
-# arithmetic sums
-- Fermat
-- ABC
-- generalized Fermat
-
-
-
-# elliptic curves
-- mordell-weil theorem
-- Mazur torsion classification
-- analytic cont and functional equation (modularity)
-- BSD conjecture
-- hasse bound
-
-
-# modular forms
-- ramanujan, deligne bound
-- modularity of elliptic curves
-
-
-# public key crypto
-- Duffie Hellman
-- RSA
-- el gamal
+- Friday, Sept 29: bring your laptop
+    - first status reports:
+        - what you did on book?
+        - what relevant background for the course you've read?
+    - tutorial about using <https://cloud.sagemath.com> to do latex and compute things
+    - tutorial about using git to work on the book
