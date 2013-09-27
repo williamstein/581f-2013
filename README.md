@@ -22,12 +22,12 @@
 
 <br>
 
-- Wednesday, Sept 27:
+- Friday, Sept 27:
     - class groups, FLT, etc. (see how far we get)
 
 <br>
 
-- Friday, Sept 29: bring your laptop
+- Monday, Sept 30: bring your laptop
     - first status reports:
         - what you did on book?
         - what relevant background for the course you've read?
