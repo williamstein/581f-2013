@@ -58,7 +58,7 @@ sensitive=true}
 \maketitle
 \tableofcontents
 
-\chapter{Introduction}
+\chapter{Introduction: tour of the main questions}
 In this book, we will explore several important central problems and
 objects of number theory, and for each to explain how---in practice
 (not just theory)---to {\em compute} with them.    Books,
@@ -71,9 +71,7 @@ discussion so that you understand the limitations and capabilities of
 your tools.  That is the mission of the book you are looking at.
 
 
-\section{A Tour of the main questions}
-
-\subsection{Prime Numbers}
+\section{Prime Numbers}
 The prime numbers $2,3,5,7,11,\ldots, $ have fascinated
 mathematicians for thousands of years.  Euclid proved there
 are infinitely many: if $p_1,\ldots, p_n$ are primes,
@@ -132,7 +130,7 @@ smaller than $\sqrt{10^9}\cdot \log(10^9) \sim  \num{655327}$.
 
 \hw{Andrew and Bharath}{Can we prove anything toward $\sqrt{x}\cdot \log(x)$?}
 
-\subsection{Class Numbers}
+\section{Class Numbers}
 Number fields are a natural generalization of the rational numbers $\Q$,
 to which ideas such as primes, and conjectures such as
 the Riemann Hypothesis, etc., all generalize.  They have
@@ -262,7 +260,7 @@ fields) with class number $1$ is an unsolved problem.
 \hw{Volunteer}{What proportion of real quadratic fields are
 predicted to have class number $1$?}
 
-\subsection{Fermat and ABC}
+\section{Fermat's Last Theorem}
 Fermat's Last Theorem -- a problem from the 1600s! -- asserts
 that whenever $n\geq 3$, then there are no positive integer
 solutions to the Diophantine equation
@@ -301,7 +299,7 @@ $$
 $$
 By counting solutions modulo $p$ to the equation that defines this curve (or
 any nonsingular curve of the form $y^2=x^3+\alpha x + \beta$ for that matter),
-we associate an $L$-series
+we define an $L$-series
 $$
 L(E,s) =
 \prod_{p \text{ prime}} \frac{1}{1-a_p p^{-s} + \varepsilon(p)\cdot p^{1-2s}}
@@ -311,7 +309,8 @@ where $\varepsilon(p)=1$ if $p\nmid abc$ and $\varepsilon(p)=0$ otherwise,
 and $a_p = p+1-\#E(\F_p)$.
 Old work of Hasse (and others)
 shows that this $L$-series defines a complex analytic
-function on some right half plane, and people conjectured
+function on some right half plane; people then conjectured (and
+subsequently proved!)
 that $L(E,s)$ extends to a holomorphic function on all $\C$.
 Birch and Swinnerton-Dyer even went so far as to conjecture
 that most everything about the arithmetic of $E$
@@ -325,8 +324,8 @@ $$
 f(z) = \sum_{n\geq 1} a_n e^{2\pi i z}.
 $$
 Andrew Wiles (and Richard Taylor) proved---using an ingenious
-argument involving an arithmetic analogue of deformation theory
-that Barry Mazur introduced into number theory---that
+argument involving an arithmetic analogue of Barry Mazur's
+deformation theory---that
 $f(z)$ has the property that for
 all $2\times 2$ integer matrices
 $\gamma$ with determinant $1$ and lower left entry divisible
@@ -336,17 +335,59 @@ $$
 $$
 where here $\gamma$ acts on the upper half plane
 via linear fractional transformations.  This function
-$f(z)$ is called a {\em modular form}.
+$f(z)$ is called a weight 2 cuspidal {\em modular form}.
 
 Moreover, using arithmetic with {\em quaternions} and corresponding
 geometry of modular curves, Ken Ribet had earlier proved that
-$f(z)$ must be congruent to a cuspform of ``level 2'', which is
-impossible, since there are no such nonzero forms.  This contradiction
-proves Fermat's last theorem.
+the coefficients $a_n$ of the expansion of
+$f(z)$ must be congruent to the coefficients
+of a cuspform of ``level 2'', which is
+impossible, since there are no such nonzero forms.
+This contradiction proves Fermat's last theorem.
 
 Much in the discussion above can be computed with
 in general for any elliptic curve $y^2=x^3 + \alpha x + \beta$.
-For example...
+For example, we do some computations with the elliptic
+curve corresponding to Fermat's equation for exponent $n=3$:
+\begin{lstlisting}
+sage: E = EllipticCurve([0,0,1,0,0]); E
+︡Elliptic Curve defined by y^2 + y = x^3 over Rational Field
+sage: E.anlist(20)
+[0, 1, 0, 0, -2, 0, 0, -1, 0, 0, 0, 0, 0, 5, 0, 0, 4, 0, 0, -7, 0]
+sage: L = E.lseries(); L
+Complex L-series of the Elliptic Curve defined by y^2 + y = x^3
+over Rational Field
+sage: L(1)
+0.588879583428483
+sage: L.taylor_series(1, 5)
+0.59 + 0.45*z - 0.19*z^2 + 0.0042*z^3 + 0.033*z^4 - 0.018*z^5 + O(z^6)
+sage: E.rank() # proves FLT for exponent 3
+0
+\end{lstlisting}
+And we can explore the $L$-series itself:
+\begin{lstlisting}
+sage: h = L.dokchitser(prec=200)
+sage: complex_plot(h, (-2,3), (-5,5), plot_points=10)  # quite painful
+\end{lstlisting}
+
+\begin{center}
+\includegraphics[width=.4\textwidth]{pics/27a-lser1.pdf}
+\end{center}
+
+And, these are the analogue of the zeros of the Riemann zeta function:
+\begin{lstlisting}
+sage: L.zeros(5)
+[4.04304401, 6.04893540, 8.21765037, 9.42919921, 10.9087283]
+\end{lstlisting}
+
+
+\section{The ABC Conjecture}
+
+
+
+
+\section{Public-key Cryptography}
+
 
 
 
