@@ -5,6 +5,41 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsfonts}
+\usepackage{amsthm}
+
+
+%%%% Theoremstyles
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{idea}[theorem]{Idea}
+\newtheorem{project}[theorem]{Project}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{openproblem}[theorem]{Open Problem}
+\newtheorem{challenge}[theorem]{Challenge}
+
+%\theoremstyle{remark}
+\newtheorem{goal}[theorem]{Goal}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{remarks}[theorem]{Remarks}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+
+
+\usepackage{hyperref}  % so we have \url{...} command
 
 \usepackage{sistyle}
 \SIthousandsep{,}
@@ -12,12 +47,16 @@
 \DeclareMathOperator{\Li}{Li}
 \DeclareMathOperator{\Cl}{Cl}
 \DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\realpart}{Re}
 
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\F}{\mathbb{F}}
 \renewcommand{\O}{\mathcal{O}}
+\renewcommand{\Re}{\realpart}
+\newcommand{\eps}{\varepsilon}
+
 
 \usepackage{listings}
 \lstdefinelanguage{Sage}[]{Python}
@@ -260,7 +299,7 @@ fields) with class number $1$ is an unsolved problem.
 \hw{Volunteer}{What proportion of real quadratic fields are
 predicted to have class number $1$?}
 
-\section{Fermat's Last Theorem}
+\section{Fermat's Last Theorem}\label{sec:fltintro}
 Fermat's Last Theorem -- a problem from the 1600s! -- asserts
 that whenever $n\geq 3$, then there are no positive integer
 solutions to the Diophantine equation
@@ -287,7 +326,7 @@ see some rational points on it---namely $(1,0)$ and $(0,1)$---these
 correspond to torsion points on the elliptic curve, and to solutions
 to the Fermat equation with $X$ or $Y$ equal to $0$.
 
-For general $n\geq 3$, Fermat's assertion was finally resolved by much modern
+For general $n\geq 5$, Fermat's assertion was finally resolved by much modern
 work in number theory, culminating with a major theorem of
 Andrew Wiles.  The basic strategy, which is useful for
 attacking a wide range of Diophantine equations, is as follows.
@@ -317,12 +356,14 @@ that most everything about the arithmetic of $E$
 is determined by the leading coefficient of the
 Taylor expansion of $L(E,s)$ about $s=1$.
 
-Anyway, to the $L$-series $L(E,s)$, one can use
+To the $L$-series $L(E,s)$, one can use
 Mellin transform to define another complex analytic function
 on the upper half plane
 $$
-f(z) = \sum_{n\geq 1} a_n e^{2\pi i z}.
+f(z) = \sum_{n\geq 1} a_n e^{2\pi i z},
 $$
+where the coefficients $a_n$ here are exactly the same as
+in the Dirichlet series representation of $L(E,s)$ above.
 Andrew Wiles (and Richard Taylor) proved---using an ingenious
 argument involving an arithmetic analogue of Barry Mazur's
 deformation theory---that
@@ -333,11 +374,11 @@ by $N=\prod_{\ell\mid abc} \ell$, we have
 $$
   f(z) dz = f(\gamma(z)) d(\gamma(z)),
 $$
-where here $\gamma$ acts on the upper half plane
+where $\gamma$ acts on the upper half plane
 via linear fractional transformations.  This function
 $f(z)$ is called a weight 2 cuspidal {\em modular form}.
 
-Moreover, using arithmetic with {\em quaternions} and corresponding
+Moreover, using arithmetic with {\em quaternion algebras} and
 geometry of modular curves, Ken Ribet had earlier proved that
 the coefficients $a_n$ of the expansion of
 $f(z)$ must be congruent to the coefficients
@@ -345,13 +386,16 @@ of a cuspform of ``level 2'', which is
 impossible, since there are no such nonzero forms.
 This contradiction proves Fermat's last theorem.
 
-Much in the discussion above can be computed with
-in general for any elliptic curve $y^2=x^3 + \alpha x + \beta$.
+We can explicitly compute with many of the
+objects---elliptic curves, modular forms, etc.---appearing
+in the discussion above.
 For example, we do some computations with the elliptic
-curve corresponding to Fermat's equation for exponent $n=3$:
+curve corresponding to Fermat's equation for exponent $n=3$
+(this is {\em not} the corresponding Frey curve, but another
+model for $X^3+Y^3=1$)
 \begin{lstlisting}
-sage: E = EllipticCurve([0,0,1,0,0]); E
-︡Elliptic Curve defined by y^2 + y = x^3 over Rational Field
+sage: E = EllipticCurve([0,0,1,0,-7]); E
+Elliptic Curve defined by y^2 + y = x^3 - 7 over Rational Field
 sage: E.anlist(20)
 [0, 1, 0, 0, -2, 0, 0, -1, 0, 0, 0, 0, 0, 5, 0, 0, 4, 0, 0, -7, 0]
 sage: L = E.lseries(); L
@@ -374,16 +418,86 @@ sage: complex_plot(h, (-2,3), (-5,5), plot_points=10)  # quite painful
 \includegraphics[width=.4\textwidth]{pics/27a-lser1.pdf}
 \end{center}
 
-And, these are the analogue of the zeros of the Riemann zeta function:
+As for the Riemann zeta function, there is a generalized Riemann
+Hypothesis, which postulates that the nontrivials zeros of
+$L(E,s)$ lie on a line, the line $\Re(s)=1$.
+The first few imaginary parts of the nontrivial zeros of $L(E,s)$ are
 \begin{lstlisting}
 sage: L.zeros(5)
 [4.04304401, 6.04893540, 8.21765037, 9.42919921, 10.9087283]
 \end{lstlisting}
 
 
-\section{The ABC Conjecture}
+\section{The abc Conjecture}
+The abc conjecture
+concerns triples of coprime positive integers $a,b,c$  such that
+$$
+a+b = c.
+$$
+The {\em radical} of an integer $n$ is the product
+of the distinct prime divisors of $n$, and the radical
+of an abc triple $a,b,c$ is $r=r(a,b,c)=r(abc)$.
+For example,
+$$
+  1 + 8 = 9
+$$
+has radical $r=2\cdot 3=6$.
 
+\begin{conjecture}[Masser-Oesterl\'{e}]\label{conj:abc}
+For every $\eps>0$ there are only finitely many
+triples $a,b,c$ of coprime positive integers such
+that $a+b=c$ and $r^{1+\eps}<c$,
+where $r=r(a,b,c)$.
+\end{conjecture}
 
+Given $a,b$ it is trivial to find $c$ with $c=a+b$, and
+usually the radical $r=r(a,b,c)$ is going to be bigger
+than $c$.   A typical example is $a=4$, $b=15$.
+We have $c=4+15=19$, and the radical is
+$$2\cdot 3\cdot5\cdot19=570 \gg 19.$$
+
+Now suppose for the moment that we have a counterexample
+to Fermat's Last Theorem (see Section~\ref{sec:fltintro} above),
+say
+$$
+ A^n + B^n = C^n,
+$$
+with $A,B,C$ coprime positive integers and $n\ge 5$ (say).
+Letting $a=A^n, b=B^n, c=C^n$, we have
+$$
+r(a,b,c) = r(A^n,B^n,C^n) = r(A,B,C) = ABC <C^3 < C^n=c.
+$$
+According to Conjecture~\ref{conj:abc} (with
+any choice of $\eps$), there can be only finitely many such
+$(A,B,C)$.  In particular, Conjecture~\ref{conj:abc} implies
+Fermat's Last Theorem for ann sufficiently large $n$
+(note: an accepted proof of FLT is known, and there
+is no accepted proof of ABC.
+
+There's much computational work that goes into understanding
+and refining the ABC conjecture.  For example,
+Lenstra defined a notion of the {\em quality} of
+a triple $a+b=c$ to be
+$$q(a,b,c) = \frac{\log(c)}{\log(r(a,b,c))}.$$
+As mentioned above, this number is usually very small, since
+$r$ is typically much bigger than $c$.
+However, there are some known triples $a,b,c$ of
+high quality, but the ABC conjecture asserts there aren't too
+many.  In fact, here is an equivalent version of the ABC conjecture:
+\begin{conjecture}
+For every $h>1$ there are only finitely many triples
+$a,b,c$ with quality bigger than $h$.
+\end{conjecture}
+
+The highest quality triple ever found\footnote{See \url{http://www.math.leidenuniv.nl/~desmit/abc/}.} is
+$$
+   2 + 3^{10}\cdot 109 = 23^5,
+$$
+where
+$$
+q(a,b,c) = \frac{\log(23^5)}{\log(2\cdot 3 \cdot 109 \cdot 23)}
+    = 1.62991168412\ldots
+$$
 
 
 \section{Public-key Cryptography}
