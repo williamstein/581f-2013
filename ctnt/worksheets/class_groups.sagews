@@ -1,6 +1,6 @@
 ︠e90e3cc5-447e-4427-9607-9f646657f341︠
 K = QuadraticField(-2013); K
-︡575786e1-aa55-4959-9bbd-9b6af0c64bc8︡{"stdout":"Number Field in a with defining polynomial x^2 + 2013\n"}︡
+︡d77e1426-3a11-4a53-821b-65856feb95d4︡{"stdout":"Number Field in a with defining polynomial x^2 + 2013\n"}︡
 ︠6e1d6575-3b40-4644-986b-97d294d36f7e︠
 C = K.class_group(); C
 ︡9891e0e5-cbb6-48d5-ac7d-49574843acf6︡{"stdout":"Class group of order 16 with structure C4 x C2 x C2 of Number Field in i with defining polynomial x^2 + 2013\n"}︡
