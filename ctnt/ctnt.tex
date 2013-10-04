@@ -336,26 +336,79 @@ with computations by Riele and Williams.
 
 %Simon Spicer: Added a brief section on Falting's Theorem (2013-10-03)
 \section{Falting's Theorem}\label{sec:faltings}
-Let $f(x,y)=0$ be a smooth plane curve. If we consider the set of solutions to this equation over the complex numbers there is the natural notion of the {\it genus} of the curve: basically, the number of holes in the solution set, when the solution set is viewed as a Riemann surface. Genus one curves, for example, topologically look like doughnuts. \\
+Let $f(x,y)=0$ be a smooth plane curve. If we
+consider the set of solutions to this equation over
+the complex numbers there is the natural notion of
+the {\it genus} of the curve: basically, the number
+of holes in the solution set, when the solution set
+is viewed as a Riemann surface. Genus one curves, for
+example, topologically look like doughnuts. \\
 
-It turns out that the number of rational points on a plane curve -- that is, the number of pairs of rational numbers $(x,y)$ that satisfy $f(x,y)=0$ -- is highly dependent on the genus of the curve described by $f$. Genus zero curves are generally well understood: the solution set to $f(x,y)=0$ is either empty, or it is infinite and described by a single parameter. \\
+It turns out that the number of rational points on a
+plane curve -- that is, the number of pairs of
+rational numbers $(x,y)$ that satisfy $f(x,y)=0$ --
+is highly dependent on the genus of the curve
+described by $f$. Genus zero curves are generally
+well understood: the solution set to $f(x,y)=0$ is
+either empty, or it is infinite and described by a
+single parameter. \\
 
-Genus one curves (modulo some extra conditions) are known as {\it elliptic curves}, and are the central objects of study in a large part of modern-day number theory. These will be discussed in later sections and chapters of the book, but the gist of the matter is that elliptic curves can have wildly varying numbers of rational points depending on the curve, from zero to infinity and everything in between; there is an entire industry dedicated to computing just how many points a particular elliptic curve has. \\
+Genus one curves (modulo some extra conditions) are
+known as {\it elliptic curves}, and are the central
+objects of study in a large part of modern-day number
+theory. These will be discussed in later sections and
+chapters of the book, but the gist of the matter is
+that elliptic curves can have wildly varying numbers
+of rational points depending on the curve, from zero
+to infinity and everything in between; there is an
+entire industry dedicated to computing just how many
+points a particular elliptic curve has. \\
 
-Curves of genus two and above, on the other hand, are a completely different affair.
+Curves of genus two and above, on the other hand, are
+a completely different affair.
 
 \begin{theorem}
-Any smooth projective curve of genus two or greater has only finitely many rational points.
+Any smooth projective curve of genus two or greater
+has only finitely many rational points.
 \end{theorem}
 
-This is known as {\it Falting's Theorem}, after the German mathemetician Gerd Falting who proved it in 1983 (for which he won a Fields Medal). The theorem is in fact more general than stated above: given any fixed number field $K$, the number of $K$-rational points on a smooth projective curve $C$ of genus at least two is finite. \\
+This is known as {\it Falting's Theorem}, after the
+German mathemetician Gerd Falting who proved it in
+1983 (for which he won a Fields Medal). The theorem
+is in fact more general than stated above: given any
+fixed number field $K$, the number of $K$-rational
+points on a smooth projective curve $C$ of genus at
+least two is finite. \\
 
-Unfortunately, Falting's Theorem is completely non-constructive: while it tells you that there will only ever be finitely many rational solutions to an equation describing a genus two or above curve, in no way does it outline how to go about finding those points. In fact, there is no general method known to find points on curves of higher genus; nor is it even known -- or even suspected -- if such a method exists or doesn't exist. The question, as they say, is wide open. \\
+Unfortunately, Falting's Theorem is completely non-constructive:
+while it tells you that there will only ever be
+finitely many rational solutions to an equation
+describing a genus two or above curve, in no way does
+it outline how to go about finding those points. In
+fact, there is no general method known to find points
+on curves of higher genus; nor is it even known -- or
+even suspected -- if such a method exists or doesn't
+exist. The question, as they say, is wide open. \\
 
-It thus shouldn't be a surprise that the question of finding points on higher genus curves is in itself an active area of research in number theory. As an example, in Diophantus' Arithmetica, the series of books on solving algebraic equations by the ancient Greek mathematician, there is only one instance of a higher genus curve being considered: problem 17 of book 6 boils down to finding rational points on the genus two curve described by
+It thus shouldn't be a surprise that the question of
+finding points on higher genus curves is in itself an
+active area of research in number theory. As an
+example, in Diophantus' Arithmetica, the series of
+books on solving algebraic equations by the ancient
+Greek mathematician, there is only one instance of a
+higher genus curve being considered: problem 17 of
+book 6 boils down to finding rational points on the
+genus two curve described by
 \[ y^2 = x^6 + x^2 + 1 \]
-
-Because of Falting's Theorem we know that this equation only has finitely rational solutions. Two obvious solutions are $(x,y) = (0,\pm 1)$, while Diophantus himself gave the more interesting solution $(\frac{1}{2},\pm \frac{9}{8})$. This single equation is the entire topic of the PhD thesis of Joe Wetherell (UC Berkeley 1998), which uses some pretty hefty algebraic geometry to show that no other solutions exist. \\
+Because of Falting's Theorem we know that this
+equation only has finitely rational solutions. Two
+obvious solutions are $(x,y) = (0,\pm 1)$, while
+Diophantus himself gave the more interesting solution
+$(\frac{1}{2},\pm \frac{9}{8})$. This single equation
+is the entire topic of the PhD thesis of Joe
+Wetherell (UC Berkeley 1998), which uses some pretty
+hefty algebraic geometry to show that no other
+solutions exist. \\
 
 
 \section{Fermat's Last Theorem}\label{sec:fltintro}
@@ -539,15 +592,17 @@ has radical $r=2\cdot 3=6$.
 \begin{conjecture}[Masser-Oesterl\'{e}]\label{conj:abc}
 For every $\eps>0$ there are only finitely many
 triples $a,b,c$ of coprime positive integers such
-that $a+b=c$ and $r^{1+\eps}<c$,
+that $a+b=c$ and $r^{1+\eps}\leq c$,
 where $r=r(a,b,c)$.
 \end{conjecture}
 
-Given $a,b$ it is trivial to find $c$ with $c=a+b$, and
+Given $a,b$ it is trivial to find $c$ with $a+b=c$, and
 usually the radical $r=r(a,b,c)$ is going to be bigger
 than $c$.   A typical example is $a=4$, $b=15$.
 We have $c=4+15=19$, and the radical is
 $$2\cdot 3\cdot5\cdot19=570 \gg 19.$$
+For the radical to be small compared to $c$
+is quite special.
 
 Now suppose for the moment that we have a counterexample
 to Fermat's Last Theorem (see Section~\ref{sec:fltintro} above),
@@ -562,7 +617,7 @@ r(a,b,c) = r(A^n,B^n,C^n) = r(A,B,C) = ABC <C^3 < C^n=c.
 $$
 According to Conjecture~\ref{conj:abc} (with
 any choice of $\eps$), there can be only finitely many such
-$(A,B,C)$.  In particular, Conjecture~\ref{conj:abc} implies
+triples $(A^n, B^n, C^n)$.  In particular, Conjecture~\ref{conj:abc} implies
 Fermat's Last Theorem for all sufficiently large $n$.
 \footnote{An accepted proof of FLT is known (due to Wiles). There
 is no accepted proof of ABC, but there is a claimed one,
@@ -575,8 +630,12 @@ There's much computational work that goes into understanding
 and refining the ABC conjecture.  For example,
 Lenstra defined a notion of the {\em quality} of
 a triple $a+b=c$ to be
-$$q(a,b,c) = \frac{\log(c)}{\log(r(a,b,c))}.$$
-As mentioned above, this number is usually very small, since
+$$q(a,b,c) = \frac{\log(c)}{\log(r)}.$$
+Notice that if we chose $\eps$ to get equality
+in Conjecture~\ref{conj:abc}, then
+$q(a,b,c) = 1+\eps$.
+As mentioned above, triples $a,b,c$ usually have
+very low quality, since
 $r$ is typically much bigger than $c$.
 However, there are some known triples $a,b,c$ of
 high quality, but the ABC conjecture asserts there aren't too
@@ -596,6 +655,17 @@ q(a,b,c) = \frac{\log(23^5)}{\log(2\cdot 3 \cdot 109 \cdot 23)}
     = 1.62991168412\ldots
 $$
 
+Even if you don't believe the ABC conjecture, you might believe this
+weaker statement:
+\begin{conjecture}
+Among all $a,b,c$ triples, there is an absolute upper
+bound on the quality.
+\end{conjecture}
+
+\begin{exercise}
+Does the above weaker conjecture imply Fermat's Last Theorem for all sufficiently large exponents $n$?
+\end{exercise}
+
 
 \section{Public-key Cryptography}
 
@@ -609,6 +679,39 @@ used in music. But I won't comment on the progress of
 civilization since then.''\\-- Hendrik Lenstra,\\ \url{http://www.ucs.louisiana.edu/~avm1260/lenstra.html}
 \end{quote}
 
+
+Public-key cryptography involves many of the same ideas and tools
+as the rest of computational number theory, and so in this book
+we will consider it on an equal footing.
+In particular, we will consider the RSA cryptosystem, whose
+security relies on the difficulty of factoring integers,
+and also elliptic curve-based cryptosystems
+such as ElGamal and elliptic curve Diffie-Hellman.
+
+There are two intimately related sides to cryptography:
+creating methods to send encrypted messages,
+and cracking proposed encryption methods.
+It's extremely difficult to be good at
+creating methods for encrypting messages, but
+bad at attacking them, since one must be very aware of
+attack techniques in order to guard against them.
+It's probably less important to be good at making encryption
+systems if you want to be good at cracking them.
+It is natural that the typical cryptography group at a big
+company would put more effort into
+creating and implementing cryptosystems than into attacking them,
+since they
+have little commercial motivation for investing billions
+into attacking cryptosystems,
+and publicity about them doing so probably wouldn't look
+good (and indeed, such attack technology might have legal implications).
+\begin{quote}
+``Former NSA technology boss Prescott Winter has a word for the kind of security he sees even at large, technologically sophisticated companies: Appalling''\\
+ -- \url{http://tinyurl.com/pgb45j8}, Slashdot, Oct 3, 2013.
+\end{quote}
+
+For the cryptography aspect of this course, we'll consider the cryptosystems above, and some of the attacks on them, and how all of this work
+has a deep interplay with many other objects we consider.
 
 
 \chapter{Prime Numbers}
