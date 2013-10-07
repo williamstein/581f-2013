@@ -644,6 +644,18 @@ and refining the ABC conjecture.  For example,
 Lenstra defined a notion of the {\em quality} of
 a triple $a+b=c$ to be
 $$q(a,b,c) = \frac{\log(c)}{\log(r)}.$$
+
+Here is a Sage interact to compute the quality:
+\begin{lstlisting}
+@interact
+def f(a=3, b=4):
+    c = a + b
+    print "%s + %s = %s"%(a,b,c)
+    v = prod(set(prime_divisors(a) + prime_divisors(b) + prime_divisors(c)))
+    q = log(c)/log(v)
+    print "quality = ", float(q)
+\end{lstlisting}
+
 Notice that if we chose $\eps$ to get equality
 in Conjecture~\ref{conj:abc}, then
 $q(a,b,c) = 1+\eps$.
@@ -659,18 +671,17 @@ $a,b,c$ with quality bigger than $h$.
 \end{conjecture}
 
 The highest quality triple ever found\footnote{See \url{http://www.math.leidenuniv.nl/~desmit/abc/}.} is
-$$
+$
    2 + 3^{10}\cdot 109 = 23^5,
-$$
+$
 where
 $$
 q(a,b,c) = \frac{\log(23^5)}{\log(2\cdot 3 \cdot 109 \cdot 23)}
     = 1.62991168412\ldots
 $$
 
-Even if you don't believe the ABC conjecture, you might believe this
-weaker statement:
-\begin{conjecture}
+Even if you don't believe the ABC conjecture, you might believe this:
+\begin{conjecture}[Weak ABC]
 Among all $a,b,c$ triples, there is an absolute upper
 bound on the quality.
 \end{conjecture}
@@ -679,8 +690,66 @@ bound on the quality.
 Does the above weaker conjecture imply Fermat's Last Theorem for all sufficiently large exponents $n$?
 \end{exercise}
 
+\begin{exercise}
+If possible, formulate ABC over number fields in terms of a notion of ``quality''.  See \url{http://www.math.columbia.edu/~goldfeld/ABC-Conjecture.pdf} for a precise statement of ABC over number fields.
+What does this imply about FLT over number fields?
+\end{exercise}
 
+\subsection{Infinitely many triples with quality greater than $1$}
+For $p$ an odd prime and $n\geq 1$ an integer, consider the $a,b,c$ triple
+$$
+a = 1,\qquad b = 2^{p(p-1)n}-1, \qquad c = 2^{p(p-1)n}.
+$$
+Since $\varphi(p^2)=p(p-1)$ is the order of $(\Z/p^2\Z)^*$,
+we have $2^{p(p-1)n}\equiv 1 \pmod{p^2}$,
+so $p^2 \mid b$.
+Thus
+$$
+ r = r(a,b,c) = 1 \cdot p \cdot\text{(other stuff from $b$)} \cdot 2
+     \leq \frac{2b}{p} < b < c,
+$$
+so
+$$
+ q(a,b,c) = \frac{\log(c)}{\log(r)} > 1.
+$$
+Here is a Sage interact to compute $a,b,c$ as above, along with their quality.
+Note that if you put at all largve values in for either $n$ or $p$,
+then the resulting numbers are huge, and the computation of the quality
+(as implemented) will take forever.
+\begin{lstlisting}
+@interact
+def f(p=3, n=1):
+    if not is_prime(p) or p<=2:
+        print "p must be an odd prime!"
+    if n < 1:
+        print "n must be >= 1"
+    a = 1
+    b = 2^(p*(p-1)*n) - 1
+    c = 2^(p*(p-1)*n)
+    print "%s + %s = %s"%(a,b,c)
+    print "(now computing quality...)"
+    sys.stdout.flush()
+    v = prod(set(prime_divisors(a) + prime_divisors(b) + prime_divisors(c)))
+    q = log(c)/log(v)
+    print "quality = ", float(q)
+\end{lstlisting}
 
+\subsection{Triples with Quality at least $1.4$}
+The following is a plot of the number of abc triples with $c\leq 10^x$
+and quality at least $1.4$, drawn on a log scale,
+where $x\leq 10^{18}$.  This data was computed by the ABC@HOME project.
+\begin{center}
+\includegraphics[width=.7\textwidth]{pics/abcplot.pdf}
+\end{center}
+
+The (strong) ABC conjecture asserts that the blue line is bounded above!
+As is typical is typical with most questions in "asymptotic number theory",
+the numerical data suggests---to the naive observer---the exact opposite.
+See \cite{bmsw:bulletins} for an article about this sort of tension in
+another context:
+\begin{quote}
+``We have a network of heuristics and conjectures regarding rational points, and we have massive data accumulated to exhibit instances of the phenomena. Generally, we would expect that our data supports our conjectures; and if not, we lose faith in our conjectures. But here there is a somewhat more surprising interrelation between data and conjecture: they are not exactly in open conflict one with the other. We discuss various aspects of this story, including recent heuristics and data that attempt to resolve this mystery.''
+\end{quote}
 
 \section{Public-key Cryptography}
 
