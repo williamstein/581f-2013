@@ -1,7 +1,7 @@
 \documentclass{book}
 \title{A Computational Tour of Number Theory}
 \author{William Stein \and Andrew Ohana \and Simon Spicer \and Hao Chen
-\and Yannick \and Bharath \and Scholl \and ADD/FIX YOUR NAME! }
+\and Yannick \and Bharath \and Travis Scholl \and ADD/FIX YOUR NAME! }
 
 \usepackage{macros}
 
@@ -515,6 +515,20 @@ forms in a space of dimension 0, we instead considers a potential
 large collection of spaces of modular forms, which we systematically
 compute (e.g., using modular symbols).
 
+\subsection{Failure of Fermat's Last Theorem} %Added by Travis Scholl
+
+There are many rings where Fermat's Last Theorem fails for many values of
+$n$. For example consider the ring $\Z[\zeta]$ where $\zeta$ is a primitive
+$m$th root of unity with $3 | m$. Then $\xi := \zeta^\frac{m}{3}$ is
+a primitive $3$rd root of unity so it satisfies $1+\xi+\xi^2=0$.
+From this it is easy to see
+$$
+(\xi)^{6k+5} + (\xi^2)^{6k+5} = (-1)^{6k+5}
+$$
+for any non-negative integer $k$. Hence the triple $(\xi,\xi^2,-1)$ satisfies
+the Fermat equation $X^{6k+5}+Y^{6k+5}=Z^{6k+5}$ in the ring $\Z[\zeta]$.
+
+
 \section{The abc Conjecture}
 The abc conjecture
 concerns triples of coprime positive integers $a,b,c$  such that
@@ -654,6 +668,8 @@ good (and indeed, such attack technology might have legal implications).
 For the cryptography aspect of this course, we'll consider the cryptosystems above, and some of the attacks on them, and how all of this work
 has a deep interplay with many other objects we consider.
 
+% NEWS: https://news.ycombinator.com/item?id=6506120
+
 
 \chapter{Prime Numbers}
 
@@ -725,4 +741,4 @@ Important unsolved problem: how difficult is the discrete log problem?
 
 \end{document}
 
-%sagemathcloud={"zoom_width":150}
+%sagemathcloud={"zoom_width":145}
