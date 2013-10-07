@@ -1,7 +1,7 @@
 \documentclass{book}
 \title{A Computational Tour of Number Theory}
 \author{William Stein \and Andrew Ohana \and Simon Spicer \and Hao Chen
-\and Yannick \and Bharath \and Travis Scholl \and ADD/FIX YOUR NAME! }
+\and Yannick Van Huele \and Bharath \and Travis Scholl \and ADD/FIX YOUR NAME! }
 
 \usepackage{macros}
 
@@ -83,6 +83,12 @@ smaller than $\sqrt{10^9}\cdot \log(10^9) \sim  \num{655327}$.
 
 \hw{Andrew and Bharath}{Can we prove anything toward $\sqrt{x}\cdot \log(x)$?}
 
+% Basic calculus bound by Bharath
+One can follow a naive approach and use basic calculus.
+One sees easily that $\pi(x) \leq x$. Similarly, If $x \geq 2$, then $\log(x) \geq \log(2)$. So, we have that $\Li(x) \leq \frac{x}{log(2)} $.
+Using triangular inequality, one can deduce that $|\pi(x)-\Li(x)| \leq x \cdot (1 + \frac{1}{\log(2)}) \leq 3x$.
+
+
 \section{Class Numbers}
 Number fields are a natural generalization of the rational numbers $\Q$,
 to which ideas such as primes, and conjectures such as
@@ -131,7 +137,7 @@ result:
 Let $\alpha \in \bar{\Q}$.  Then $\alpha \in \bar{\Z}$ if and only if
 $\Z[\alpha]$ is a finitely generated $\Z$-module.
 \end{lemma}
-A proof of the lemma can be found in section 2.3 of (ANT reference).  Now,
+A proof of the lemma can be found in section 2.3 of \cite{stein:ant}.  Now,
 suppose that $\alpha, \beta \in \bar{\Z}$ and note that
 $$
 \Z[\alpha + \beta] \subseteq \Z[\alpha, \beta] \hspace{15pt}
@@ -274,6 +280,56 @@ The Cohen-Lenstra heuristics predicts that 75.446 \% of
 real quadratic fields have class number 1, which agrees
 with computations by Riele and Williams.
 
+%Yannick Van Huele: added a sufficient condition for the class number of
+%$\Q(\sqrt{d})$ to be nontrivial along with an explicit example.  Still
+%need to provide a proof of the result.
+\subsection{Quadratic Fields with Nontrivial Class Group}
+One may also ask about quadratic number fields with class number greater than
+1.  Are there infinitely many real quadratic number fields with class number
+greater than 1?  Are there real quadratic fields with arbitrarily large class
+number?  The answer to both of these questions is yes and in fact, one can
+obtain a lower bound on the power of $2$ dividing the class number
+of $\Q(\sqrt{d})$.
+\begin{proposition}
+Let $d$ be a square-free integer and let $K = \Q(\sqrt{d})$.
+Define
+$$
+d_K = \left\{\begin{array}{rl}
+d & \text{if  } d \equiv 1 (\mathrm{mod} \; 4), \\
+4d & \text{if  } d \equiv 2 \text{ or } 3 (\mathrm{mod} \; 4). \\
+\end{array}\right.
+$$
+Let $t$ denote the number of distinct primes dividing $d_K$.
+If $t > 1$ then $2^{t-2}|h_K$, where $h_K$ denotes the class number of $K$.
+\end{proposition}
+In our proof, we will assume some knowledge of class field theory, although
+one can also prove this result by carefully studying quadractic forms (see for
+example Section 3.8 of \cite{borevich-shafarevich}).
+Let us first illustrate the idea of the proof by way of some examples.
+Let $d = 1105 = 5\cdot 13 \cdot 17$ and let $K = \Q(\sqrt{1105})$.  The
+following three quadratic (and thus abelian) extensions of $K$:
+$$
+L_1 = K(\sqrt{5}) = \Q(\sqrt{5}, \sqrt{1105}), \hspace{15pt}
+L_2 = K(\sqrt{13}),\hspace{10pt} \text{and} \hspace{10pt} L_3 = K(\sqrt{17}).
+$$
+Note that $L_1$ is the compositum of $K$ with $\Q(\sqrt{5})$, which is
+unramified outside of $5$ ($5 \equiv 1 (\mathrm{mod} \; 4)$).  Hence, the
+extension $L_1/K$ is unramified outside of $5$.  However, $L_1$ is also the
+compositum of $K$ with $\Q(\sqrt{13\cdot 17})$, which is unramified outside of
+$13$ and $17$ so the extension $L_1/K$ is in fact unramified.  Similarly, one
+can show that the extensions $L_2/K$ and $L_3/K$ are also unramified.  Let
+$L$ denote the compositum of these three extensions: $L = L_1 L_2 L_3$.  Then
+the extension $L/K$ is both abelian and unramified.  Note however that
+$$
+L = L_1L_2L_3 = \Q(\sqrt{5}, \sqrt{13}, \sqrt{17}, \sqrt{1105}) =
+\Q(\sqrt{5},\sqrt{13},\sqrt{1105}) = L_1L_2
+$$
+is actually a degree $4$ extension of $K$.  Let $H$ denote the Hilbert class
+field of $K$.  Then $4 = [L:K]|[H:K] = h_K$.  So in fact a higher power of 2
+than predicted in the proposition divides the class number of $K$.  The
+difference is in part due to the fact that we are working with the ideal class
+group rather than the strict ideal class group which arises somewhat more
+naturally in this context as will be seen in the proof of the proposition.
 
 %Simon Spicer: Added a brief section on Falting's Theorem (2013-10-03)
 \section{Falting's Theorem}\label{sec:faltings}
