@@ -695,6 +695,23 @@ If possible, formulate ABC over number fields in terms of a notion of ``quality'
 What does this imply about FLT over number fields?
 \end{exercise}
 
+%added by Hao Chen 10/6/13
+In the paper mentioned in Exercise 1.5.5, Goldfeld
+formed a slightly different version of ABC:
+
+(ABC')Let $A,B,C$ be nonzero, coprime integers such that
+$A+B+C = 0$. Let $N = \prod_{p \mid ABC} p$.
+Then for every $\epsilon >0$, there exists $\kappa(\epsilon)>0$
+such that
+\[ \max(|A|,|B|,|C|) < \kappa(\epsilon) N^{1+\epsilon} \]
+The first question is if this conjecture is equivalent
+to ABC. One sees that ABC implies ABC': indeed, fix
+any $\epsilon >0$, then $\kappa$ can be chosen to be any number greater than $\max\{ \frac{\max\{|A|,|B|,|C|\}}{N^{1+\epsilon}}\}$. This maximum taken over a set is finite since by ABC all but finitely many element in
+this set is smaller than 1. \\
+
+to-do: find a proof in other direction --Hao
+
+
 \subsection{Infinitely many triples with quality greater than $1$}
 For $p$ an odd prime and $n\geq 1$ an integer, consider the $a,b,c$ triple
 $$
