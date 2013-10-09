@@ -46,18 +46,29 @@ data = []
 for v in tbl.splitlines():
     z = v.split()
     e = int(z[2][2:])
-    n = int(z[-1])
+    n = int(z[-2].replace(',',''))   # <---- change this [-n] to a different value
     data.append((e,n))
 
-︡ac3f0c3c-d7bf-4acf-850b-36fd5ea28fca︡
+︡16d4fc91-65f8-4529-9004-940391f7265c︡
 ︠6ab36537-46b2-4a4d-abd4-22e443b0f842︠
 show(line(data), frame=True, gridlines=True)
-︡9d5f5e79-d292-4ada-bd91-b9b400607b05︡{"once":false,"file":{"show":true,"uuid":"60845913-1fa4-425b-b9b9-c80c46540c43","filename":"/mnt/home/uHNlUmEE/.sage/temp/compute1a/16249/tmp_LjCdik.png"}}︡
+︡30356d4d-bba9-4adc-8194-de2a625bef94︡{"once":false,"file":{"show":true,"uuid":"ac25a7f9-327d-4087-a2da-8f6a0fda683c","filename":"/mnt/home/uHNlUmEE/.sage/temp/compute1a/31512/tmp_4Ta5yo.png"}}︡
 ︠2cb2d46d-bdf2-463f-9168-104fd2bab12d︠
 line(data).save('../pics/abcplot.pdf', frame=True, gridlines=True)
 ︡bcffda79-e9ec-47fb-98cd-7fa3920e8358︡
 ︠4729067a-bed7-4145-8f62-b72769c4cf97︠
-
+# From "effective abc" -- see pdf in ~/references
+v = [6.8, 7.7, 15.7, 9.9, 3.6, 4.8, 20.8, 13, 9.8, 17.1, 19.5, 9.3]
+v.sort()
+v
+︡f03c9dee-6b12-4f26-ae96-ad1bb670cc3a︡{"stdout":"[3.60000000000000, 4.80000000000000, 6.80000000000000, 7.70000000000000, 9.30000000000000, 9.80000000000000, 9.90000000000000, 13, 15.7000000000000, 17.1000000000000, 19.5000000000000, 20.8000000000000]\n"}︡
+︠96558f51-38c5-4347-b4e3-06c739dd9187︠
+w = [(b,a+1) for a,b in enumerate(v)]; w
+︡9d727de0-6005-487e-ac07-f44301c54eb6︡{"stdout":"[(3.60000000000000, 1), (4.80000000000000, 2), (6.80000000000000, 3), (7.70000000000000, 4), (9.30000000000000, 5), (9.80000000000000, 6), (9.90000000000000, 7), (13, 8), (15.7000000000000, 9), (17.1000000000000, 10), (19.5000000000000, 11), (20.8000000000000, 12)]\n"}︡
+︠29d52bac-d2b6-4b1d-b94e-2c8edc1db56b︠
+plot_step_function(w)
+︡eab371f8-71fb-4eed-b580-7e36391bfb41︡{"once":false,"file":{"show":true,"uuid":"5f30d447-0d35-423b-8c5b-a2d63986dc63","filename":"/mnt/home/uHNlUmEE/.sage/temp/compute1a/7110/tmp_yXbjDj.png"}}︡
+︠8e61a0e2-5636-40aa-8962-971b042e5321︠
 
 
 

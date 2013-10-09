@@ -6,11 +6,15 @@ Definition: <https://en.bitcoin.it/wiki/Secp256k1>
 
 Discussion: <https://bitcointalk.org/?topic=2699.0> -- "ECDSA verification is the primary CPU bottleneck for running a network node. So if Koblitz curves do indeed perform better we might end up grateful for that in future ..."
 ︡f758f0ae-f6f8-48e1-ad38-05d08b927da9︡{"html":"<h1>The Bitcoin Elliptic Curve</h1>\n\n<p>Definition: <a href=\"https://en.bitcoin.it/wiki/Secp256k1\">https://en.bitcoin.it/wiki/Secp256k1</a></p>\n\n<p>Discussion: <a href=\"https://bitcointalk.org/?topic=2699.0\">https://bitcointalk.org/?topic=2699.0</a> &#8211; &#8220;ECDSA verification is the primary CPU bottleneck for running a network node. So if Koblitz curves do indeed perform better we might end up grateful for that in future &#8230;&#8221;</p>\n"}︡
+︠54a0b794-3a5f-4f57-b4e0-6a2daa94bf63i︠
+%html
+<img src="http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2013/10/7/1381140058873/2247810e-7625-43d0-b66b-d5c535d6460b-300x180.jpeg">
+︡a27460dc-e39b-412a-acc5-1b8a7c61e4d3︡{"html":"<img src=\"http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2013/10/7/1381140058873/2247810e-7625-43d0-b66b-d5c535d6460b-300x180.jpeg\">"}︡
 ︠a2252709-7079-4a59-899c-01b3a91d6a72︠
 p =  2^256 - 2^32 - 2^9 - 2^8 - 2^7 - 2^6 - 2^4 - 1
 is_prime(p)
 ︡5174ca80-ab6c-43c5-9154-8bd533dd9317︡{"stdout":"True\n"}︡
-︠fd8b72d7-4fef-4472-a784-468045e34173︠
+︠fd8b72d7-4fef-4472-a784-468045e34173i︠
 E = EllipticCurve(GF(p),[0,7]); E
 ︡6eebc165-c2f3-4872-b7e9-b36305dca6d8︡{"stdout":"Elliptic Curve defined by y^2 = x^3 + 7 over Finite Field of size 115792089237316195423570985008687907853269984665640564039457584007908834671663\n"}︡
 ︠06641062-e0e9-4194-b79e-b0a4ea9e695d︠
