@@ -584,7 +584,13 @@ $$
 (\xi)^{6k+5} + (\xi^2)^{6k+5} = (-1)^{6k+5}
 $$
 for any non-negative integer $k$. Hence the triple $(\xi,\xi^2,-1)$ satisfies
-the Fermat equation $X^{6k+5}+Y^{6k+5}=Z^{6k+5}$ in the ring $\Z[\zeta]$.
+the Fermat equation $X^{6k+5}+Y^{6k+5}=Z^{6k+5}$ in the ring $\Z[\zeta]$. \\
+
+In general, it is straightforward to construct counterexamples to FLT
+of degree $d$ with degree $d$ number fields: \\
+Let $d\ge 3$ be a positive integer, and pick any to positive integers
+$Y$ and $Z$ with $Y<Z$. Let $K = \Q(\alpha)$, where $\alpha$ obeys
+$\alpha^d = Z^d-Y^d \in \Z$. Then clearly $(\alpha,Y,Z)$ is a Fermat triple lying in $K$. \\
 
 
 \section{The abc Conjecture}
@@ -768,6 +774,57 @@ another context:
 ``We have a network of heuristics and conjectures regarding rational points, and we have massive data accumulated to exhibit instances of the phenomena. Generally, we would expect that our data supports our conjectures; and if not, we lose faith in our conjectures. But here there is a somewhat more surprising interrelation between data and conjecture: they are not exactly in open conflict one with the other. We discuss various aspects of this story, including recent heuristics and data that attempt to resolve this mystery.''
 \end{quote}
 
+{\bf Student Project Idea: } {\em Completely forget about the ABC
+conjecture, pretend you are an applied mathematician,
+and model the function that counts the number of ABC
+triples of quality $q$ up to $10^x$.}
+\begin{enumerate}
+\item Beg, barrow, or steel the complete dataset from the ABC@Home
+project.  This could be pretty challenging, since currently their
+site is down with ``{\tt Warning: mysql\_pconnect(): Too many connections in /data/project/abc/html/inc/db.inc on line 39...}''.  That said, I know the people who run this site,
+and we can contact them directly.
+\item For a few hundred values of $q$ with $1\leq q\leq 1.67$,
+use the data to "compute or plot" the function
+$$
+f_q(x) = \#\{\text{number of ABC-triples with $c<10^x$
+of quality $\geq q$}\}.
+$$
+The plot will look like the blue curve above.
+\item
+Use various models of your choosing to find a smooth
+function that best fits that curve?  Your smooth
+function will be parametrized by $q$, i.e., you get
+a different function for each value of $q$.
+I don't have any idea what sort of function to expect.
+A polynomial?  Exponential?  Something else?  Note that
+according to the ABC conjecture, the function $f_q(x)$
+is supposed to be {\em bounded above} for each $q>1$!
+(However, just pretend you don't know about that and you're
+a physicist or something....)
+\item What happens if you let the parameter $q$
+in the above model go to $\infty$?
+\item Can you find a different model for $f_q(x)$ that
+{\em is} bounded above (hence consistent with the ABC
+conjecture), and also fits the data?
+\end{enumerate}
+
+The above seems to me to be the most obvious first thing to
+do if one had computing power and wanted to make the ABC
+conjecture in the first place.  However, the data to do the
+above computation wasn't available until very recently,
+so maybe nobody did it (which I find sort of shocking if true).
+
+% Bharath added this section
+\section{Some consequences of the ABC conjecture}
+
+\begin{enumerate}
+\item In \cite{ichimura1998note}, assuming the generalized ABC conjecture for number fields, H. Ichimura shows that for a given real quadratic field $k$, there exists infinitely many prime numbers $p$ such that the Iwasawa $\lambda$-invariant.
+This is closely related to Greenberg's conjecture.
+\item In \cite{elkies1991abc}, N. Elkies shows that the generalized ABC conjecture for number fields implies the Mordell conjecture.
+\item
+\end{enumerate}
+
+
 \section{Public-key Cryptography}
 
 
@@ -815,6 +872,142 @@ For the cryptography aspect of this course, we'll consider the cryptosystems abo
 has a deep interplay with many other objects we consider.
 
 % NEWS: https://news.ycombinator.com/item?id=6506120
+
+\subsection{The Standard Protocols}
+To get started, let's quickly go over a couple of bog
+standard public-key cryptography protocols: Diffie-Hellman,
+RSA, and elliptic curve ElGamal.
+
+\subsubsection{Diffie-Hellman}
+The Diffie-Hellman key exchange protocol enables two
+programs $A$ and $B$ to agree on a common secret in full view of an
+adversary.   For example, Diffie-Hellman (but on an elliptic curve)
+is used  when you connect your web browser to the
+\url{https://cloud.sagemath.com} website in order to agree
+on a secret key that is used to encrypt all further data.
+
+Here's how it works.
+\begin{enumerate}
+\item Programs $A$ and $B$ agree on a prime number $p$ and a primitive
+root $g$ modulo $p$, i.e., a number that generates $(\Z/p\Z)^*$.
+\item Program $A$ compute a random number $a$ and program
+$B$ computes a random number $b$.
+\item Program $A$ sends $g^a\pmod{p}$ and program $B$
+sends $g^b\pmod{p}$.
+\item Program $A$ and program $B$ compute the secret
+$$
+   s = (g^a)^b\pmod{p} = (g^b)^a\pmod{p}.
+$$
+\end{enumerate}
+One subtlety is that there is a fast algorithm to
+compute $g^n\pmod{p}$ -- to do this, write $n$
+in binary, and compute $g\cdots g$ ($n$ times)
+by a couple of repeated squarings, reducing
+modulo $p$ at each step... which is {\em easy}.
+
+The main theoretical assumption one makes is that given $g^n\pmod{p}$
+and $g\pmod{p}$ it is ``difficult'' to compute $n$, i.e., to find
+$\log_g(g^n \pmod{p})$.  This is the {\em discrete log problem}.
+There are some primes $p$ for which this assumption is obviously
+false.  For example, if $p-1$ factors as a product of many small
+numbers, then solving the discrete log problem in $(\Z/p\Z)^*$ is
+no more difficult than solving it in groups with these much smaller
+orders, hence easy.   So, if when using Diffie-Hellman, it is critical
+to check that $p-1$ doesn't factor too much; the best you can hope
+for is that $p-1 = 2q$, with $q$ prime, and this is what people
+often use.
+
+Once you commit to seriously using Diffie-Hellman modulo a prime, you have
+to worry about how big to make $p$.  If you make $p$ enormous, then
+everything takes more memory and is slower.  For example, for large $p$
+establishing a connection to \url{https://cloud.sagemath.com} might
+take so much time (seconds!) that you'll just loose patience.  To decide
+how big a $p$ to take, you basically have to learn about algorithms for
+attacking the discrete log problem, look at what challenge problems
+people have solved in practice, then bet the farm on a particular
+choice size of $p$.    In practice, people usually trust organizations
+such as NIST (which is advised by NSA, which knows a thing or two)
+to make the decisions for them.
+
+\begin{exercise}
+How big of primes $p$ to people actually use?
+\end{exercise}
+
+There is an algorithm called "baby-step giant-step" which can solve
+the discrete logarithm mod $p$ using time and space $O(\sqrt{p})$; we'll
+consider this algorithm in more detail later, since it is extremely
+important in computational  number theory.
+
+
+The Diffie-Hellman key exchange is amenable to the {\em man-in-the-middle
+attack}, where an adversary intercepts all transmissions, and
+agrees on two different secrets, one with program $A$ and a {\em different
+secret} with program $B$.  Then the adversary decrypts/encrypts
+all traffic between $A$ and $B$.  This is not theoretical -- exactly
+this attack is used successfully
+in practice on the Internet (see recent news articles).
+
+
+\subsubsection{RSA}
+The RSA cryptosystem allows a program $A$ to publish a public key
+for all to see. Any program $B$ can then send $A$ a message that is encrypted
+using this public key.  Also, $A$ can sign documents
+using their corresponding private key, and $B$ can use
+$A$'s public key to verify that indeed $A$ signed the document.
+This RSA solves two problems: (1) being able to encrypt a message to $A$
+without any specific activity on $A$'s part (unlike with Diffie-Hellman),
+and (2) being able to digitally sign a document.
+The main issue is that $B$ has to trust that $A$'s public key is...
+really $A$'s public key, and in practice this is a major pain.
+
+Here's how it works.
+\begin{enumerate}
+\item Program $A$ chooses two prime numbers $p\neq q$
+and computes $n=pq$, computes $\varphi(n) = (p-1)(q-1)$,
+and chooses an integer $e>1$ that is coprime to $\varphi(n)$.
+Program $A$ then publishes $(n, e)$.  Also, program $A$
+computes $d$ such that $ed\equiv 1\pmod{\varphi(n)}$.
+\item Program $B$ encrypts a message $m\pmod{n}$ to $A$
+by computing $m^e\pmod{n}$.  (We assume the message $m$
+is coprime to $n$.)
+\item Program $A$ decryptes the message $m^e\pmod{n}$
+by computing $m=(m^e)^d\pmod{n}$, where we use that
+$\varphi(n)$ is the order of $(\Z/n\Z)^*$.
+\item Also, if program $A$ wishes to sign a message $m$,
+then program $A$ publishes $m$ and $m^d\pmod{n}$.
+\item Program $B$ can verify that program $A$ signed $m$
+by computing $(m^d)^e\pmod{n}$ and checking that this
+equals $m$.
+\end{enumerate}
+
+The security of RSA relies on the secret $d$, which is easy
+to compute if you know $\vphi(n)$.  However, knowing $\vphi(n)$
+requires factoring $n$, which seems---as far as we know---to
+be difficult in general.   All the same remarks as for Diffie-Hellman
+apply above; in order to know how big to choose $n$, you need
+to be intimately familiar with approaches to factoring large integers
+$n$, or you look at what people have done and trust expert recommendations.
+As always, there is a tradeoff between speed and security.
+
+\begin{exercise}
+Install the gpg program (``gnu privacy guard''), generate an RSA
+key, and post the public part of it on your webpage, so that other
+people can send you secret messages.  What bitsize did you choose?
+\end{exercise}
+
+
+\subsubsection{ElGamal}
+
+\subsection{The Bitcoin Elliptic Curve}
+
+http://www.extremetech.com/computing/168139-fbi-unable-to-seize-600000-bitcoins-from-silk-road-operator
+
+http://www.coindesk.com/capital-one-closes-bank-account-bitcoin/
+
+\subsection{How to find a primitive root mod $p$}
+
+First, let us consider an easy example. Let us assume that the prime $p$ satisfies the relation $p-1=2\cdot q$, where $q$ is also a prime number. Now, the order of any element in $(\Z/p\Z)^\times$ is either $1$, $2$, $q$ or $2 \cdot q$. Now, $-1$ is not a square in $(\Z/p\Z)^\times$, since $4$ does not divide $p-1$. Hence, either $2$ or $-2$ (and exactly one of them) will be a generator for the cyclic group $(\Z/p\Z)^\times$. So, it suffices to computee $2^q$ and check if it equals $1$ or $-1$.
+
 
 
 \chapter{Prime Numbers}
