@@ -715,7 +715,16 @@ to ABC. One sees that ABC implies ABC': indeed, fix
 any $\epsilon >0$, then $\kappa$ can be chosen to be any number greater than $\max\{ \frac{\max\{|A|,|B|,|C|\}}{N^{1+\epsilon}}\}$. This maximum taken over a set is finite since by ABC all but finitely many element in
 this set is smaller than 1. \\
 
-to-do: find a proof in other direction --Hao
+Proof that ABC' implies ABC: Fix $\epsilon > 1$,
+choose $\delta$ s.t. $\epsilon > \delta > 1$, then
+by ABC', there exists some positive constant $\kappa(\delta)$
+such that $\max(|A|,|B|,|C|) < \kappa(\delta) N^{1+\delta}$
+holds for all triples. Now for any triple s.t. $N^{1+\epsilon} < \max(|A|,|B|,|C|)$ we have
+$N^{1+\epsilon}< N^{1+\delta}$, which can only hold for
+finitely many $N$. Hence $N$ is bounded above, and we see
+from ABC' that $\max(|A|,|B|,|C|)$ is bounded above. So
+there's finitely many such triples.
+
 
 
 \subsection{Infinitely many triples with quality greater than $1$}
@@ -1080,4 +1089,4 @@ Important unsolved problem: how difficult is the discrete log problem?
 
 \end{document}
 
-%sagemathcloud={"zoom_width":145}
+%sagemathcloud={"zoom_width":140}
