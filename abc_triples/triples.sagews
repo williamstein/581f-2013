@@ -194,7 +194,7 @@ def multi_fitter(*args, **kwds):
 
 %time  multi_fitter(1., model=x^b/a, parameters=[a,b], variables=[x])
 ︡5a5befad-1dac-4e6f-ae1a-5aa2f369dcd0︡
-︠eaa2a13b-a993-4a20-86dc-e1e4207e438fr︠
+︠eaa2a13b-a993-4a20-86dc-e1e4207e438f︠
 #f = open('fitting_data', 'w')
 thing = multi_fitter([{'q':q, 'model':x^b/a, 'variables':[x], 'parameters':[a,b], 'initial_guess':[100, 5]} for q in srange(1, 1.4, 0.0004)])
 

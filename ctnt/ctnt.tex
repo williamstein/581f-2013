@@ -131,7 +131,6 @@ algebraic integers lying in $K$: $\O_K = \bar{\Z} \cap K$.
 \begin{proposition}
 The set $\bar{\Z}$ of algebraic integers is a ring.
 \end{proposition}
-\begin{proof}
 As $\bar{\Z}$ is a subset of $\bar{\Q}$, it suffices to show that $\bar{\Z}$
 is closed under addition and multiplication.  To do so, we use the following
 result:
@@ -139,6 +138,7 @@ result:
 Let $\alpha \in \bar{\Q}$.  Then $\alpha \in \bar{\Z}$ if and only if
 $\Z[\alpha]$ is a finitely generated $\Z$-module.
 \end{lemma}
+\begin{proof}
 A proof of the lemma can be found in section 2.3 of \cite{stein:ant}.  Now,
 suppose that $\alpha, \beta \in \bar{\Z}$ and note that
 $$
@@ -332,6 +332,50 @@ than predicted in the proposition divides the class number of $K$.  The
 difference is in part due to the fact that we are working with the ideal class
 group rather than the strict ideal class group which arises somewhat more
 naturally in this context as will be seen in the proof of the proposition.
+
+\begin{proof} Let $d$ be a square free integer and let $p_1, p_2,
+\ldots, p_k$ be the odd primes dividing $d$ (so that $d_K \in
+\{\pm 2^{\ell}p_1 \cdots p_k: \ell 0, 2, 3\}$ and $k = t$ or
+$k = t - 1$).  For each $i$, let
+$p_i^* = (-1)^{(p-1)/2}p$.  That is, $p_i^*$ is plus or minus
+$p_i$ with the sign chosen so that $p_i^* \equiv 1 (\mathrm{mod}
+\; 4)$.  Let $L_i = K(\sqrt{p_i^*})$.  Then $L_i/K$ is an abelian
+extension which is unramified at all finite primes.  To see this,
+consider the following tower:
+%\begin{center}
+%\begin{tikzpicture}[
+%    scale=.5,
+%    every node/.style={color=black%}
+%    ]
+%    \node at (0,0) {$\Q$};
+%    \node at (-5,4) {$K = \Q(\sqrt{d})$};
+%    \node at (0,4) {$\Q(\sqrt{p_i^*})$};
+%    \node at (5,4) {$\Q(\sqrt{d/p_i^*})$};
+%    \node at (0,8) {$L_i = \Q(\sqrt{d},\sqrt{p_i^*})$};
+%    \draw[thick] (-.5,.5)  -- (-4.5,3.5);
+%    \draw[thick] (0,.5)  -- (0,3.5);
+%    \draw[thick] (.5,.5)  -- (4.5,3.5);
+%    \draw[thick] (-.5,7.5)  -- (-4.5,4.5);
+%    \draw[thick] (0,4.5)  -- (0,7.5);
+%    \draw[thick] (.5,7.5)  -- (4.5,4.5);
+%\end{tikzpicture}
+%\end{center}
+The field $L_i$ is the compositum of $K$ with either of the two
+other quadratic subfields of $L_i$, $\Q(\sqrt{p_i^*})$ and
+$\Q(\sqrt{d/p_i^*})$.  Note that $p_i$ is the only finite prime
+ramifying in $Q(\sqrt{p_i^*})/\Q$, so no other finite prime can
+be ramified in $L_i/K$.  However, $p_i$ does not ramify in
+$\Q(\sqrt{d/p_i^*})$ and, hence, does not ramify in $L_i/K$.
+Thus, for each $1 \leq i \leq k$, the extension $L_i/K$ is
+unramified at all finite primes.  Furthermore, $L_i/K$ is a
+degree 2 extension so is abelian.  Let $L$ denote the compositum
+of all the $L_i$ so that
+$$
+L = \Q(\sqrt{d}, \sqrt{p_1^*}, \ldots, \sqrt{p_k^*})
+$$
+Then $L/K$ is an abelian extension of $K$ which is unramified at
+all finite primes.  If $d \equiv 2$ or $3 (\mathrm{mod} \; 4)$, then we see that $L/K$ is an extension of degree $2^k = 2^{t-1}$
+\end{proof}
 
 %Simon Spicer: Added a brief section on Falting's Theorem (2013-10-03)
 \section{Falting's Theorem}\label{sec:faltings}
@@ -827,10 +871,9 @@ so maybe nobody did it (which I find sort of shocking if true).
 \section{Some consequences of the ABC conjecture}
 
 \begin{enumerate}
-\item In \cite{ichimura1998note}, assuming the generalized ABC conjecture for number fields, H. Ichimura shows that for a given real quadratic field $k$, there exists infinitely many prime numbers $p$ such that the Iwasawa $\lambda$-invariant.
+\item In \cite{ichimura1998note}, assuming the generalized ABC conjecture for number fields, H. Ichimura shows that for a given real quadratic field $k$, there exists infinitely many prime numbers $p$ such that the Iwasawa $\lambda$-invariant [[is 0 -- this was blank?? -- William]]
 This is closely related to Greenberg's conjecture.
 \item In \cite{elkies1991abc}, N. Elkies shows that the generalized ABC conjecture for number fields implies the Mordell conjecture.
-\item
 \end{enumerate}
 
 
@@ -926,6 +969,9 @@ to check that $p-1$ doesn't factor too much; the best you can hope
 for is that $p-1 = 2q$, with $q$ prime, and this is what people
 often use.
 
+ See Section~\ref{sec:primroot} below for a discussion of
+ the complexity of finding a primitive root.
+
 Once you commit to seriously using Diffie-Hellman modulo a prime, you have
 to worry about how big to make $p$.  If you make $p$ enormous, then
 everything takes more memory and is slower.  For example, for large $p$
@@ -1004,8 +1050,122 @@ key, and post the public part of it on your webpage, so that other
 people can send you secret messages.  What bitsize did you choose?
 \end{exercise}
 
+\subsection{Elliptic Curve Cryptography}
 
-\subsubsection{ElGamal}
+For any prime power $q$ and any elliptic curve
+$$
+E: \quad y^2 + a_1 xy + a_3y = x^3 + a_2 x^2 + a_4 x + a_6
+$$
+with $a_1, a_2, a_3, a_4, a_6 \in \F_q$,
+you can build various cryptosystems
+using the abelian group $E(\F_q)$.
+Neal Koblitz and Victor Miller were the first to really
+push this idea in cryptography.
+
+Elliptic curves are used {\em a lot} in cryptography
+these days.  The primary motivation for using elliptic curves
+instead of $(\Z/n\Z)^*$ or $\F_q^*$ is that... professionals
+tell us to.  More precisely, based on guesswork and
+the ability of attackers, there's a belief that to get
+``sufficient security'' using elliptic curves involves
+much smaller key sizes than getting the same security
+using $(\Z/n\Z)^*$ or $\F_q^*$.  These smaller key sizes
+result in faster protocols -- e.g., connecting to a secure
+webpage is faster, or the license key you
+type in when installing software is much shorter.
+
+\subsubsection{Diffie-Hellman on an Elliptic Curve}
+Instead of choosing a primitive root $g$ in $(\Z/p\Z)^*$,
+choose a point $G \in E(\F_q)$.  It's not critical that
+$G$ generate the possibly non-cyclic group $E(\F_q)$.
+Instead, it's important that $G$ have large prime order.
+The fact that it is possible to efficiently compute the
+order of $G$ -- even when $q$ has hundreds of digits ! --
+is very deep and surprising, and is called the
+Schoof-Elkies-Atkin algorithm (or SEA for short).
+That this is possible is absolutely crucial to really
+making elliptic curve cryptography viable.
+
+With $G$ agreed upon, progams $A$ and $B$ publish
+$aG$ and $bG$, for random secrets $a$ and $b$,
+which can both be computed efficiently by writing
+$a$ and $b$ as sums of powers of $2$ (i.e., in binary).
+Then the shared secret is
+$$
+S=b (a G) = a (b G).
+$$
+
+
+\subsubsection{RSA on an Elliptic Curve}
+Nope.  Well, let's see...  WARNING: I've never
+read anything about this: I just thought it through right now -- William.
+
+RSA relies on being able to construct and publish
+an algebraic
+group (in this case $\G_m(\Z/n\Z)$)
+such that you know the order of the group,
+but it is difficult for other people to compute
+the order of that group.
+With elliptic curve over $\F_q$ this is not possible,
+since SEA ensures that anybody can efficiently
+compute the order of $E(\F_q)$.
+The analogue of RSA on $E(\F_q)$ would
+have public key $(E/\F_q, e)$, where $e$
+is some random number modulo the exponent
+of the group $E(\F_q)$.
+One would encode a message as a point $M \in E(\F_q)$
+then encrypt it as $e M \in E(\F_q)$.
+
+To encode a message as a point on the curve, you of course
+first break the message up into smaller pieces, add salt (randomize it somehow), then get a possible $x$ coordinate.  By solving a quadratic
+equation in $\F_q$, which can be done efficiently in practice, one
+constructs a point $(x,y)$, or if there are no solutions, simply slightly
+modify $x$ to get a solution (since half of the $x$'s work).  Solving
+a quadratic equation involves extracting a square root, which can be done
+efficiently in practice (though maybe not in theory).
+
+However, there's a major problem with this protocol, which involves
+getting confused about what the discrete log problem is.
+If you know $e M$ and $e$, you can
+compute $M$ by multiplying $e M$ by the multiplicative
+inverse of $e$ modulo the exponent of $E(\F_q)$.
+The discrete log problem in $E(\F_q)$ is different: it asks, {\em given
+$M$ and $e M$, what is $e$?}
+
+The other analogue of RSA would be to generalize the
+notion of elliptic curve to get an object
+$E$ defined over $\Z/n\Z$,
+where $n=pq$ is a product of distinct primes.
+Then we have a canonical isomorphism
+$$
+  E(\Z/n\Z) \isom E(\Z/p\Z) \oplus E(\Z/q\Z),
+$$
+but (presumably it is easy to prove that)
+one must factor $n$ in order to compute
+this isomorphism.
+One then encrypts a message $M\in E(\Z/n\Z)$
+as $e M$, which one can compute.
+But wait, given a message $M$, how do you encode
+it as a point on the curve?  To do so, you need to be
+able to extract square roots in the ring $\Z/n\Z$.
+I can't think of any way to do this without factoring $n$.
+
+Incidentally, a critically important approach to
+factoring an integer $n$ is to consider the
+group $E(\Z/n\Z)$ for a certain choice of curve
+with an easy-to-find point on it, and to do arithmetic
+there, as if $n$ were prime.  If something goes wrong,
+one discovers a factorization of $n$.  This is
+H. Lenstra's Elliptic Curve factorization Method (ECM).
+It turns out it is very good at splitting off medium
+sized factors of an integer.  Given a large integer
+$n$, the ECM algorithm finds primes $p\mid n$ that
+are bigger than trial division finds, but usually much
+smaller than $\sqrt{n}$.   I've heard that this algorithm
+plays a crucrial role as an intermediate step in ``number field
+sieve'' attacks on RSA itself...
+
+\subsubsection{ElGamal on an Elliptic Curve}
 
 \subsection{The Bitcoin Elliptic Curve}
 
@@ -1013,11 +1173,15 @@ http://www.extremetech.com/computing/168139-fbi-unable-to-seize-600000-bitcoins-
 
 http://www.coindesk.com/capital-one-closes-bank-account-bitcoin/
 
-\subsection{How to find a primitive root mod $p$}
+\subsection{How to find a primitive root mod $p$}\label{sec:primroot}
 
 First, let us consider an easy example. Let us assume that the prime $p$ satisfies the relation $p-1=2\cdot q$, where $q$ is also a prime number. Now, the order of any element in $(\Z/p\Z)^\times$ is either $1$, $2$, $q$ or $2 \cdot q$. Now, $-1$ is not a square in $(\Z/p\Z)^\times$, since $4$ does not divide $p-1$. Hence, either $2$ or $-2$ (and exactly one of them) will be a generator for the cyclic group $(\Z/p\Z)^\times$. So, it suffices to computee $2^q$ and check if it equals $1$ or $-1$.
 
-
+[[Point of this section: figure out the theoretical
+complexity of finding a primitive root,
+when $p-1=2q$ is prime, both assuming RH and not assuming RH.
+Also, there's an issue of deterministic versus non-deterministic
+algorithms.]]
 
 \chapter{Prime Numbers}
 
