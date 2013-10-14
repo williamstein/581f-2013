@@ -1,7 +1,7 @@
 \documentclass{book}
 \title{A Computational Tour of Number Theory}
 \author{William Stein \and Andrew Ohana \and Simon Spicer \and Hao Chen
-\and Yannick Van Huele \and Bharath \and Travis Scholl \and ADD/FIX YOUR NAME! }
+\and Yannick Van Huele \and Bharathwaj Palvannan \and Travis Scholl \and ADD/FIX YOUR NAME! }
 
 \usepackage{macros}
 
@@ -329,10 +329,16 @@ $$
 is actually a degree $4$ extension of $K$.  Let $H$ denote the Hilbert class
 field of $K$.  Then $4 = [L:K]|[H:K] = h_K$.  So in fact a higher power of 2
 than predicted in the proposition divides the class number of $K$.  The
-difference is in part due to the fact that we are working with the ideal class
-group rather than the strict ideal class group which arises somewhat more
-naturally in this context as will be seen in the proof of the proposition.
-
+difference is in part due to the fact that we are working with the ideal
+class group rather than the narrow ideal class group which arises somewhat
+more naturally in this context as will be seen in the proof of the
+proposition.  In this particular example, the class number turns out to be
+exactly 4, as can be computed using Sage:
+\begin{lstlisting}
+sage: QuadraticField(5*13*17).class_number()
+4
+\end{lstlisting}
+Let us now prove the proposition.
 \begin{proof} Let $d$ be a square free integer and let $p_1, p_2,
 \ldots, p_k$ be the odd primes dividing $d$ (so that $d_K \in
 \{\pm 2^{\ell}p_1 \cdots p_k: \ell 0, 2, 3\}$ and $k = t$ or
@@ -342,24 +348,26 @@ $p_i$ with the sign chosen so that $p_i^* \equiv 1 (\mathrm{mod}
 \; 4)$.  Let $L_i = K(\sqrt{p_i^*})$.  Then $L_i/K$ is an abelian
 extension which is unramified at all finite primes.  To see this,
 consider the following tower:
-%\begin{center}
-%\begin{tikzpicture}[
-%    scale=.5,
-%    every node/.style={color=black%}
-%    ]
-%    \node at (0,0) {$\Q$};
-%    \node at (-5,4) {$K = \Q(\sqrt{d})$};
-%    \node at (0,4) {$\Q(\sqrt{p_i^*})$};
-%    \node at (5,4) {$\Q(\sqrt{d/p_i^*})$};
-%    \node at (0,8) {$L_i = \Q(\sqrt{d},\sqrt{p_i^*})$};
-%    \draw[thick] (-.5,.5)  -- (-4.5,3.5);
-%    \draw[thick] (0,.5)  -- (0,3.5);
-%    \draw[thick] (.5,.5)  -- (4.5,3.5);
-%    \draw[thick] (-.5,7.5)  -- (-4.5,4.5);
-%    \draw[thick] (0,4.5)  -- (0,7.5);
-%    \draw[thick] (.5,7.5)  -- (4.5,4.5);
-%\end{tikzpicture}
-%\end{center}
+
+\begin{center}
+\begin{tikzpicture}[
+    scale=.4,
+    every node/.style={color=black}
+    ]
+    \node at (0,0) {$\Q$};
+    \node at (-5,4) {$K = \Q(\sqrt{d})$};
+    \node at (0,4) {$\Q(\sqrt{p_i^*})$};
+    \node at (5,4) {$\Q(\sqrt{d/p_i^*})$};
+    \node at (0,8) {$L_i = \Q(\sqrt{d},\sqrt{p_i^*})$};
+    \draw[thick] (-.6,.6)  -- (-4.4,3.4);
+    \draw[thick] (0,.6)  -- (0,3.4);
+    \draw[thick] (.6,.6)  -- (4.4,3.4);
+    \draw[thick] (-.6,7.4)  -- (-4.4,4.6);
+    \draw[thick] (0,4.6)  -- (0,7.4);
+    \draw[thick] (.6,7.4)  -- (4.4,4.6);
+\end{tikzpicture}
+\end{center}
+
 The field $L_i$ is the compositum of $K$ with either of the two
 other quadratic subfields of $L_i$, $\Q(\sqrt{p_i^*})$ and
 $\Q(\sqrt{d/p_i^*})$.  Note that $p_i$ is the only finite prime
@@ -374,7 +382,35 @@ $$
 L = \Q(\sqrt{d}, \sqrt{p_1^*}, \ldots, \sqrt{p_k^*})
 $$
 Then $L/K$ is an abelian extension of $K$ which is unramified at
-all finite primes.  If $d \equiv 2$ or $3 (\mathrm{mod} \; 4)$, then we see that $L/K$ is an extension of degree $2^k = 2^{t-1}$
+all finite primes.  If $d \equiv 2$ or $3 (\mathrm{mod} \; 4)$,
+then we see that $L/K$ is an extension of degree $2^k$.
+On the other hand, if $d \equiv 1 (\mathrm{mod} \; 4)$, we see
+that $L/K$ is an extension of degree $2^{k-1}$.  In either case,
+$L/K$ is an abelian extension of degree $2^{t-1}$ which is
+unramified at all finite primes of $K$ (recall that $t$ is the
+number of odd primes dividing $d_K$).
+
+Let $\mathfrak{m}_{\infty}$ denote the modulus which is the product of all
+real primes of $K$ so that the corresponding ray class group is $\Cl^+(K)$,
+the narrow (or strict) class group of $K$.  It follows from class field
+theory that $L$ is contained in the ray class field of $K$ corresponding to
+$\mathfrak{m}_\infty$ and, thus, that $\mathrm{Gal}(L/K)$ is isomorphic to a
+quotient of $\Cl^+(K)$.  So, in particular, $2^{t-1}$ divides the order of
+$\Cl^+(K)$.  Let $U_K = \O_K^\times$ denote the units of $\O_K$ and let
+$U_K^+$ denote the totally positive units of $\O_K$.  Then there is an exact
+sequence:
+$$
+1 \rightarrow U_K/U_K^+ \rightarrow \prod_{v|\mathfrak{m}_\infty} \{\pm 1\}
+\rightarrow \Cl^+(K) \rightarrow \Cl(K) \rightarrow 1
+$$
+If $d < 0$, $K = \Q(\sqrt{d})$ has no real primes and we see that $\Cl^+(K)$
+and $\Cl(K)$ are the same.  If $d > 0$, $K$ has two real primes.
+Dirichlet's Unit Theorem tells us that $U_K \approx \{\pm 1\} \times \Z$.
+Let $\varepsilon$ be a fundamental unit of $K$: i.e., let $\varepsilon \in
+U_K$ such that $U_K = \langle\pm \varepsilon\rangle$.  Then $U_K^+ = \langle
+\varepsilon\rangle$ or $U_K^+ = \langle\varepsilon^2\rangle$.  Hence, the
+quotient $U_K/U_K^+$ has order 2 or 4.  It follows that $\Cl^+(K)$ has order
+either $2h_K$ or $h_K$ and, hence, that $2^{t-2}$ always divides $h_K$.
 \end{proof}
 
 %Simon Spicer: Added a brief section on Falting's Theorem (2013-10-03)
@@ -582,14 +618,30 @@ yields:
 3 0
 5 1
 \end{lstlisting}
+
 This means, e.g., that in the field $\Q(\sqrt{5})$, generated by
 the golden ratio, there are infinitely many triples of coprime integers
-$X,Y,Z$ such that $X^3 + Y^3 = Z^3$!
+$X,Y,Z$ such that $X^3 + Y^3 = Z^3$! The following code gives a few of these triples:
+\begin{lstlisting} %Added by Travis Scholl
+sage: R.<x,y,z> = QQ[sqrt(5)][]
+sage: f = EllipticCurve_from_cubic(x^3+y^3-z^3,[-1,1,0]).inverse();
+sage: for i in range(1,6):
+        r = f(i*f.domain().gens()[0]); r.clear_denominators(); r
+\end{lstlisting}
+which outputs:
+\begin{lstlisting}
+(-sqrt5 + 9 : sqrt5 + 9 : 12)
+(2761*sqrt5 + 225 : -2761*sqrt5 + 225 : 3720)
+(-3105301*sqrt5 + 6666948 : 3105301*sqrt5 + 6666948 : 13610574)
+(7206070204127*sqrt5 + 4735673343225 :
+    -7206070204127*sqrt5 + 4735673343225 :
+    19652111284080)
+(-45203693464083879145*sqrt5 + 25364447357048949231 :
+    45203693464083879145*sqrt5 + 25364447357048949231 :
+    116655528338821919868)
+\end{lstlisting}
 
-\hw{Travis Scholl}{Explicitly find some of these triples $X,Y,Z$ as above,
-by finding an explicit isomorphism between the algebraic
-curves $X^3+Y^3=1$ and $y^2+y=x^3-7$, and transferring some points
-of infinite order on $y^2+y=x^3-7$ back via this isomorphism.}
+%%Let $\sigma$ be the non-trivial automorphism of $\text{Gal}\left(\frac{\Q(\sqrt{5})}{\Q}\right)$. Let us assume that we have an ordered tuple $(a,b,c) \in (\Q(\sqrt{5}))^\times$ satisfying the Fermat equation $X^3 + Y^3 = Z^3$ and such that atleast one of $a,b,c$ lies in $\Q(\sqrt{5}) \setminus  \Q$. Then, one has that $b= \sigma(a)$.
 
 And we can explore the $L$-series itself:
 
@@ -871,7 +923,8 @@ so maybe nobody did it (which I find sort of shocking if true).
 \section{Some consequences of the ABC conjecture}
 
 \begin{enumerate}
-\item In \cite{ichimura1998note}, assuming the generalized ABC conjecture for number fields, H. Ichimura shows that for a given real quadratic field $k$, there exists infinitely many prime numbers $p$ such that the Iwasawa $\lambda$-invariant [[is 0 -- this was blank?? -- William]]
+\item In \cite{ichimura1998note}, assuming the generalized ABC conjecture for number fields, H. Ichimura shows that for a given real quadratic field $k$, there exists infinitely many prime numbers $p$ such that the Iwasawa $\lambda$-invariant is 0.
+%[[is 0 -- this was blank?? -- William]]
 This is closely related to Greenberg's conjecture.
 \item In \cite{elkies1991abc}, N. Elkies shows that the generalized ABC conjecture for number fields implies the Mordell conjecture.
 \end{enumerate}
@@ -1173,7 +1226,9 @@ http://www.extremetech.com/computing/168139-fbi-unable-to-seize-600000-bitcoins-
 
 http://www.coindesk.com/capital-one-closes-bank-account-bitcoin/
 
-\subsection{How to find a primitive root mod $p$}\label{sec:primroot}
+%Bharath added this section - it is under construction
+
+\subsection{Finding a primitive root mod $p$}\label{sec:primroot}
 
 First, let us consider an easy example. Let us assume that the prime $p$ satisfies the relation $p-1=2\cdot q$, where $q$ is also a prime number. Now, the order of any element in $(\Z/p\Z)^\times$ is either $1$, $2$, $q$ or $2 \cdot q$. Now, $-1$ is not a square in $(\Z/p\Z)^\times$, since $4$ does not divide $p-1$. Hence, either $2$ or $-2$ (and exactly one of them) will be a generator for the cyclic group $(\Z/p\Z)^\times$. So, it suffices to computee $2^q$ and check if it equals $1$ or $-1$.
 
