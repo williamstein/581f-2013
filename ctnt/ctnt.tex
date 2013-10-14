@@ -1,7 +1,9 @@
 \documentclass{book}
 \title{A Computational Tour of Number Theory}
-\author{William Stein \and Andrew Ohana \and Simon Spicer \and Hao Chen
-\and Yannick Van Huele \and Bharathwaj Palvannan \and Travis Scholl \and ADD/FIX YOUR NAME! }
+\author{Hao Chen \and Andrew Ohana \and Bharathwaj Palvannan
+\and Travis Scholl
+\and Simon Spicer \and William Stein \and
+\and Yannick Van Huele}
 
 \usepackage{macros}
 
@@ -799,7 +801,7 @@ What does this imply about FLT over number fields?
 
 %added by Hao Chen 10/6/13
 In the paper mentioned in Exercise 1.5.5, Goldfeld
-formed a slightly different version of ABC:
+formed a slightly different version of ABC: \\
 
 (ABC')Let $A,B,C$ be nonzero, coprime integers such that
 $A+B+C = 0$. Let $N = \prod_{p \mid ABC} p$.
@@ -819,9 +821,27 @@ holds for all triples. Now for any triple s.t. $N^{1+\epsilon} < \max(|A|,|B|,|C
 $N^{1+\epsilon}< N^{1+\delta}$, which can only hold for
 finitely many $N$. Hence $N$ is bounded above, and we see
 from ABC' that $\max(|A|,|B|,|C|)$ is bounded above. So
-there's finitely many such triples.
+there's finitely many such triples. \\
 
+%added by Hao Chen --10/14/13: abc conjecture for number fields.
 
+To generalize this to number field, one needs to extends
+the notion of absolute value and radical by the following:
+Let K be a number field and $V_K$ denotes the set of primes
+of K. Define
+\[
+    H_K(a,b,c) = \prod_{v \in V_K} \max\{|a|_v,|b|_v,|c|_v\}
+\]
+and
+\[
+    rad_K(a,b,c) = \prod_{P \in IK(a,b,c)}N_{K/\mathbb{Q}}(P)
+\]
+where $I_K(a,b,c)$ is the set of all prime ideals $P$ of OK for which $|a|_v,|b|_v,|c|_v$ are not equal. The abc conjecture for K states that for any $\epsilon >0$,
+there exists $\kappa(\epsilon, K)>0$
+such that
+\[
+H_K(a,b,c) < \kappa(\epsilon, K) rad_K(a,b,c)^{1+\epsilon}
+\]
 
 \subsection{Infinitely many triples with quality greater than $1$}
 For $p$ an odd prime and $n\geq 1$ an integer, consider the $a,b,c$ triple
@@ -879,7 +899,7 @@ another context:
 ``We have a network of heuristics and conjectures regarding rational points, and we have massive data accumulated to exhibit instances of the phenomena. Generally, we would expect that our data supports our conjectures; and if not, we lose faith in our conjectures. But here there is a somewhat more surprising interrelation between data and conjecture: they are not exactly in open conflict one with the other. We discuss various aspects of this story, including recent heuristics and data that attempt to resolve this mystery.''
 \end{quote}
 
-{\bf Student Project Idea: } {\em Completely forget about the ABC
+{\bf Student Project Idea: (Andrew Ohana is mainly doing this)} {\em Completely forget about the ABC
 conjecture, pretend you are an applied mathematician,
 and model the function that counts the number of ABC
 triples of quality $q$ up to $10^x$.}
@@ -1112,7 +1132,7 @@ $$
 with $a_1, a_2, a_3, a_4, a_6 \in \F_q$,
 you can build various cryptosystems
 using the abelian group $E(\F_q)$.
-Neal Koblitz and Victor Miller were the first to really
+In 1985, Neal Koblitz and Victor Miller were the first to really
 push this idea in cryptography.
 
 Elliptic curves are used {\em a lot} in cryptography
@@ -1149,8 +1169,8 @@ S=b (a G) = a (b G).
 $$
 
 
-\subsubsection{RSA on an Elliptic Curve}
-Nope.  Well, let's see...  WARNING: I've never
+\subsubsection{RSA on an Elliptic Curve?}
+Well, let's see...  WARNING: I've never
 read anything about this: I just thought it through right now -- William.
 
 RSA relies on being able to construct and publish
@@ -1159,10 +1179,11 @@ group (in this case $\G_m(\Z/n\Z)$)
 such that you know the order of the group,
 but it is difficult for other people to compute
 the order of that group.
-With elliptic curve over $\F_q$ this is not possible,
-since SEA ensures that anybody can efficiently
+If the algebraic group is an elliptic curve over
+the field $\F_q$, then this is not possible,
+since the SEA algorithm ensures that anybody can efficiently
 compute the order of $E(\F_q)$.
-The analogue of RSA on $E(\F_q)$ would
+A direct analogue of RSA on $E(\F_q)$ would
 have public key $(E/\F_q, e)$, where $e$
 is some random number modulo the exponent
 of the group $E(\F_q)$.
@@ -1175,33 +1196,50 @@ equation in $\F_q$, which can be done efficiently in practice, one
 constructs a point $(x,y)$, or if there are no solutions, simply slightly
 modify $x$ to get a solution (since half of the $x$'s work).  Solving
 a quadratic equation involves extracting a square root, which can be done
-efficiently in practice (though maybe not in theory).
+efficiently in practice (see [[reference to something]]).
 
 However, there's a major problem with this protocol, which involves
 getting confused about what the discrete log problem is.
 If you know $e M$ and $e$, you can
 compute $M$ by multiplying $e M$ by the multiplicative
-inverse of $e$ modulo the exponent of $E(\F_q)$.
-The discrete log problem in $E(\F_q)$ is different: it asks, {\em given
-$M$ and $e M$, what is $e$?}
+inverse of $e$ modulo the order of $M$, and this order
+is easy to compute since we know $\# E(\F_q)$.
+The discrete log problem in $E(\F_q)$ is a different problem:
+\begin{quote}
+{\bf Discrete Log Problem: } {\em Given $M$ and $e M$, what is $e$?}
+\end{quote}
 
-The other analogue of RSA would be to generalize the
-notion of elliptic curve to get an object
+Another analogue of RSA would be to generalize the
+notion of elliptic curve to obtain an object
 $E$ defined over $\Z/n\Z$,
 where $n=pq$ is a product of distinct primes.
-Then we have a canonical isomorphism
-$$
+Using the theory of {\em group schemes} one can
+put such a more general definition on a rigorous footing.
+The isomorphism $\Z/n\Z\\isom \Z/p\Z \oplus \Z/q\Z$ induces
+a canonical isomorphism
+\begin{equation}\label{eq:ellisom}
   E(\Z/n\Z) \isom E(\Z/p\Z) \oplus E(\Z/q\Z),
-$$
+\end{equation}
 but (presumably it is easy to prove that)
 one must factor $n$ in order to compute
 this isomorphism.
+
+\begin{exercise}
+Prove (if easy/true!?) that if you know
+the isomorphism \eqref{eq:ellisom}, then you
+can factor $n$.
+\end{exercise}
+
 One then encrypts a message $M\in E(\Z/n\Z)$
 as $e M$, which one can compute.
 But wait, given a message $M$, how do you encode
 it as a point on the curve?  To do so, you need to be
 able to extract square roots in the ring $\Z/n\Z$.
 I can't think of any way to do this without factoring $n$.
+Of course, if you choose $E$ to have an obvious point
+on it, then you can do lots of arithmetic to find many
+other points on $E$.  However, they are all basically random---you
+can only encrypt nonsense.
 
 Incidentally, a critically important approach to
 factoring an integer $n$ is to consider the
@@ -1215,10 +1253,59 @@ sized factors of an integer.  Given a large integer
 $n$, the ECM algorithm finds primes $p\mid n$ that
 are bigger than trial division finds, but usually much
 smaller than $\sqrt{n}$.   I've heard that this algorithm
-plays a crucrial role as an intermediate step in ``number field
-sieve'' attacks on RSA itself...
+is crucial as an intermediate step in ``number field
+sieve'' attacks on RSA itself.
 
 \subsubsection{ElGamal on an Elliptic Curve}
+
+The ElGamal cryptosystem makes sense in any cyclic abelian group,
+and provides a way to solve some of the problems that RSA addresses.
+
+Here's how it works.
+\begin{enumerate}
+\item Program A chooses an elliptic curve $E$ over $\F_q$, a point
+$P\in E(\F_q)$ of large order, and computes a secret random number $a$.   Program
+A then publishes the public key $(E/\F_q, P, aP)$.  The private key is $a$.
+\item Program B encrypts a message $M \in E(\F_q)$ as follows.  Program B
+computes a random secret integer $r$ and encrypts $M$ as the pair
+$(rP,M + raP)$.
+\item Program A decrypts the message by computing
+$M = M + raP - arP$, which program A can compute because
+it knows the secret number $a$.
+\end{enumerate}
+
+With RSA there is perfect symmetry between thepublic and private keys, but
+with ElGamal the public key is two points on an elliptic curve and the private
+key is a number.  Thus it is not completely obvious how to build a digital
+signature scheme using the ElGamal protocol.
+
+
+\subsubsection{ECDSA}
+
+The Elliptic Curve Digital Signature Algorithm (ECDSA) is an algorithm
+that solves---using elliptic curves---the other problem that RSA solves, namely
+digitally signing messages using elliptic curves.  As we saw above, even
+with ElGamal, it is not at all obvious how to solve this problem!
+ECSDA was invented by Scott Vanstone in 1992.\footnote{Speculation:
+The internet suggests that
+Vanstone maybe (?) invented ECDSA while working at the NSA,
+then started a company called Certicom, patented some elliptic curves
+then licensed the patents back to the NSA for \$25 million dollars?
+I'm sure Koblitz can clear this up.}
+
+Program A digitally signs a message $m$ using ECDSA as follows:
+\begin{enumerate}
+\item Choose an elliptic curve $E/\F_q$ and a point $G \in E(\F_q)$
+of prime order $p$.  Choose a random secret number $d$ with $1<d<p$.
+The public key is $(E,G,p)$ and the private key is $d$.
+\item Hash the message to an integer $z$ with $1<z<p$.
+\item Choose a random integer $k$ with $1<k<p$, and compute $kG \in E(\F_q)$.
+\item Compute $r=x(kG)\pmod{p}$, so $1<r<p$ (if not, choose a new random integer
+$k$ in the previous step).
+\item Compute $s=(z+r d)/k \pmod{p}$.
+\end{enumerate}
+
+
 
 \subsection{The Bitcoin Elliptic Curve}
 
@@ -1226,17 +1313,36 @@ http://www.extremetech.com/computing/168139-fbi-unable-to-seize-600000-bitcoins-
 
 http://www.coindesk.com/capital-one-closes-bank-account-bitcoin/
 
-%Bharath added this section - it is under construction
+%Bharath added this section
 
 \subsection{Finding a primitive root mod $p$}\label{sec:primroot}
 
-First, let us consider an easy example. Let us assume that the prime $p$ satisfies the relation $p-1=2\cdot q$, where $q$ is also a prime number. Now, the order of any element in $(\Z/p\Z)^\times$ is either $1$, $2$, $q$ or $2 \cdot q$. Now, $-1$ is not a square in $(\Z/p\Z)^\times$, since $4$ does not divide $p-1$. Hence, either $2$ or $-2$ (and exactly one of them) will be a generator for the cyclic group $(\Z/p\Z)^\times$. So, it suffices to computee $2^q$ and check if it equals $1$ or $-1$.
+In this section, a primitive root mod $p$ will refer to a  generator of the cyclic group $(\Z/p\Z)^\times$. First, let us consider an easy example.
+Let us assume that the prime $p$ satisfies the relation $p-1=2\cdot q$, where $q$ is also a prime number.
+Now, the order of any element in $(\Z/p\Z)^\times$ is either $1$, $2$, $q$ or $2 \cdot q$.
+Now, $-1$ is not a square in $(\Z/p\Z)^\times$, since $4$ does not divide $p-1$.
+Hence, either $2$ or $-2$ (and exactly one of them) will be a generator for the cyclic group $(\Z/p\Z)^\times$.
+So, it suffices to computee $2^q$ and check if it equals $1$ or $-1$. A naive algorithm for finding a primitive root would be systematically computing $m^{(p-1)/2}$, for every element $m$ in $(\Z/p\Z)^\times$. If an element $m$ satisfies the equality $m^{(p-1)/2} = -1 (\mod p)$, then the element $m$ must be a primitive root.
 
-[[Point of this section: figure out the theoretical
-complexity of finding a primitive root,
-when $p-1=2q$ is prime, both assuming RH and not assuming RH.
-Also, there's an issue of deterministic versus non-deterministic
-algorithms.]]
+There are polynomial time algorithms which assume the validity of the generalized Riemann Hypothesis.
+For instance, in \cite{shoup1992searching}, the algorithm to find a primitive root is of order $O(\log^6(p))$. There are some polynomial time algorithms for computing primitve roots. For instance, see \cite{dubrois2006efficient}.
+
+There are $\phi(p-1)$ generators in $(\Z/pZ)^\times$, where $\phi(x)$ is the Euler-toitent function.
+If one chooses an element from $(\Z/p\Z)^\times$ at random, the probability that this element is a generator is $\phi(p-1)/(p-1)$.
+Artin has conjetured that that a given integer $n$ which is not equal to $1$, $-1$ and which is not a perfect square is a primitive root for infinitely many primes $p$.
+The conjecture is still open, though some progress has been made in \cite{gupta1984remark} and \cite{heath1986artin}.
+Artin's conjecture gives us some hope that sampling at random will lead to a primitive root.
+By the prime number theorem, $\phi(p-1)/(p-1) \sim 1/\log(p)$.
+In practice, by selecting an element at random, one expects to find a primitive root after $(p-1)/\phi(p-1)$ tries, which is of order $O(\log(p))$ (which is significantly smaller than $O(\log^6(p))$).
+
+
+
+
+%[[Point of this section: figure out the theoretical
+%complexity of finding a primitive root,
+%when $p-1=2q$ is prime, both assuming RH and not assuming RH.
+%Also, there's an issue of deterministic versus non-deterministic
+%algorithms.]]
 
 \chapter{Prime Numbers}
 
@@ -1308,4 +1414,4 @@ Important unsolved problem: how difficult is the discrete log problem?
 
 \end{document}
 
-%sagemathcloud={"zoom_width":140}
+%sagemathcloud={"zoom_width":145}
