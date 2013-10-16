@@ -1274,37 +1274,90 @@ $M = M + raP - arP$, which program A can compute because
 it knows the secret number $a$.
 \end{enumerate}
 
-With RSA there is perfect symmetry between thepublic and private keys, but
-with ElGamal the public key is two points on an elliptic curve and the private
-key is a number.  Thus it is not completely obvious how to build a digital
-signature scheme using the ElGamal protocol.
+Conceptually, ElGamal is just an obvious extension of Diffie-Hellman.
+Program A does its part of Diffie-Hellman
+and ``puts it out there'' as a public key.
+Then, program B does its part of Diffie-Hellman to construct a shared
+secret -- namely $raP$ -- and just uses that shared secret as a one-time
+pad to encrypt the message.
 
+With RSA there is perfect symmetry between the public and private keys, but
+with ElGamal the public key is two points on an elliptic curve and the private
+key is a number.  Thus ElGamal does not naturally also produce
+a way of constructing digitial signatures.
 
 \subsubsection{ECDSA}
 
-The Elliptic Curve Digital Signature Algorithm (ECDSA) is an algorithm
-that solves---using elliptic curves---the other problem that RSA solves, namely
-digitally signing messages using elliptic curves.  As we saw above, even
+The Elliptic Curve Digital Signature Algorithm (ECDSA) is a widely used
+algorithm that solves---using elliptic curves---another problem that RSA solves, namely
+digitally signing messages.
+It is, for example, used as part of every bitcoin transaction.
+As we saw above, even
 with ElGamal, it is not at all obvious how to solve this problem!
-ECSDA was invented by Scott Vanstone in 1992.\footnote{Speculation:
+ECSDA was invented by Scott Vanstone in 1992. (Speculation:
 The internet suggests that
 Vanstone maybe (?) invented ECDSA while working at the NSA,
 then started a company called Certicom, patented some elliptic curves
 then licensed the patents back to the NSA for \$25 million dollars?
-I'm sure Koblitz can clear this up.}
+And there are aliens 'n stuff.  Anyways, I'm sure Koblitz can clear this up.)
 
-Program A digitally signs a message $m$ using ECDSA as follows:
+Whenever we choose a random element ``of $\F_p$'' below, we choose it to be neither $0$ or $1$.
+
+\newpage
+\protocol{Program A digitally signs a message $m$ using
+ECDSA as follows:}
 \begin{enumerate}
-\item Choose an elliptic curve $E/\F_q$ and a point $G \in E(\F_q)$
-of prime order $p$.  Choose a random secret number $d$ with $1<d<p$.
-The public key is $(E,G,p)$ and the private key is $d$.
-\item Hash the message to an integer $z$ with $1<z<p$.
-\item Choose a random integer $k$ with $1<k<p$, and compute $kG \in E(\F_q)$.
-\item Compute $r=x(kG)\pmod{p}$, so $1<r<p$ (if not, choose a new random integer
-$k$ in the previous step).
-\item Compute $s=(z+r d)/k \pmod{p}$.
+\item{}[Setup Protocol]
+Choose a prime power $q$, an elliptic curve $E/\F_q$, and a
+point $G \in E(\F_q)$ of prime order $p$ (which has nothing to do with $q$),
+and define a set-theoretic map (in any way) $\phi:\F_q \to \F_p^*$.
+Choose a random secret number $d \in \F_p^*$,
+and let $Q=dG$.
+The public key is $(E,G,Q,p)$ and the private key is $d$.
+\item{}[Hash] Hash the message $m$ to an element $z\in \F_p^*$.
+\item\label{ecdsa:rp}{}[Random Point] Choose a random $k\in \F_p^*$, and compute $kG \in E(\F_q)$.
+\item{}[Compute Signature] Compute
+$$r=\phi(x(kG))\in \F_p^*\text { and }
+s=(z+r d)/k \in \F_p$$
+In the unlikely case
+$s=0$, choose a new random point in step~\ref{ecdsa:rp};
+otherwise, the signature of the message
+$m$ is the pair $(r,s)$ of elements of $\F_p^*$.
 \end{enumerate}
 
+
+\protocol{Program B verifies a digital signature $(r,s)$
+of a message $m$ using ECDSA as follows:}
+\begin{enumerate}
+\item{}[Hash] Hash $m$ to the same $z\in \F_p^*$ as above.
+\item{}[Verify] The signature is valid if $s=\phi(x(C))$,
+where
+$$C = \frac{z}{s} G + \frac{r}{s} Q \in E(\F_q).$$
+Here $z/s$ and $r/s$ are the quotients in the field $\F_p$, and
+we view $\langle G\rangle \subset E(\F_q)$
+as a one-dimensional $F_p$-vector space.
+\end{enumerate}
+
+
+\begin{proposition}
+If $(r,s)$ is a valid signature, then Program B will conclude that
+it is a valid signature.
+\end{proposition}
+\begin{proof}
+Suppose that $(r,s)$ is a valid signature, so
+$$s = \frac{z+rd}{k} \in \F_p^*.$$
+Then
+$
+k = \frac{z+rd}{s},
+$
+so
+$$
+k G = \frac{z}{s} G + \frac{rd}{s} G
+  = \frac{z}{s} G + \frac{r}{s} Q = C,
+$$
+hence $\phi(x(C)) = \phi(x(kG)) = s$.
+
+\end{proof}
 
 
 \subsection{The Bitcoin Elliptic Curve}

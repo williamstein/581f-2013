@@ -1,3 +1,18 @@
+# Friday, Oct 18, 2013
+
+- Bitcoin
+
+# Wednesday, Oct 16, 2013
+## Status Reports
+
+- abc?  Felipe Voloch "I believe in ABC because of the function field case. I don't believe in Vojta's conjectures for the same reason. [...] Why do you see 1 as the same as 3? 1 is 1. The function field ABC is stronger than the number field case (which says 1+epsilon for all epsilon>0 but doesn't allow epsilon=0)."
+
+## Lecture topic:
+- ElGamal
+- ECDSA (at least start)
+
+
+
 # Monday, Oct 14, 2013
 
 ## Status reports
