@@ -13,16 +13,29 @@ Discussion: <https://bitcointalk.org/?topic=2699.0> -- "ECDSA verification is th
 ︠a2252709-7079-4a59-899c-01b3a91d6a72︠
 p =  2^256 - 2^32 - 2^9 - 2^8 - 2^7 - 2^6 - 2^4 - 1
 is_prime(p)
-︡5174ca80-ab6c-43c5-9154-8bd533dd9317︡{"stdout":"True\n"}︡
-︠fd8b72d7-4fef-4472-a784-468045e34173i︠
+︡45af1004-e89f-45a8-b995-23518a8d89a7︡{"stdout":"True\n"}︡
+︠fd8b72d7-4fef-4472-a784-468045e34173︠
 E = EllipticCurve(GF(p),[0,7]); E
-︡6eebc165-c2f3-4872-b7e9-b36305dca6d8︡{"stdout":"Elliptic Curve defined by y^2 = x^3 + 7 over Finite Field of size 115792089237316195423570985008687907853269984665640564039457584007908834671663\n"}︡
+︡d42576d8-fd0a-468f-b01a-b39c392cbf77︡{"stdout":"Elliptic Curve defined by y^2 = x^3 + 7 over Finite Field of size 115792089237316195423570985008687907853269984665640564039457584007908834671663"}︡{"stdout":"\n"}︡
+︠516f9b69-ca6e-4e2e-b300-d87b20bf45cbi︠
+%md
+*Remark* The Bitcoin curve is the reduction mod $p$ of a curve that has CM by $\mathbb{Q}(\sqrt{-3})$, i.e., it is a twist of the Fermat cubic.
+︡fd74d2dd-8202-4a5f-b9fd-a0c5e7815e22︡{"html":"<p><em>Remark</em> The Bitcoin curve is the reduction mod $p$ of a curve that has CM by $\\mathbb{Q}(\\sqrt{-3})$, i.e., it is a twist of the Fermat cubic.</p>\n"}︡
+︠cdc4944c-1168-4457-be8d-9bb142e5c14b︠
+F = EllipticCurve([0,7]); F.conductor().factor()
+︡bade2323-77ca-470e-9a4f-d17a57ffaf00︡{"stdout":"2^4 * 3^3 * 7^2\n"}︡
+︠2e7e8372-c871-4f11-9e32-b6ff86cdf97d︠
+F.j_invariant()
+︡dc60dc39-58b0-4ac5-8efd-048db01be283︡{"stdout":"0\n"}︡
 ︠06641062-e0e9-4194-b79e-b0a4ea9e695d︠
 %time n = E.cardinality(); n
-︡f0d5e952-ea7e-4b31-a3da-4666fc322e49︡{"stdout":"115792089237316195423570985008687907852837564279074904382605163141518161494337\n"}︡{"stdout":"CPU time: 0.00 s, Wall time: 0.00 s\n"}︡
+︡c3e3c412-244c-468b-8747-fb64341cd991︡{"stdout":"115792089237316195423570985008687907852837564279074904382605163141518161494337"}︡{"stdout":"\n"}︡{"stdout":"CPU time: 0.23 s, Wall time: 0.04 s\n"}︡
 ︠b07476b7-9b19-46e5-a777-b3614d2a90db︠
 is_prime(n)
-︡46bfbe9e-2e25-4d0c-8ac4-460054faefe8︡{"stdout":"True\n"}︡
+︡6c10df9d-b729-4510-85eb-a72e422eef1e︡{"stdout":"True\n"}︡
+︠dcee6887-b5f4-446b-ad87-ecaf0b876c61︠
+len(n.str(2))
+︡aea417fe-2345-47f4-ba24-e6f9809fde66︡{"stdout":"256\n"}︡
 ︠b9c79180-ea54-4632-bfc2-f8f7ec54c8f8︠
 s = '79BE667E F9DCBBAC 55A06295 CE870B07 029BFCDB 2DCE28D9 59F2815B 16F81798'.replace(' ','').lower(); s
 ︡c15ff3a4-1a88-4627-800e-3d4b94ec9b1b︡{"stdout":"'79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798'\n"}︡

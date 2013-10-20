@@ -1,6 +1,6 @@
 \documentclass{book}
 \title{A Computational Tour of Number Theory}
-\author{Hao Chen \and Andrew Ohana \and Bharathwaj Palvannan
+\author{Hao Chen \and R. Andrew Ohana \and Bharathwaj Palvannan
 \and Travis Scholl
 \and Simon Spicer \and William Stein \and
 \and Yannick Van Huele}
@@ -11,7 +11,7 @@
 \maketitle
 \tableofcontents
 
-\chapter{Introduction: tour of the main questions}
+\chapter{Introduction: tour of the main objects}
 In this book, we will explore several important central problems and
 objects of number theory, and for each to explain how---in practice
 (not just theory)---to {\em compute} with them.    Books,
@@ -280,9 +280,9 @@ predicted to have class number $1$?}
 
 %Hao Chen: added the Cohen-Lenstra heuristic prediction of the portion
 
-The Cohen-Lenstra heuristics \cite{cohen-lenstra:heuristics} predicts that 75.446 \% of
-real quadratic fields have class number 1, which agrees
-with computations by Riele and Williams \cite{riele2003new}.
+The Cohen-Lenstra heuristics \cite{cohen-lenstra:heuristics} predicts
+that 75.446 \% of real quadratic fields have class number 1, which agrees
+with computations by Riele and Williams~\cite{riele2003new}.
 
 %Yannick Van Huele: added a sufficient condition for the class number of
 %$\Q(\sqrt{d})$ to be nontrivial along with an explicit example.  Still
@@ -643,7 +643,31 @@ which outputs:
     116655528338821919868)
 \end{lstlisting}
 
-%%Let $\sigma$ be the non-trivial automorphism of $\text{Gal}\left(\frac{\Q(\sqrt{5})}{\Q}\right)$. Let us assume that we have an ordered tuple $(a,b,c) \in (\Q(\sqrt{5}))^\times$ satisfying the Fermat equation $X^3 + Y^3 = Z^3$ and such that atleast one of $a,b,c$ lies in $\Q(\sqrt{5}) \setminus  \Q$. Then, one has that $b= \sigma(a)$.
+
+% Bharath added this part - I am confused as to why we initially talked about group extensions
+% william -- it was simply a "first idea" i had during the lecture; sometimes first ideas are totally useless, especially mine :-)
+% Bharath: Was the goal to prove something like - every fermat triple in the field Q(sqrt 5) of a certain form - (x, sigma(x), natural number)?
+% William: NO -- it was to understand why that pattern appeared in the examples that were being displayed in the presentation.  It was because he was computing triples coming from the Galois invariant subgroup.  When Thomas later considered a non-invariant subgroup, he found triples not of that form.  So it's just about explaining that observation.
+% (BY THE WAY -- there is a chat on the right side -- click the message bubble)
+
+Let $\sigma$ be the non-trivial automorphism of $\text{Gal}\left(\frac{\Q(\sqrt{5})}{\Q}\right)$. Let us assume that we have an ordered tuple $(a,b,c) \in (\Q(\sqrt{5}))^\times$ satisfying the Fermat equation $X^3 + Y^3 = Z^3$ and such that atleast one of $a,b,c$ lies in $\Q(\sqrt{5}) \setminus  \Q$. Then, one has that $b= \sigma(a)$.
+
+We have a short exact sequence
+\begin{align} \label{seq}
+0 \rightarrow E(\Q) \rightarrow E(\Q(\sqrt{5})) \rightarrow E(\Q(\sqrt{5})) / E(\Q)  \rightarrow 0.
+\end{align}
+Using Sage, we can compute the torsion and rank of each group. One obtains that $E(\Q) \cong \Z/3\Z$ and $E(\Q(\sqrt{5})) \cong \Z/3\Z \oplus \Z$. The group $G$ acts on $E(\Q(\sqrt{5})) / E(\Q)$ by $-1$. One can ask the question - is there an element $x$ in $E(\Q(\sqrt{5}))$ on which $G$ acts by $-1$ and such that $E(\Q(\sqrt{5})) \cong \Z \cdot <x> \oplus E(\Q)$ (where the isomorphism is in the category of $\Z[G]$-modules).
+Let us write $E(\Q(\sqrt{5})) \cong \Z \oplus \Z/3\Z$ (where the isomorphism is simply in the category of abeian groups).
+Let $b$ be an element of $\Z/3\Z$ such that $\sigma (1,0) = (-1,b)$. Then one sees that $\sigma\cdot (1,b) = -(1,b)$.
+One can choose $x$ to be $(1,b)$.
+
+One can also answer this question using homological algebra. The short exact sequence in (\ref{seq}) corresponds to an extension of $\Z$ by $\Z/3\Z$ in the category of $\Z[G]$-modules and is of the form
+\begin{align} \label{seq1}
+0 \rightarrow  \Z/3\Z \rightarrow E(\Q(\sqrt{5})) \rightarrow  \Z \rightarrow  0
+\end{align}
+This corresponds to an element of $Ext^{1}_{\Z[G]}(\Z(-1),\Z/3\Z)$.
+Here, $\Z(-1)$ denotes that $G$ acts on $\Z$ by the non-trivial automorphism.
+
 
 And we can explore the $L$-series itself:
 
@@ -691,7 +715,7 @@ $Y$ and $Z$ with $Y<Z$. Let $K = \Q(\alpha)$, where $\alpha$ obeys
 $\alpha^d = Z^d-Y^d \in \Z$. Then clearly $(\alpha,Y,Z)$ is a Fermat triple lying in $K$. \\
 
 
-\section{The abc Conjecture}
+\section{The ABC Conjecture}
 The abc conjecture
 concerns triples of coprime positive integers $a,b,c$  such that
 $$
@@ -730,7 +754,7 @@ $$
 with $A,B,C$ coprime positive integers and $n\ge 5$ (say).
 Letting $a=A^n, b=B^n, c=C^n$, we have
 $$
-r(a,b,c) = r(A^n,B^n,C^n) = r(A,B,C) = ABC <C^3 < C^n=c.
+r(a,b,c) = r(A^n,B^n,C^n) = r(A,B,C) \leq ABC <C^3 < C^n=c.
 $$
 According to Conjecture~\ref{conj:abc} (with
 any choice of $\eps$), there can be only finitely many such
@@ -1286,7 +1310,7 @@ with ElGamal the public key is two points on an elliptic curve and the private
 key is a number.  Thus ElGamal does not naturally also produce
 a way of constructing digitial signatures.
 
-\subsubsection{ECDSA}
+\subsection{The Elliptic Curve Digital Signature Algorithm}
 
 The Elliptic Curve Digital Signature Algorithm (ECDSA) is a widely used
 algorithm that solves---using elliptic curves---another problem that RSA solves, namely
@@ -1301,9 +1325,10 @@ then started a company called Certicom, patented some elliptic curves
 then licensed the patents back to the NSA for \$25 million dollars?
 And there are aliens 'n stuff.  Anyways, I'm sure Koblitz can clear this up.)
 
+
+\subsubsection{The ECDSA Protocol}
 Whenever we choose a random element ``of $\F_p$'' below, we choose it to be neither $0$ or $1$.
 
-\newpage
 \protocol{Program A digitally signs a message $m$ using
 ECDSA as follows:}
 \begin{enumerate}
@@ -1330,7 +1355,7 @@ $m$ is the pair $(r,s)$ of elements of $\F_p^*$.
 of a message $m$ using ECDSA as follows:}
 \begin{enumerate}
 \item{}[Hash] Hash $m$ to the same $z\in \F_p^*$ as above.
-\item{}[Verify] The signature is valid if $s=\phi(x(C))$,
+\item{}[Verify] The signature is valid if $r=\phi(x(C))$,
 where
 $$C = \frac{z}{s} G + \frac{r}{s} Q \in E(\F_q).$$
 Here $z/s$ and $r/s$ are the quotients in the field $\F_p$, and
@@ -1339,7 +1364,7 @@ as a one-dimensional $F_p$-vector space.
 \end{enumerate}
 
 
-\begin{proposition}
+\begin{proposition}\label{prop:ecdsa}
 If $(r,s)$ is a valid signature, then Program B will conclude that
 it is a valid signature.
 \end{proposition}
@@ -1359,14 +1384,111 @@ hence $\phi(x(C)) = \phi(x(kG)) = s$.
 
 \end{proof}
 
+\subsubsection{Playstation 3 Hacked!}
+
+In 2010, Sony implemented ECDSA for the Playstation 3, in order to control
+what PS3 owners could run on their game consoles.  Evidently, they crossed
+some line, and specifically made it so people could no longer run Linux (and
+pirate games) on their PS3.  So some people decided to attempt to crack
+their implementatio of ECDSA.  Studying many examples, the noticed a pattern.
+It turned out that instead of choosing the parameter $k$
+at random in Step~\ref{ecdsa:rp} of the signature protocol, they
+always used the same value of $k$!  Oops.
+
+Why is this a problem?  Suppose we have in hand two valid
+signatures $(r,s)$ and $(r',s')$ with corresponding hashed
+messages $z$ and $z'$.  Recall that the private
+key is some $d\in\F_p^*$, so our goal is to find $d$.
+As in the proof of Proposition~\ref{prop:ecdsa}, we have
+\begin{equation}\label{eqn:ecdsacrack}
+\frac{z+rd}{s} = k = k' = \frac{z' + r'd}{s'}
+\end{equation}
+Oops, that's one linear equation in one unknown, namely the private
+key $d$.  So with two signatures, one can solve for $d$, get
+the private key, and it's game over.
+
+More generally, when implementing ECDSA, it is extremely important to
+choose $k$ sufficiently randomly.  If there is something sufficiently
+predictable about $k$ -- even a few bits -- then one
+can get information toward \eqref{eqn:ecdsacrack}, and with sufficiently
+many signatures, recover $d$.
+
 
 \subsection{The Bitcoin Elliptic Curve}
 
-http://www.extremetech.com/computing/168139-fbi-unable-to-seize-600000-bitcoins-from-silk-road-operator
 
-http://www.coindesk.com/capital-one-closes-bank-account-bitcoin/
+
+
+Bitcoin appears to be the first successful digital currency in history. It's
+revolutionary, in that it is not supported or controlled by governments,
+banks, or anything else real or political.\footnote{Many mainstream
+institutions are threatened by bitcoin:\\ \url{http://www.coindesk.com/capital-one-closes-bank-account-bitcoin/}.  Bitcoin also makes it very difficult for powerful
+governments to steal all the money of people who do things they don't like:  \url{http://www.extremetech.com/computing/168139-fbi-unable-to-seize-600000-bitcoins-from-silk-road-operator}}.
+There are many aspects of how the
+system works (and how bitcoins are mined), but there is one critical part that
+involves computational number theory, and that's what we'll discuss.
+In order to spend bitcoin, a certain message is digitally signed,
+which involves computationa of a hash followed by application of the
+ECDSDA algorithm.  Thus for Bitcoin, trust in governments, banks, armies,
+credit ratings, etc., is replaced trust in this elliptic curve
+$$
+y^2 = x^3 + 7\quad\text{over}\quad \F_p,\,\,\text{where}\,\,
+p=2^{256} - 2^{32} - 2^9 - 2^8 - 2^7 - 2^6 - 2^4 - 1.
+$$
+This curve has cardinality the 256-bit prime
+\begin{align*}
+\#E(\F_p) =& 11579208923731619542357098500868790785283756427907\\
+& 4904382605163141518161494337
+\end{align*}
+The fixed base point $G$ on the curve is
+\begin{align*}
+G =& (550662630222773436695787188951685343262506034537775941\\
+     & \quad 75500187360389116729240, \\
+     & 32670510020758816978083085130507043184471273380659243\\
+     & \quad 27593890433575733748242)
+\end{align*}
+which obviously generates $E(\F_p)$, since it generates a subgroup
+of a group of prime order.
+
+The curve $E$ and point $G$ above have the official name {\bf secp256k1}, where the
+$256$ refers to the number of bits of $p$, and the $k$ is the first
+letter of Neal Koblitz's last name.
+This curve is somehow special in that there is a way to more cleverly compute
+$kG$, which results in very real speedups in practice, as compared
+to computing $kG$ on a ``generic'' 256-bit elliptic curve.  There's
+an extensive discussion online about actual implementations, where
+they claim a 30\% speedup in practice, while also expressing serious
+reservations about using a special curve as the foundation for such
+an important cryptosystem -- finding a fast way to solve the discrete
+log problem on this one particular curve would have a major impact
+on a billion dollar economic system.
+
+Koblitz remarks:  ``[This speedup is described in]
+Jerry Solinas' Crypto '97 talk, and is very concrete
+and understandable.  It boils down to writing number in the base rho,
+where $\rho=(-1+\sqrt{-7})/2$.  That talk was the first Crypto talk by an
+NSA person.''
+
+
+\subsubsection{Bitcoin Hacked!}
+We saw above when discussing the PS3 crack that
+it is critical that every single time program A signs a message
+using ECDSA, that a {\em different} random value~$k$ is used.
+If any $k$ is ever re-used, the private key can then be easily found.
+In August 2013, exactly this problem surfaced in many of the bitcoin wallet
+implementations for Android, and it was actually exploited:
+\begin{quote}
+``It looks as though, at least on occasion, the Java-based PRNG on Android will repeat its pseudorandom sequences, thanks to a flaw in Android's so-called SecureRandom Java class.  The Bitcoin Forum has already reported the theft of close to BTC56 (worth about US \$6000) from a number of people. A list of known-vulnerable Android Bitcoin wallets has been published by the Bitcoin Project, with instructions on what to do when the various wallet apps are fixed to use better-quality random numbers.''
+
+\url{http://nakedsecurity.sophos.com/2013/08/12/android-random-number-flaw-implicated-in-bitcoin-thefts/}
+\end{quote}
+
+The fix for users was to create a new bitcoin public/private key pair using
+a more secure approach, and transfer all of their money to themselves.
+
 
 %Bharath added this section
+
 
 \subsection{Finding a primitive root mod $p$}\label{sec:primroot}
 
@@ -1396,6 +1518,99 @@ In practice, by selecting an element at random, one expects to find a primitive 
 %when $p-1=2q$ is prime, both assuming RH and not assuming RH.
 %Also, there's an issue of deterministic versus non-deterministic
 %algorithms.]]
+
+
+\chapter{Enumerating Elliptic Curves}
+
+The main goal in this chapter is to understand the
+following deep recent theorem:
+\begin{theorem}
+There is an algorithm that
+takes as input a positive integer $N$ and outputs all elliptic curves
+defined over $\Q$ of conductor $N$.
+\end{theorem}
+Along the way, we'll learn many interesting theorems related
+to elliptic curves and about how to compute modular forms using
+modular symbols.
+
+\begin{definition}[Elliptic Curve]
+An elliptic curve over a field $K$
+is a nonsingular (geometrically irreducible)
+genus one curve $E$ defined over $K$
+with a distinguished rational point $\O\in E(K)$.
+\end{definition}
+
+
+\section{The Discriminant}
+Let $E$ be an elliptic curve defined over $\Q$.
+Using the Riemann-Roch theorem and that $E$ is a genus one
+curve with a rational point, we can prove that there
+is an (affine) Weierstrass equation of the form
+\begin{equation}\label{weq}
+y^2 + a_1 xy + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6.
+\end{equation}
+The ``$x$-coordinate of a  point'' is a
+rational function $x:E\to\P^1$ that has degree $2$,
+and the $y$-coordinate is a rational function of degree
+$3$. The subscripts in the above equation are chosen
+so that the degree of each term is $6$.
+The {\em discriminant} of \eqref{weq} is a polynomial function the
+coefficients of the curve:
+$$
+\Delta = -8 \, b_{4}^{3} + 9 \, b_{2} b_{4} b_{6} - b_{2}^{2} b_{8} - 27 \, b_{6}^{2},
+$$
+where
+\begin{align*}
+b_2 &= a_{1}^{2} + 4 \, a_{2}, \quad{}b_4 = a_{1} a_{3} + 2 \, a_{4},\quad{}b_6 =
+a_{3}^{2} + 4 \, a_{6},\\
+b_8 &= a_{2} a_{3}^{2} - a_{1} a_{3} a_{4} + a_{1}^{2} a_{6} - a_{4}^{2} + 4 \, a_{2} a_{6}.
+\end{align*}
+NOTE: I literally just copied these formulas from the source code
+of Sage... and 7 years ago, I implemented them in Sage based
+on Silverman's book.
+\begin{lstlisting}
+sage: E = EllipticCurve([1,2])
+sage: E.discriminant??
+sage: E.b_invariants??
+\end{lstlisting}
+
+
+We have $\Delta=0$ if and only if the curve is nonsingular, which is
+always the case for an elliptic curve, by definition.
+
+\begin{definition}[Minimal Discriminant]
+The minimal discriminant of $E$ is the discriminant with
+smallest absolute value, among all equations \eqref{weq}
+for a given elliptic curve.
+\end{definition}
+
+
+\begin{theorem}\label{thm:discfinite}
+Fix a discriminant $0\neq \Delta\in\Z$.
+Then there are only finitely many isomorphism classes
+of elliptic curves with discriminant $\Delta$.
+\end{theorem}
+As we will see, Theorem~\ref{thm:discfinite} is
+implied by a finiteness theorem about integral
+points.  It's also implied by modularity of elliptic curves.
+And, it's a special case of Faltings' finiteness
+theorem on abelian varieties. Also, making it explicit
+has connections with the ABC conjecture.
+
+
+\section{Finding curves with bounded discriminant}
+
+\section{The Conductor}
+
+\section{Modularity of elliptic curves}
+
+\section{Computing modular forms using modular symbols}
+
+\section{Computing the elliptic curve attached to a modular form}
+
+\section{Integral points and discriminant equations}
+
+
 
 \chapter{Prime Numbers}
 

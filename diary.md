@@ -1,6 +1,29 @@
+
+# Monday, Oct 21, 2013
+
+## Status reports
+
+## Class
+
+  - 
+
+
+
 # Friday, Oct 18, 2013
 
-- Bitcoin
+## Status reports
+  - simon's talk prep
+  - andrew: abc paper
+  - yannick: changed an = to <=.
+
+
+## Class
+
+  - Quick review of ECDSA
+  - PS3 use of ECDSA
+  - Bitcoin's use of ECDSA
+
+  - NEXT: monday -- surprise!
 
 # Wednesday, Oct 16, 2013
 ## Status Reports
