@@ -906,7 +906,7 @@ def f(p=3, n=1):
     print "quality = ", float(q)
 \end{lstlisting}
 
-\subsection{Triples with Quality at least $1.4$}
+\subsection{Triples with Quality at least $1.4$}\label{sec:abchome}
 The following is a plot of the number of abc triples with $c\leq 10^x$
 and quality at least $1.4$, drawn on a log scale,
 where $x\leq 10^{18}$.  This data was computed by the ABC@HOME project.
@@ -1556,10 +1556,15 @@ $3$. The subscripts in the above equation are chosen
 so that the degree of each term is $6$.
 The {\em discriminant} of \eqref{weq} is a polynomial function the
 coefficients of the curve:
-$$
-\Delta = -8 \, b_{4}^{3} + 9 \, b_{2} b_{4} b_{6} - b_{2}^{2} b_{8} - 27 \, b_{6}^{2},
-$$
+\begin{equation}\label{eqn:delta}
+\Delta = \frac{c_4^3 - c_6^2}{1728} =  -8 \, b_{4}^{3} + 9 \, b_{2} b_{4} b_{6} - b_{2}^{2} b_{8} - 27 \, b_{6}^{2},
+\end{equation}
 where
+$$
+c_4 = b_{2}^{2} - 24 \, b_{4},\quad{}
+c_6 = -b_{2}^{3} + 36 \, b_{2} b_{4} - 216 \, b_{6},
+$$
+and
 \begin{align*}
 b_2 &= a_{1}^{2} + 4 \, a_{2}, \quad{}b_4 = a_{1} a_{3} + 2 \, a_{4},\quad{}b_6 =
 a_{3}^{2} + 4 \, a_{6},\\
@@ -1567,7 +1572,7 @@ b_8 &= a_{2} a_{3}^{2} - a_{1} a_{3} a_{4} + a_{1}^{2} a_{6} - a_{4}^{2} + 4 \, 
 \end{align*}
 NOTE: I literally just copied these formulas from the source code
 of Sage... and 7 years ago, I implemented them in Sage based
-on Silverman's book.
+on Silverman's book (which got $c_6$ wrong!).
 \begin{lstlisting}
 sage: E = EllipticCurve([1,2])
 sage: E.discriminant??
@@ -1579,9 +1584,9 @@ We have $\Delta=0$ if and only if the curve is nonsingular, which is
 always the case for an elliptic curve, by definition.
 
 \begin{definition}[Minimal Discriminant]
-The minimal discriminant of $E$ is the discriminant with
-smallest absolute value, among all equations \eqref{weq}
-for a given elliptic curve.
+The minimal discriminant of $E$ is the smallest (in absolute
+value) discriminant of any Weierstrass equation \eqref{weq}
+for $E$.
 \end{definition}
 
 
@@ -1599,6 +1604,66 @@ has connections with the ABC conjecture.
 
 
 \section{Finding curves with bounded discriminant}
+
+{\bf Problem: } Given a positive integer $B$, find
+a representative for each
+isomorphism class of elliptic curve over $\Q$
+with $|\Delta|\leq B$.
+
+Fix a particular choice of $\Delta$.
+According to \eqref{eqn:delta}, we have
+\begin{equation}\label{eqn:deltac4c6}
+1728\Delta = c_4^3 - c_6^2,
+\end{equation}
+where $\Delta, c_4, c_6$ are all integers.
+I will now {\em argue} that there are only finitely
+many pairs $(c_4, c_6)$ that satisfy
+\eqref{eqn:deltac4c6}, for this fixed choice of $\Delta$.
+For the moment, assume that both $\Delta$ and $c_4$ are positive,
+so we have an equation
+$$
+  A + B = C,
+$$
+where $A = 1728\Delta$, $B=c_6^2$, $C=c_4^3$ are all positive integers.
+Let's also restrict to the case that $\gcd(A,B,C)=1$.
+Then the quality of this triple is
+\begin{align*}
+  q(A,B,C) &= \frac{\log(C)}{\log(r(ABC))}\\
+      &= \frac{\log(c_4^3)}{\log(r(1728\Delta c_6^2 c_4^3))}\\
+      &= \frac{3\log(c_4)}{\log(r(6\Delta c_6 c_4))}\\
+      &= \frac{3\log(c_4)}{\log(r(6\Delta)) + \log(r(c_6)) +
+         \log(r( c_4))}\\
+      &\geq  \frac{3\log(c_4)}{\log(6\Delta) + \log(c_6) +
+         \log(c_4)}\\
+      &> \frac{3\log(c_4)}{\log(6\Delta) + \log(c_4^{3/2}) +
+         \log(c_4)}\\
+      &= \frac{3\log(c_4)}{\log(6\Delta) + \frac{5}{2}\log(c_4)}
+      \to \frac{6}{5} \text{ as $c_4\to\infty$}
+\end{align*}
+where in the inequalities we make the denominator
+as big as possible, first assuming each summand is square
+free, then using the $c_6^2 < c_4^3$; finally, in the limit
+we are of course using that $\Delta$ is fixed.
+If the strong ABC conjecture is true, namely
+that for each $\eps>0$,
+then there are finitely many triples with quality bigger than
+$1+\eps$, then we conclude that there are only finitely many
+$c_4$ (and hence $c_6$) as above.
+
+Of course, I definitely did not do a good job convincing you
+that the strong ABC conjecture is true in Section~\ref{sec:abchome},
+so it is OK if you do not consider this argument convincing!
+
+The paper \cite{stein-watkins:ants5} is about systematic
+enumeration of all pairs of integers $(c_4,c_6)$ such that
+we have simultaneously
+$$
+|\Delta| \leq 10^{12} \quad\text{and}\quad
+|c_4|\leq 1.44\cdot 10^{12}.
+$$
+We do not know that this gives us all curves with $|\Delta|\leq 10^{12}$,
+but it does give us hundreds of millions of elliptic curves.
+
 
 \section{The Conductor}
 
