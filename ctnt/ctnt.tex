@@ -695,7 +695,7 @@ forms in a space of dimension 0, we instead considers a potential
 large collection of spaces of modular forms, which we systematically
 compute (e.g., using modular symbols).
 
-\subsection{Failure of Fermat's Last Theorem} %Added by Travis Scholl
+\subsection{Extending Fermat's Last Theorem} %Added by Travis Scholl
 
 There are many rings where Fermat's Last Theorem fails for many values of
 $n$. For example consider the ring $\Z[\zeta]$ where $\zeta$ is a primitive
@@ -710,10 +710,20 @@ the Fermat equation $X^{6k+5}+Y^{6k+5}=Z^{6k+5}$ in the ring $\Z[\zeta]$. \\
 
 In general, it is straightforward to construct counterexamples to FLT
 of degree $d$ with degree $d$ number fields: \\
-Let $d\ge 3$ be a positive integer, and pick any to positive integers
+Let $d\ge 3$ be a positive integer, and pick any two positive integers
 $Y$ and $Z$ with $Y<Z$. Let $K = \Q(\alpha)$, where $\alpha$ obeys
 $\alpha^d = Z^d-Y^d \in \Z$. Then clearly $(\alpha,Y,Z)$ is a Fermat triple lying in $K$. \\
 
+% Added by Igor Tolkov
+However, it is still possible to extend Fermat's Last Theorem to number fields. Olivier Debarre and Matthew Classen \cite{deb-cla} extend the results of Faltings to show, in particular:
+\begin{theorem}[Debarre-Classen]\label{th:dc}
+The equation $x^n+y^n=z^n$ has only finitely many solutions $(x,y,z)$ over any field of degree $d\leq n-2$.
+\end{theorem}
+
+The theorem states that there are only a few counterexamples to Fermat's Last Theorem for each exponent $n$, except over number fields of degree $n-1$ or greater. Frazer Jarvis and Paul Meekin \cite{jar} take a guess as to what these counterexamples are:
+\begin{conjecture}[Jarvis-Meekin]\label{conj:jarv}
+Let $K$ be a number field of degree $d$ and $n\geq d+2$. Then any solution $(x,y,z)$ over $K$ to $x^n+y^n=z^n$ satisfies $x+y=z$.
+\end{conjecture}
 
 \section{The ABC Conjecture}
 The abc conjecture
@@ -1602,31 +1612,42 @@ And, it's a special case of Faltings' finiteness
 theorem on abelian varieties. Also, making it explicit
 has connections with the ABC conjecture.
 
-
+\newpage
 \section{Finding curves with bounded discriminant}
 
-{\bf Problem: } Given a positive integer $B$, find
+{\bf Motivating Problem: } Given a positive integer $M$, find
 a representative for each
 isomorphism class of elliptic curve over $\Q$
-with $|\Delta|\leq B$.
+with $|\Delta|\leq M$.
 
-Fix a particular choice of $\Delta$.
 According to \eqref{eqn:delta}, we have
 \begin{equation}\label{eqn:deltac4c6}
 1728\Delta = c_4^3 - c_6^2,
 \end{equation}
 where $\Delta, c_4, c_6$ are all integers.
-I will now {\em argue} that there are only finitely
+
+\begin{theorem}\label{thm:abcdisc}
+The ABC conjecture implies
+that there are only finitely
 many pairs $(c_4, c_6)$ that satisfy
-\eqref{eqn:deltac4c6}, for this fixed choice of $\Delta$.
-For the moment, assume that both $\Delta$ and $c_4$ are positive,
-so we have an equation
-$$
+\eqref{eqn:deltac4c6} with
+$|\Delta|\leq M$.
+\end{theorem}
+\begin{proof}
+We assume that both $\Delta$ and $c_4$ are positive; the argument
+in the other cases is probably similar (volunteer: add argument details).
+We have an equation
+\begin{equation}\label{eq:abcdisc}
   A + B = C,
-$$
+\end{equation}
 where $A = 1728\Delta$, $B=c_6^2$, $C=c_4^3$ are all positive integers.
-Let's also restrict to the case that $\gcd(A,B,C)=1$.
-Then the quality of this triple is
+
+To each triple with $\gcd(A,B,C)=1$
+with $A<1728 M$,
+there are only finitely many other triples
+$(dA,dB,dC)$ with $dA<1728 M$, so
+we may restrict to the case that $\gcd(A,B,C)=1$.
+The quality of the coprime triple \eqref{eq:abcdisc} is
 \begin{align*}
   q(A,B,C) &= \frac{\log(C)}{\log(r(ABC))}\\
       &= \frac{\log(c_4^3)}{\log(r(1728\Delta c_6^2 c_4^3))}\\
@@ -1635,24 +1656,40 @@ Then the quality of this triple is
          \log(r( c_4))}\\
       &\geq  \frac{3\log(c_4)}{\log(6\Delta) + \log(c_6) +
          \log(c_4)}\\
-      &> \frac{3\log(c_4)}{\log(6\Delta) + \log(c_4^{3/2}) +
+      &> \frac{3\log(c_4)}{\log(6M) + \log(c_4^{3/2}) +
          \log(c_4)}\\
-      &= \frac{3\log(c_4)}{\log(6\Delta) + \frac{5}{2}\log(c_4)}
-      \to \frac{6}{5} \text{ as $c_4\to\infty$}
+      &= \frac{3\log(c_4)}{\log(6M) + \frac{5}{2}\log(c_4)}
+      \to 1.2 \text{ as $c_4\to\infty$}
 \end{align*}
 where in the inequalities we make the denominator
 as big as possible, first assuming each summand is square
-free, then using the $c_6^2 < c_4^3$; finally, in the limit
-we are of course using that $\Delta$ is fixed.
-If the strong ABC conjecture is true, namely
-that for each $\eps>0$,
-then there are finitely many triples with quality bigger than
-$1+\eps$, then we conclude that there are only finitely many
+free, then using the $c_6^2 < c_4^3$.
+The (strong) ABC conjecture implies
+that there are finitely many coprime triples $(A,B,C)$
+with quality bigger than $1.2$, so we conclude
+that there are only finitely many
 $c_4$ (and hence $c_6$) as above.
+\end{proof}
 
-Of course, I definitely did not do a good job convincing you
-that the strong ABC conjecture is true in Section~\ref{sec:abchome},
-so it is OK if you do not consider this argument convincing!
+Of course, due to Andrew Ohana's observations,
+I have failed to convince you
+that the strong ABC conjecture is actually true (see Section~\ref{sec:abchome}),
+so I will understand if you do not consider this argument
+to be convincing!
+
+One goal of proving Theorem~\ref{thm:abcdisc} was to hopefully
+give some explicit upper bound on the number of curves with
+discriminant $|\Delta| < M$, assuming some effective version
+of ABC, which might come out of the computations we've been
+doing.   Of course, this is not what we get from our data...
+
+See \cite[\S3.4]{bmsw:bulletins} for the following conjecture:
+\begin{conjecture}
+There are $cX^{5/6}$ curves with~$|\Delta|\le X$.
+\end{conjecture}
+\url{http://mathoverflow.net/questions/96285/average-rank-of-elliptic-curves-over-mathbbq}
+
+
 
 The paper \cite{stein-watkins:ants5} is about systematic
 enumeration of all pairs of integers $(c_4,c_6)$ such that
@@ -1663,6 +1700,44 @@ $$
 $$
 We do not know that this gives us all curves with $|\Delta|\leq 10^{12}$,
 but it does give us hundreds of millions of elliptic curves.
+Here's a quick demo of using the Stein-Watkins tables from Sage
+(see \url{http://wstein.org/ecdb/format.txt} for the meaning of the data).
+\begin{lstlisting}
+sage: v = SteinWatkinsPrimeData(0)
+sage: c = v.next(); c
+Stein-Watkins isogeny class of conductor 11
+sage: list(c)
+[[[0, -1, 1, 0, 0], '(1)', '1', '5'],
+ [[0, -1, 1, -10, -20], '(5)', '1', '5'],
+ [[0, -1, 1, -7820, -263580], '(1)', '1', '1']]
+sage: v = SteinWatkinsPrimeData(1)
+sage: c = v.next(); c
+Stein-Watkins isogeny class of conductor 100000937
+sage: list(c)
+[[[1, 0, 1, -472, -3951], '[1]', '1', '1']]
+sage: v = SteinWatkinsAllData(0)
+sage: c = v.next(); c
+Stein-Watkins isogeny class of conductor 11
+sage: list(c)
+[[[0, -1, 1, 0, 0], '(1)', '1', '5'],
+ [[0, -1, 1, -10, -20], '(5)', '1', '5'],
+ [[0, -1, 1, -7820, -263580], '(1)', '1', '1']]
+sage: c = v.next(); c
+Stein-Watkins isogeny class of conductor 14
+sage: list(c)
+[[[1, 0, 1, -1, 0], '(2,1)', '1', '6'],
+ [[1, 0, 1, -11, 12], '[1,2]', '1', '6'],
+ [[1, 0, 1, 4, -6], '(6,3)', '1', '6'],
+ [[1, 0, 1, -36, -70], '[3,6]', '1', '6'],
+ [[1, 0, 1, -171, -874], '(18,1)', '1', '2'],
+ [[1, 0, 1, -2731, -55146], '[9,2]', '1', '2']]
+sage: v = SteinWatkinsAllData(10)
+sage: c = v.next(); c
+Stein-Watkins isogeny class of conductor 1000002
+sage: list(c)
+[[[1, 1, 0, -63, -1539], '(3,6,1)', 'X', '1']]
+\end{lstlisting}
+
 
 
 \section{The Conductor}

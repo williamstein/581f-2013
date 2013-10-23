@@ -1,11 +1,22 @@
+# Wednesday, Oct 23, 2013
+## Status Reports
+   -  ?
+
+## Class
+   - Prove that ABC implies finitely many curves of bounded discriminant
+
+
 
 # Monday, Oct 21, 2013
 
 ## Status reports
 
+   - ?
+
 ## Class
 
-  - 
+  - intro to elliptic curve enumeration and the motivating problem
+  - discussion of enumeration by discriminant
 
 
 
