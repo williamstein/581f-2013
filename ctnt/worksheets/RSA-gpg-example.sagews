@@ -95,7 +95,7 @@ d = int('0x'+d_str.replace(' ',''),0);
 p = int('0x'+p_str.replace(' ',''),0);
 q = int('0x'+q_str.replace(' ',''),0);
 u = int('0x'+u_str.replace(' ',''),0);
-︡5ebd8c40-005c-40f4-a6de-a6e51f379d75︡
+︡692e3aab-ebe1-4f68-9ddc-fad2dc3ed8dd︡
 ︠41d455cd-37fd-4a3f-b8a3-46962d93a8a1︠
 #List out numbers
 print('n = '+str(n))
@@ -115,7 +115,7 @@ d*e%((p-1)*(q-1)) == 1
 #See http://www.emc.com/collateral/white-papers/h11300-pkcs-1v2-2-rsa-cryptography-standard-wp.pdf
 #pg 12
 p*u%q == 1
-︡058686e3-efd6-4e3f-b2c7-69024be4ac9c︡{"stdout":"True"}︡{"stdout":"\n"}︡{"stdout":"True\n"}︡{"stdout":"True\n"}︡{"stdout":"True\n"}︡
+︡1e8ea069-4702-4bec-b322-6f943d414471︡{"stdout":"True"}︡{"stdout":"\n"}︡{"stdout":"True\n"}︡{"stdout":"True\n"}︡{"stdout":"True\n"}︡
 ︠cbe7c6ae-e97b-419e-a198-849c558df334︠
 #Compare the two
 #"plain" decryption
@@ -132,7 +132,14 @@ def RSADP_PKCSv2_2(c):
     m2 = int(pow(c,dQ,q))
     h = mod((m2 - m1)*u,q)
     return m1+p*h
-︡5386f7cd-437c-4f06-9303-1ffa06f69938︡
+︡6f29d112-e4ab-410d-95dc-591e3908b851︡
+︠c58ce4d9-8599-439b-b8e5-394476c140fe︠
+#To see both work:
+m = 17
+c = pow(m,e,n)
+decrypt(c) == 17
+RSADP_PKCSv2_2(c) == 17
+︡a5ae597d-66a4-46bb-9c8c-5892ea31c5ab︡{"stdout":"True\n"}︡{"stdout":"True\n"}︡
 ︠16c70948-259f-4d50-82a0-1aa609b93d33︠
 #Testing zone:
 import random

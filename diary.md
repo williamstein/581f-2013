@@ -1,3 +1,9 @@
+# Friday, Oct 23, 2013
+## Status Reports
+   - students...
+## Class
+   - conductors of elliptic curves (part 1)
+
 # Wednesday, Oct 23, 2013
 ## Status Reports
    -  ?

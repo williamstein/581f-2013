@@ -1612,7 +1612,6 @@ And, it's a special case of Faltings' finiteness
 theorem on abelian varieties. Also, making it explicit
 has connections with the ABC conjecture.
 
-\newpage
 \section{Finding curves with bounded discriminant}
 
 {\bf Motivating Problem: } Given a positive integer $M$, find
@@ -1739,8 +1738,132 @@ sage: list(c)
 \end{lstlisting}
 
 
-
+\newpage
 \section{The Conductor}
+The conductor of an elliptic curve (defined over the rational numbers
+or a number field) is a much more refined
+invariant, which encodes information about the local structure
+of the elliptic curve at each bad prime.
+
+\begin{theorem}
+For each positive integer $N$,
+there are finitely many elliptic curves over $\Q$
+of conductor $N$, and there is an algorithm
+to enumerate all of them that is polynomial
+time in $N$.
+\end{theorem}
+
+\subsection{Reduction}
+Suppose $E$ is an elliptic curve over $\Q$, and let
+\begin{equation}\label{eq:condweq}
+y^2 + a_1 xy + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6
+\end{equation}
+be a global minimal model, so the $a_i$ are in $\Z$
+and the discriminant $\Delta$ of the above equation is minimal
+in absolute value, among all such Weierstrass equations for $E$.
+For each prime number $p$, it makes sense to consider
+the algebraic curve $E_{\F_p}$ over the finite field
+$\F_p$ obtained by reducing \eqref{eq:condweq} modulo $p$.
+The curve $E_{\F_p}$ is nonsingular if and only $p\nmid \Delta$.
+When $p\mid \Delta$, there are three possible ways in which
+$E_{\F_p}$ can be singular:
+\begin{enumerate}
+\item split cuspidal, e.g., $y^2=x^2(x+9)\pmod{11}$: there are two distinct
+tangent lines at the singular point, with slopes in $\F_p$.
+\item nonsplit cupsidal, e.g., $y^2=x^2(x+23) \pmod{37}$: there are two distinct tangent lines
+at the singular point, but the slopes are in $\F_{p^2}$ instead
+of $\F_p$.
+\item nodal, e.g., $y^2=x^3$: there is a nodal singularity.
+\end{enumerate}
+We call the first two cases {\em multiplicative reduction}, since in those
+cases the group of nonsingular points oin $E_{\F_p}$ is $\G_m$ in
+the split case or the nontrivial twist of $\G_m$ in the nonsplit case.
+We call the nodal case {\em additive reduction} since the group of nonsingular points is $\G_a$.
+
+\subsection{The Conductor: an incomplete formula that you will remember}
+The conductor $N$ of $E$ {\em more and less} encodes this information:
+$$
+N = \prod_{p\mid\Delta} p^{v_p},
+$$
+where
+$$
+v_p = \begin{cases}
+ 1 & \text{ if $E$ has multiplicative reduction at $p$ } \\
+ 2 & \text{ if $E$ has additive reduction at $p\geq 5$ } \\
+ \leq 5 & \text{ if $E$ has additive reduction at $p=3$ }\\
+ \leq 8 & \text{ if $E$ has additive reduction at $p=2$ }.
+ \end{cases}
+$$
+The above is what everybody easily remembers about the conductor
+of an elliptic curve.  The exact value of $v_p$ when $p=2,3$ is
+a prime of additive reduction is a more complicated corner case.
+
+The (partial) definition above -- which is what everybody remembers -- is
+pretty ugly as a definition, since it is pretty arbitrary, lacking any
+conceptual insight.   How does it generalize?  What does it have to do
+with other things called ``conductors'' in number theory?
+
+\subsection{The Conductor: a definition using the functional equation}\label{sec:condfe}
+Consider the $L$-series
+$$
+L(E,s) = \prod_{\text{all }p} \frac{1}{1-a_p p^{-s} + \eps(p)p^{1-2s}},
+$$
+where $\eps(p)=0$ if $p\mid \Delta$ and $\eps(p)=1$ otherwise, and
+$$
+ a_p = p + 1 - \# E_{\F_p}(\F_p).
+$$
+(NOTE: These $a_p$ have nothing to do with the coefficients
+$a_i$ in the Weierstrass equation \eqref{eq:condweq} above.)
+The deep theorem that every elliptic curve $E$ over $\Q$ is modular
+implies that $L(E,s)$ extends (uniquely) to a holomorphic function
+on the entire complex plane.  It's easier to understand the completed
+$L$-series
+$$
+\Lambda(E,s) = 2\pi^{-s}\Gamma(s) L(E,s).
+$$
+The modularity theorem also implies that there is a unique integer
+$N$ and sign $\epsilon\in \{1,-1\}$ such that $\Lambda(E,s)$ satisfies the following functional equation:
+$$
+\Lambda(E,s) = \epsilon \cdot N^{1-s} \Lambda(E,2-s).
+$$
+The number $N$ is the {\em conductor of $E$}.
+
+\subsection{The Conductor: a definition using modular forms}
+Expanding the Dirichlet Series $L(E,s)$ from Section~\ref{sec:condfe}
+defines integers $a_n$ for all $n\geq 1$:
+$$
+L(E,s) = \prod_{p} L_p(E,s) = \sum_{n\geq 1} \frac{a_n}{n^s}.
+$$
+The analytic function $L(E,s)$ on the complex plane is connected,
+via Mellin transform, to the holomorphic function
+$$
+f_E(z) = \sum_{n\geq 1} a_n e^{2\pi i n z}
+$$
+on the upper half plane.  Alternatively, writing $q=q(z) = e^{2\pi i z}$,
+we write
+$$
+f_E(q) = \sum_{n\geq 1} a_n q^n,
+$$
+which we view either as function of $z$ on the upper half plane,
+or as a function of $q$ on the open unit disk.
+
+The {\em conductor of $E$} is the smallest positive integer $N$
+such that for all  matrices
+$$
+\gamma = \mtwo{a}{b}{c}{d} \in \Gamma_0(N)
+  = \left\{\text{matrices in $\SL_2(\Z)$ that are upper triangular mod $N$}\right\},
+$$
+we have
+$$f(\gamma(z))d(\gamma(z)) = f(z)dz,$$
+where $\gamma(z) = \frac{az+b}{cz+d}$ is a linear fractional transformation.
+Thus $f$ is a cuspidal modular form of level the conductor
+$N$ of $E$.
+
+
+\subsection{A definition using Galois representations}
+
+
+
 
 \section{Modularity of elliptic curves}
 
