@@ -6,7 +6,7 @@ def f(a=3, b=4):
     v = prod(set(prime_divisors(a) + prime_divisors(b) + prime_divisors(c)))
     q = log(c)/log(v)
     print "quality = ", float(q)
-︡e03be938-df0a-44b6-acc2-7e1bfe45de4c︡{"interact":{"style":"None","flicker":false,"layout":[[["a",12,null]],[["b",12,null]],[["",12,null]]],"id":"8731a07c-d6f4-4afa-9876-16efad114aad","controls":[{"control_type":"input-box","default":3,"label":"a","nrows":1,"width":null,"readonly":false,"submit_button":null,"var":"a","type":null},{"control_type":"input-box","default":4,"label":"b","nrows":1,"width":null,"readonly":false,"submit_button":null,"var":"b","type":null}]}}︡
+︡ad174c41-a99a-456c-bed1-5172ab190deb︡{"interact":{"style":"None","flicker":false,"layout":[[["a",12,null]],[["b",12,null]],[["",12,null]]],"id":"2b90e70d-cd92-41ca-9160-d43773197e09","controls":[{"control_type":"input-box","default":3,"label":"a","nrows":1,"width":null,"readonly":false,"submit_button":null,"var":"a","type":null},{"control_type":"input-box","default":4,"label":"b","nrows":1,"width":null,"readonly":false,"submit_button":null,"var":"b","type":null}]}}︡
 ︠89d357a0-377c-4e69-a0de-8a7efb0fe39d︠
 @interact
 def f(p=3, n=1):

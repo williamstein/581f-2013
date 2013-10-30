@@ -1,6 +1,47 @@
-# Friday, Oct 23, 2013
+# Wed, Oct 30, 2013
+
 ## Status Reports
-   - students...
+
+ - Simon: drew histogram of balance of abc triples for larger and larger triples
+ - Andrew: nsf app, talk for sage days about sage+git
+ - Hao: absent or tardy. one demerit
+ - Yannick: fix typo in notes (nodal/cuspidal) and more typos.
+ - Bharath: read about neron models... ugh.
+ - Travis: iwasawa confusion....
+ - Igor: read about neron models...
+ - Keith: got a bad ass network cable. ooohhhh, ahhh
+
+## Conductors
+
+- 
+
+# Monday, Oct 28, 2013
+
+## Status Reports
+
+ - Simon: plots of "balance" of ABC triples
+ - Andrew: tardy; assume up late
+ - Hao: absent
+ - Yannick: went hiking at Discovery Park
+ - Bharath: will talk about Iwasawa theory... tomorrow!? at 11am
+ - Travis: no curve of disc 1 write up.
+ - Igor: wrote up extended fermat to number fields
+
+## Conductors
+
+- ...
+
+
+
+# Friday, Oct 25, 2013
+## Status Reports
+   - Simon: defined balance of ABC triple; makes us even more dubious about strong abc :-(
+   - Andrew: Simon on Tuesday --> explicit formula stuff for ABC?  wild and crazy ideas.
+   - Hao: referee trac #6666 -- pass doctests. "modular symbols stuff"
+   - Yannick: other cases for bounded discrimant curves (assuming ABC).
+   - Bharath: NTS about main conjectures.
+   - Travis: no elliptic curves of disc 1 over QQ -- will add section to the book...
+
 ## Class
    - conductors of elliptic curves (part 1)
 

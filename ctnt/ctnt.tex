@@ -650,7 +650,6 @@ which outputs:
 % William: NO -- it was to understand why that pattern appeared in the examples that were being displayed in the presentation.  It was because he was computing triples coming from the Galois invariant subgroup.  When Thomas later considered a non-invariant subgroup, he found triples not of that form.  So it's just about explaining that observation.
 % (BY THE WAY -- there is a chat on the right side -- click the message bubble)
 
-Let $\sigma$ be the non-trivial automorphism of $\text{Gal}\left(\frac{\Q(\sqrt{5})}{\Q}\right)$. Let us assume that we have an ordered tuple $(a,b,c) \in (\Q(\sqrt{5}))^\times$ satisfying the Fermat equation $X^3 + Y^3 = Z^3$ and such that atleast one of $a,b,c$ lies in $\Q(\sqrt{5}) \setminus  \Q$. Then, one has that $b= \sigma(a)$.
 
 We have a short exact sequence
 \begin{align} \label{seq}
@@ -661,12 +660,8 @@ Let us write $E(\Q(\sqrt{5})) \cong \Z \oplus \Z/3\Z$ (where the isomorphism is 
 Let $b$ be an element of $\Z/3\Z$ such that $\sigma (1,0) = (-1,b)$. Then one sees that $\sigma\cdot (1,b) = -(1,b)$.
 One can choose $x$ to be $(1,b)$.
 
-One can also answer this question using homological algebra. The short exact sequence in (\ref{seq}) corresponds to an extension of $\Z$ by $\Z/3\Z$ in the category of $\Z[G]$-modules and is of the form
-\begin{align} \label{seq1}
-0 \rightarrow  \Z/3\Z \rightarrow E(\Q(\sqrt{5})) \rightarrow  \Z \rightarrow  0
-\end{align}
-This corresponds to an element of $Ext^{1}_{\Z[G]}(\Z(-1),\Z/3\Z)$.
-Here, $\Z(-1)$ denotes that $G$ acts on $\Z$ by the non-trivial automorphism.
+
+
 
 
 And we can explore the $L$-series itself:
@@ -717,7 +712,9 @@ $\alpha^d = Z^d-Y^d \in \Z$. Then clearly $(\alpha,Y,Z)$ is a Fermat triple lyin
 % Added by Igor Tolkov
 However, it is still possible to extend Fermat's Last Theorem to number fields. Olivier Debarre and Matthew Classen \cite{deb-cla} extend the results of Faltings to show, in particular:
 \begin{theorem}[Debarre-Classen]\label{th:dc}
-The equation $x^n+y^n=z^n$ has only finitely many solutions $(x,y,z)$ over any field of degree $d\leq n-2$.
+The equation $x^n+y^n=z^n$ has only finitely many solutions $(x,y,z)$,
+where $(x,y,z)$ lie in any field of degree $d\leq n-2$.  (So we're
+considering solutions in all of these fields simultaneously.)
 \end{theorem}
 
 The theorem states that there are only a few counterexamples to Fermat's Last Theorem for each exponent $n$, except over number fields of degree $n-1$ or greater. Frazer Jarvis and Paul Meekin \cite{jar} take a guess as to what these counterexamples are:
@@ -1612,6 +1609,52 @@ And, it's a special case of Faltings' finiteness
 theorem on abelian varieties. Also, making it explicit
 has connections with the ABC conjecture.
 
+\subsection{Discriminant 1} %added by Travis
+Suppose $E$ is an elliptic curve over $\Q$ with discriminant $1$.
+Then there is a Weierstrass equation as in \eqref{weq}
+with integer coeffecients $a_1,a_2,a_3,a_4,a_6$ such that $\Delta=1$.
+There are also the corresponding $b$-invariants
+$b_2,b_4,b_6,b_8$; and $c$-invariants $c_4$ and $c_6$.
+Now if $\Delta=1$ then $c_4$ and $c_6$ satsify
+$$
+c_4^3 - c_6^2 = 1728
+$$
+which looks an awful lot like the equation for an
+elliptic curve. Set $x = c_4$, $y = c_6$, and
+rearrange to get
+$$
+y^2 = x^3 - 1728.
+$$
+The integral points on this curve can be
+found by the Sage code
+\begin{lstlisting}
+sage: E = EllipticCurve([0,0,0,0,-1728])
+sage: E.integral_points()
+\end{lstlisting}
+which outputs
+\begin{lstlisting}
+[(12 : 0 : 1)]
+\end{lstlisting}
+so the only possibilities are $c_4 = 12$ and
+$c_6 = 0$. Using these values, we can solve for $b_4$ and then
+$b_6$ in terms of $b_2$ using the equations for $c_4$
+and $c_6$. This comes out to $24 b_4 = b_2^2 - 12$
+and $432 b_6 = b_2^3 - 36 b_2$.
+Now we can use these equations to solve for $b_8$ in
+terms of $b_2$
+$$
+    6912 b_8 = b_2^4 - 72 b_2^2 - 432.
+$$
+This equation modulo $6912$ shows $b_2$ is a
+solution of $x^4 - 72x^2 - 432 \equiv 0 \mod{6912}$. However this
+equation has no solutions, as can be  verified by Sage:
+\begin{lstlisting}
+sage:    for x in range(6912):
+sage:        if mod(x^4 - 72*x - 432,6912) == 0:
+sage:            print(x)
+\end{lstlisting}
+which does not output anything. Therefore no such $b_2$ exists so the curve could not have had discriminant $1$. However, in general there are lots of Weirstrass equations with discriminant $1$ as long as we allow coefficients in $\Q$. For example the curve $y^2 - 4x^3 - x^2 + \frac{11}{12}x + \frac{35}{432}$ has discriminant $1$.
+
 \section{Finding curves with bounded discriminant}
 
 {\bf Motivating Problem: } Given a positive integer $M$, find
@@ -1633,8 +1676,7 @@ many pairs $(c_4, c_6)$ that satisfy
 $|\Delta|\leq M$.
 \end{theorem}
 \begin{proof}
-We assume that both $\Delta$ and $c_4$ are positive; the argument
-in the other cases is probably similar (volunteer: add argument details).
+First assume that $\Delta$ is positive (in which case $c_4$ must also be positive).
 We have an equation
 \begin{equation}\label{eq:abcdisc}
   A + B = C,
@@ -1650,10 +1692,10 @@ The quality of the coprime triple \eqref{eq:abcdisc} is
 \begin{align*}
   q(A,B,C) &= \frac{\log(C)}{\log(r(ABC))}\\
       &= \frac{\log(c_4^3)}{\log(r(1728\Delta c_6^2 c_4^3))}\\
-      &= \frac{3\log(c_4)}{\log(r(6\Delta c_6 c_4))}\\
-      &= \frac{3\log(c_4)}{\log(r(6\Delta)) + \log(r(c_6)) +
+      &= \frac{3\log(c_4)}{\log(r(6\Delta |c_6| c_4))}\\
+      &= \frac{3\log(c_4)}{\log(r(6\Delta)) + \log(r(|c_6|)) +
          \log(r( c_4))}\\
-      &\geq  \frac{3\log(c_4)}{\log(6\Delta) + \log(c_6) +
+      &\geq  \frac{3\log(c_4)}{\log(6\Delta) + \log(|c_6|) +
          \log(c_4)}\\
       &> \frac{3\log(c_4)}{\log(6M) + \log(c_4^{3/2}) +
          \log(c_4)}\\
@@ -1668,6 +1710,44 @@ that there are finitely many coprime triples $(A,B,C)$
 with quality bigger than $1.2$, so we conclude
 that there are only finitely many
 $c_4$ (and hence $c_6$) as above.
+
+Now suppose $\Delta < 0$ and $c_4 > 0$.  Then, we have
+$$
+c_4^3 + (-1728 \Delta) = c_6^2
+$$
+Set $A = c_4^3$, $B = -1728 \Delta$, and $C = c_6^2$.
+As before, we may assume that
+$\gcd(A,B,C) = 1$.  The quality of this coprime triple is
+\begin{align*}
+  q(A,B,C) &= \frac{\log(C)}{\log(r(ABC))}\\
+      &= \frac{\log(c_6^2)}{\log(r(-1728\Delta c_6^2 c_4^3))}\\
+      &= \frac{2\log(|c_6|)}{\log(r(6|\Delta| |c_6| c_4))}\\
+      &= \frac{2\log(|c_6|)}{\log(r(6|\Delta|)) + \log(r(|c_6|)) +
+         \log(r( c_4))}\\
+      &\geq  \frac{2\log(|c_6|)}{\log(6|\Delta|) + \log(|c_6|) +
+         \log(c_4)}\\
+      &> \frac{2\log(|c_6|)}{\log(6M) +
+         \log(|c_6|) + \log(|c_6|^{2/3}) }\\
+      &= \frac{2\log(|c_6|)}{\log(6M) + \frac{5}{3}\log(|c_6|)}
+      \to 1.2 \text{ as $|c_6|\to\infty$}
+\end{align*}
+and we see once again that the (strong) ABC conjecture implies only
+finitely many such triples exist.
+
+For the final case, suppose that $\Delta < 0$ and $c_4 \leq 0$.
+Then we have
+$$
+-c_4^3 + c_6^2 = - 1728 \Delta
+$$
+One quickly verifies that an analagous argument to those above will
+not work in this case.  However, this is not a problem as an even simpler
+argument -- independent of the ABC conjecture -- is available in this case:
+Using our bound on the discriminant gives
+$$
+-c_4^3 + c_6^2 \leq 1728M
+$$
+and there are only finitely many pairs of nonnegative integers whose sum is
+less than or equal to $1728M$.
 \end{proof}
 
 Of course, due to Andrew Ohana's observations,
@@ -1741,8 +1821,9 @@ sage: list(c)
 \newpage
 \section{The Conductor}
 The conductor of an elliptic curve (defined over the rational numbers
-or a number field) is a much more refined
-invariant, which encodes information about the local structure
+or a number field) is another
+invariant, like the minimal discrimant,
+which encodes information about the local structure
 of the elliptic curve at each bad prime.
 
 \begin{theorem}
@@ -1768,20 +1849,20 @@ The curve $E_{\F_p}$ is nonsingular if and only $p\nmid \Delta$.
 When $p\mid \Delta$, there are three possible ways in which
 $E_{\F_p}$ can be singular:
 \begin{enumerate}
-\item split cuspidal, e.g., $y^2=x^2(x+9)\pmod{11}$: there are two distinct
+\item split nodal, e.g., $y^2=x^2(x+9)\pmod{11}$: there are two distinct
 tangent lines at the singular point, with slopes in $\F_p$.
-\item nonsplit cupsidal, e.g., $y^2=x^2(x+23) \pmod{37}$: there are two distinct tangent lines
+\item nonsplit nodal, e.g., $y^2=x^2(x+23) \pmod{37}$: there are two distinct tangent lines
 at the singular point, but the slopes are in $\F_{p^2}$ instead
 of $\F_p$.
-\item nodal, e.g., $y^2=x^3$: there is a nodal singularity.
+\item cuspidal, e.g., $y^2=x^3\mod{17}$: there is a cuspidal singularity.
 \end{enumerate}
 We call the first two cases {\em multiplicative reduction}, since in those
-cases the group of nonsingular points oin $E_{\F_p}$ is $\G_m$ in
-the split case or the nontrivial twist of $\G_m$ in the nonsplit case.
-We call the nodal case {\em additive reduction} since the group of nonsingular points is $\G_a$.
+cases the group of nonsingular points in $E_{\F_p}$ is $\G_m$ in
+the split case, or it's the nontrivial twist of $\G_m$ in the nonsplit case.
+We call the nodal case {\em additive reduction} since the group of nonsingular points is $\G_a$.  (To see these isomorphisms, draw a line through the singular point and consider the other point of intersection; this sets up a bijection between lines through the origin and nonsingular points.)
 
-\subsection{The Conductor: an incomplete formula that you will remember}
-The conductor $N$ of $E$ {\em more and less} encodes this information:
+\subsection{``Definition'' via an incomplete formula that you will remember}
+The conductor $N$ of $E$ is
 $$
 N = \prod_{p\mid\Delta} p^{v_p},
 $$
@@ -1792,18 +1873,28 @@ v_p = \begin{cases}
  2 & \text{ if $E$ has additive reduction at $p\geq 5$ } \\
  \leq 5 & \text{ if $E$ has additive reduction at $p=3$ }\\
  \leq 8 & \text{ if $E$ has additive reduction at $p=2$ }.
- \end{cases}
+ \end{cases}.
 $$
+In each additive case, $v_p\geq 2$.
 The above is what everybody easily remembers about the conductor
-of an elliptic curve.  The exact value of $v_p$ when $p=2,3$ is
-a prime of additive reduction is a more complicated corner case.
+of an elliptic curve.  I don't know of any simple
+recipe for $v_p$ when $p=2,3$ is
+a prime of additive reduction is complicated.
 
-The (partial) definition above -- which is what everybody remembers -- is
-pretty ugly as a definition, since it is pretty arbitrary, lacking any
-conceptual insight.   How does it generalize?  What does it have to do
-with other things called ``conductors'' in number theory?
+The (partial) definition above is pretty arbitrary, lacking any
+conceptual insight.   How does it generalize to elliptic curves
+over numbers fields?  What does it have to do
+with other things called ``conductors'' and ``levels''
+in number theory?
 
-\subsection{The Conductor: a definition using the functional equation}\label{sec:condfe}
+
+\begin{quote}
+{\bf Summary:} The conductor of $E$ is a product of the primes of bad
+reduction for $E$.  It is exactly divisible by the primes of multiplicative
+reduction, and divisible by $p^2$ for primes of additive reduction.
+\end{quote}
+
+\subsection{Definition using the functional equation}\label{sec:condfe}
 Consider the $L$-series
 $$
 L(E,s) = \prod_{\text{all }p} \frac{1}{1-a_p p^{-s} + \eps(p)p^{1-2s}},
@@ -1828,14 +1919,23 @@ $$
 $$
 The number $N$ is the {\em conductor of $E$}.
 
-\subsection{The Conductor: a definition using modular forms}
-Expanding the Dirichlet Series $L(E,s)$ from Section~\ref{sec:condfe}
-defines integers $a_n$ for all $n\geq 1$:
+
+
+\begin{quote}
+{\bf Summary:} The conductor of $E$ is a constant that appears
+naturally in the functional equation for the $L$-series of $E$.
+\end{quote}
+
+\subsection{Definition using modular forms}
+Expand the Euler product for
+$L(E,s)$ from Section~\ref{sec:condfe}
+to obtain a Dirichlet Series
 $$
-L(E,s) = \prod_{p} L_p(E,s) = \sum_{n\geq 1} \frac{a_n}{n^s}.
+L(E,s) = \prod_{p} L_p(E,s) = \sum_{n\geq 1} \frac{a_n}{n^s},
 $$
-The analytic function $L(E,s)$ on the complex plane is connected,
-via Mellin transform, to the holomorphic function
+where the $a_n$ are integers.
+The analytic function $L(E,s)$ on the complex plane is connected
+via Mellin transform to the holomorphic function
 $$
 f_E(z) = \sum_{n\geq 1} a_n e^{2\pi i n z}
 $$
@@ -1859,13 +1959,259 @@ where $\gamma(z) = \frac{az+b}{cz+d}$ is a linear fractional transformation.
 Thus $f$ is a cuspidal modular form of level the conductor
 $N$ of $E$.
 
+\begin{quote}
+{\bf Summary:} The conductor of $E$ is the level of the modular
+form attached to $E$.
+\end{quote}
 
-\subsection{A definition using Galois representations}
 
+
+
+\subsection{Definition using N\'eron models and Ogg's formula}
+
+The {\em N\'eron model} $\cE$ of $E$ is the unique
+smooth commutative group scheme over $\Z$ with
+generic fiber $\cE_\Q = E$ such that for every smooth
+scheme $X/\Z$ the natural map
+$$
+\cE(X) \to E(X_\Q)
+$$
+is an isomorphism.  The statement that the above
+map is an isomorphism means that any morphism
+$X_\Q \to E$ on generic fibers
+can be extended uniquely to a morphism
+$x \to \cE$ of schemes over $\Z$.
+It is a theorem of N\'eron that his model exists.
+
+The {\em component group} of $E$ at $p$ is the quotient
+$$
+ \Phi_{E,p} = \cE_{\F_p} / \cE_{\F_p}^0
+$$
+of the reduction of $\cE$ modulo $p$ by its identity component.
+We have an exact sequence
+$$
+ 0 \to \cE_{\F_p}^0 \to \cE_{\F_p} \to \Phi_{E,p} \to 0,
+$$
+and $\Phi_{E,p}$ is a finite flat group scheme over $\F_p$.
+
+The exponent $v_p=\ord_p(N)$ in the conductor $N=\prod p^{v_p}$ is
+$$
+v_p = \ord_p(\Delta) - (\#\Phi_{E,p}(\Fbar_p) - 1) \qquad\text{(Ogg's formula)},
+$$
+where $\Delta$ is the minimal discriminant of $E$.
+
+Software such as Sage uses Tate's algorithm to compute
+$\#\Phi_{E,p}(\Fpbar)$.  This is implemented in Sage over
+arbitrary number fields.
+
+Ogg's formula implies that given an elliptic curve $E$,
+knowing any two of the following invariants determines the third:
+\begin{enumerate}
+\item\label{condinv:1} The minimal discriminant of $E$.
+\item\label{condinv:2}  The conductor of $E$.
+\item\label{condinv:3}  The orders of the components groups of $E$.
+\end{enumerate}
+For example, Aly Deines uses this in her thesis work (extending
+work of Shuzo Takahashi and Ken Ribet) (extending
+work of Shuzo Takahashi and Ken Ribet),
+where she uses Shimura curves to determine invariants
+\ref{condinv:2} and \label{condinv:3} of a certain curve,
+which then determines \ref{condinv:2}.
+She then studies hypothesis under which 1 and
+2 determine the curve itself.
+
+The Tamagawa numbers $c_p$ of  $E$ are
+$$
+c_p = \#\Phi_{E,p}(\F_p).
+$$
+Since $\Phi_{E,p}(\F_p)$ is a subgroup of $\Phi_{E,p}(\Fbar_p)$,
+the numbers $c_p$ divide the numbers
+$\overline{c}_p = \#\Phi_{E,p}(\Fbar_p)$
+in Ogg's formula.
+The Tamagawa numbers appear in the {\em conjectural} formula of Birch
+and Swinnerton-Dyer:
+$$
+\frac{L^{r}(E,1)}{r!} =
+  \frac{\Omega_E \cdot \prod_{p\mid N} c_p \cdot \Reg_E \cdot \#\Sha(E)}
+       {\#E(\Q)_{\tor}^2},
+$$
+where $r$ is conjectured to be both $\ord_{s=1}L(E,s)$
+and the rank of $E(\Q)$.
+
+
+\begin{quote}
+{\bf Summary:} The conductor of an elliptic curve is obtained
+from the minimal discriminant by reducing the power of each
+prime by the order of the corresponding component group (minus 1).
+\end{quote}
+
+
+
+\subsection{Definition using Galois representations}
+Let $E$ be any elliptic curve over $\Q$.
+For each prime $\ell$, consider the two-dimensional
+Galois representation
+$$
+ \rhobar_{E,\ell}:G_\Q \to \Aut(E[\ell])
+$$
+obtained by considering the action of the
+absolute Galois group $G_\Q=\Gal(\Qbar/\Q)$
+on the group
+$$
+E[\ell] = \{P \in E(\Qbar) : \ell P = 0\}
+$$
+of $\ell$-torsion points on $E$.
+We associate an integer $N(\rhobar_{E,\ell})$, called
+the {\em Serre level}, to
+this representation. Note that Serre level, as we will define it, makes sense for {\em any}
+Galois representation
+$\rhobar:G_{\Q} \to V$
+over $\F_\ell$,
+not just for representations
+attached to elliptic curves.
+Write
+$$
+ N(\rhobar) = \prod_{\text{primes $p\neq \ell$}} p^{n(p)},
+$$
+where it remains to define the numbers $n(p)$, which will measure
+subtle properities of the ramification of $\rhobar$.
+
+Since $\rhobar$ is continuous and $\Aut(V)$ is a finite set,
+there is a finite Galois exension $K/\Q$ such that $\rhobar$
+factors through $\Gal(K/\Q)$.  We have a surjective
+map $G_{\Q} \onto \Gal(K/\Q)$ followed by an inclusion
+$\Gal(K/\Q)\subset \Aut(V)$, with $K$ a Galois extension.
+More concreately, the field $K$ is
+the extension of $\Q$ generated by the $x$ and $y$ coordinates
+of all $\ell$-torsion points on $E$, which we often write
+$$
+  K = \Q(E[\ell]).
+$$, which we often write
+$$
+  K = \Q(E[\ell]).
+$$
+
+Fix a prime number $p$, let $\O_K$ be the ring of integers
+of $K$,, then factor $p$ as a product of prime ideals
+$$
+  p\O_K = \prod_{i=1}^g \fp_i.
+$$
+Let $\fp$ be a choice of any one of the $\fp_i$; which
+we choose does not impact the definition at all, as it turns out, since
+the primes $\fp_i$ are all conjugate under the action of
+$\Gal(K/\Q)$.
+With these choices, the decomposition group is
+$$
+  D = \{\sigma \in \Gal(K/\Q) : \sigma(\fp) = \fp\}.
+$$
+Consider the finite field $\F_\fp = \O_K/\fp$.
+One proves that there is an exact sequence
+$$
+  1 \to I \to D \to \Gal(\F_\fp / \F_p) \to 1,
+$$
+where the {\em inertia group} $I$ is by definition the kernel,
+and surjectivity of the map $D \to \Gal(\F_\fp / \F_p)$
+is not supposed to be obvious.
+and surjectivity of the map $D \to \Gal(\F_\fp / \F_p)$
+is not supposed to be obvious.
+Thus
+$$
+  I = \{\sigma \in D : \sigma(x) \equiv x \pmod{\fp} \text{ all } x \in \O_K\},
+$$
+and it is natural to define further smaller subgroups of $D$ by letting
+\begin{align*}
+  G_i &= \{\sigma \in I : \sigma(x) \equiv x \pmod{\fp^{i+1}} \text{ all } x \in \O_K \}\\
+      &= \ker(I \to \Aut((\O_K/\fp^{i+1}) / (\Z/p^{i+1}\Z)))
+\end{align*}
+for all $i\geq 0$.  These finite groups
+$$G_0 \supseteq G_1 \supseteq G_2 \supseteq \cdots $$
+are the {\em higher ramification groups} associated
+to our fixed choice of prime $\fp$ over~$p$.
+
+Finally, we define
+$$
+n(p) = \sum_{i=0}^{\infty} \frac{1}{[G_0:G_i]}\dim V/V^{G_i},
+$$
+where
+$$
+  V^{G_i} = \{x \in V : \sigma(x) = x \text{ all } \sigma\in G_i\}.
+$$
+The groups $G_i$ are trivial for all sufficiently large $i$,
+so the sum has only finitely many nonzero terms.
+The representation sentation $V$ is unramified at $p$ if and only
+if $G_0$ acts trivially, so we have $n(p)=0$  if and only
+if $V$ is unramified at $p$ (for primes $p\neq \ell$).
+
+Returning to our elliptic curve $E$, we have now defined,
+for each prime $\ell$, an integer
+$N(\rhobar_{E,\ell})$, which is by definition coprime to $\ell$.
+\begin{definition}[Conductor]
+The {\em conductor} $N_E$ of $E$ is the least common multiple  of
+the integers $N(\rhobar_{E,\ell})$, over all primes $\ell$.
+\end{definition}
+
+\begin{corollary}
+A prime $p$ is ramified in $\Q(E[\ell])$ for some $\ell\neq p$
+if and only if $p\mid N_E$.
+\end{corollary}
+
+The {\em criterion of N\'eron-Ogg-Shafarevich} is an improvement
+of the above corollary---it's a criterion purely
+in terms of ramification---for whether or not a prime
+$p$ is a prime of bad reduction for an elliptic curve.
+\begin{theorem}[Criteron of N\'eron-Ogg-Shafarevich]
+A prime $p$ is ramified in $\Q(E[\ell])$ for all but
+finitely many $\ell\neq p$ if and only if $p\mid N_E$.
+\end{theorem}
+(In fact, their theorem is stronger, asserting that $p\mid N_E$
+if and only if $p$ is ramified in $\Q(E[\ell^\infty])$ for
+all $p\neq \ell$.)
+
+
+\subsubsection{Serre's Conjecture}
+Since we're so close, it's worth mentioning Serre's conjecture,
+though we have not yet discussed how to
+associate Galois representations $\rhobar_{f,\lambda}$
+to modular forms~$f$.
+\begin{theorem}[Serre's Conjecture]
+Suppose $\rhobar:G_{\Q}\to V$
+is a 2-dimensional absolutely irreducible
+mod~$\ell$ Galois representation such that
+$$\det(\rhobar(\text{\rm complex conjugation})) =-1.$$
+Then there is a modular eigenform of level
+$N(\rhobar)$ such that $\rhobar \ncisom \rhobar_{f,\lambda}$,
+for some prime $\lambda\mid \ell$.
+\end{theorem}
+Serre also gives a formula for a weight $k(\rhobar)\in\Z$, and
+conjectures that $f\in S_{k(\rhobar)}(\Gamma_1(N(\rhobar)))$.
+I {\em think} all cases of Serre's conjectures are now known
+(unless there's some weird corner case when $\ell=2$), due to
+work of Khare, Wintenberger, Dieulefait, Ribet, Diamond, and many
+others, which grew out of Taylor-Wiles's work on Fermat's Last Theorem.
+There are also generalizations of this result to totally real
+fields.  Computational, the above theorem is often extremely
+helpful, since it provides a specific finite dimensional space
+in which the relevant modular form must live.
+
+
+\begin{quote}
+{\bf Summary:} The conductor of an elliptic curve is the least common multiple
+of the Serre levels of the $\mod\ell$ Galois representations associated to the
+elliptic curve.
+\end{quote}
 
 
 
 \section{Modularity of elliptic curves}
+
+\begin{theorem}[Breiul, Conrad, Diamond, Taylor, Wiles]
+Every elliptic curve over $\Q$ is modular.
+\end{theorem}
+
+This appeared on the arxiv today (Oct 30, 2013)! \url{}
+\begin{theorem}
+Every elliptic curve over a real quadratic field is modular.
+\end{theorem}
 
 \section{Computing modular forms using modular symbols}
 
@@ -1945,4 +2291,4 @@ Important unsolved problem: how difficult is the discrete log problem?
 
 \end{document}
 
-%sagemathcloud={"zoom_width":145}
+%sagemathcloud={"zoom_width":140}

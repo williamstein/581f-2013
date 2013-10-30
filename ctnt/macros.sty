@@ -45,19 +45,33 @@
 \DeclareMathOperator{\Cl}{Cl}
 \DeclareMathOperator{\ord}{ord}
 \DeclareMathOperator{\realpart}{Re}
+\DeclareMathOperator{\Reg}{Reg}
+\DeclareMathOperator{\tor}{tor}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Aut}{Aut}
 
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\Q}{\mathbb{Q}}
 \renewcommand{\P}{\mathbb{P}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\F}{\mathbb{F}}
+\newcommand{\Fbar}{\overline{\F}}
 \renewcommand{\O}{\mathcal{O}}
 \renewcommand{\Re}{\realpart}
 \newcommand{\eps}{\varepsilon}
 \newcommand{\G}{\mathbb{G}}
 \newcommand{\isom}{\cong}
+\newcommand{\cE}{\mathcal{E}}
 
 \newcommand{\vphi}{\varphi}
+\newcommand{\rhobar}{\overline{\rho}}
+\newcommand{\Qbar}{\overline{\Q}}
+\newcommand{\Fpbar}{\overline{\F}_p}
+\newcommand{\fp}{\mathfrak{p}}
+
+\newcommand{\ncisom}{\approx}
+\newcommand{\onto}{\twoheadrightarrow}%  Surjection arrow
 
 
 \usepackage{listings}
@@ -102,7 +116,12 @@ sensitive=true}
         \begin{matrix}#1&#2\\#3&#4
         \end{matrix}\right)}
 
-
+% ---- SHA ----
+\DeclareFontEncoding{OT2}{}{} % to enable usage of cyrillic fonts
+  \newcommand{\textcyr}[1]{%
+    {\fontencoding{OT2}\fontfamily{wncyr}\fontseries{m}\fontshape{n}%
+     \selectfont #1}}
+\newcommand{\Sha}{{\mbox{\textcyr{Sh}}}}
 
 
 
