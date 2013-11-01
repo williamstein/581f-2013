@@ -36,33 +36,33 @@ A group as follows for each isogeny class.
     a_invariants    ord(Delta)     analytic_sha     torsion_subgroup
     ....
     a_invariants    ord(Delta)     analytic_sha    torsion_subgroup
-    
-    
+
+
     COMMENTS:
-    
+
       isogeny_number - This number is the longest degree of a chain of isogenies
                        between non-isomorphic curves.   For example, a 12 means
-                       the isogeny class contains a curve which possesses 
+                       the isogeny class contains a curve which possesses
                        a 12-isogeny.
-    
+
       modular_degree - The modular degree of the optimal quotient of J_0(N).
                        The star means that the curve of minimal Faltings height is not
                        J0-optimal. The plus indicates that the minimal Faltings height curve
                        is a minimal quadratic twist.
-    
+
       torsion_subgroup - n or nx, where n means Z/nZ and nx means Z/nZ x Z/2Z (only used when n even).
-    
+
       ord(Delta) - Surrounded in square or round brackets:
-                       * square means that Delta is positive and 
+                       * square means that Delta is positive and
                        * round brackets mean that Delta is negative.
-                   The numbers listed are the valuations of Delta at each prime 
+                   The numbers listed are the valuations of Delta at each prime
                    dividing the level, in order.
-    
+
       analytic_sha -  analytic order of Sha
 
 
 
-            
+
 
 ︡4dcd2101-632a-4ff3-a1c8-ffe5ca946dd4︡{"html":"<h1>The Format</h1>\n\n<p>A group as follows for each isogeny class.</p>\n\n<pre><code>conductor [ordered_prime_divisors_of_conductor]   rank  L^(rank)(1)/rank!  isogeny_number  ??modular_degree\na_invariants    ord(Delta)     analytic_sha     torsion_subgroup\n....\na_invariants    ord(Delta)     analytic_sha    torsion_subgroup\n\n\nCOMMENTS:\n\n  isogeny_number - This number is the longest degree of a chain of isogenies\n                   between non-isomorphic curves.   For example, a 12 means\n                   the isogeny class contains a curve which possesses \n                   a 12-isogeny.\n\n  modular_degree - The modular degree of the optimal quotient of J_0(N).\n                   The star means that the curve of minimal Faltings height is not\n                   J0-optimal. The plus indicates that the minimal Faltings height curve\n                   is a minimal quadratic twist.\n\n  torsion_subgroup - n or nx, where n means Z/nZ and nx means Z/nZ x Z/2Z (only used when n even).\n\n  ord(Delta) - Surrounded in square or round brackets:\n                   * square means that Delta is positive and \n                   * round brackets mean that Delta is negative.\n               The numbers listed are the valuations of Delta at each prime \n               dividing the level, in order.\n\n  analytic_sha -  analytic order of Sha\n</code></pre>\n"}︡
 ︠14ee75e1-4bb3-48a7-aada-8595129fbaee︠
@@ -98,9 +98,9 @@ list(c)
 # Generators?
 
 From Mark Watkins a few days ago:
-    
+
     The generators for prime conductor in SW and r>=2 are in
-    
+
     http://magma.maths.usyd.edu.au/~watkins/PTS.r2.bz2
     http://magma.maths.usyd.edu.au/~watkins/PTS.r3.bz2
     http://magma.maths.usyd.edu.au/~watkins/PTS.r4.bz2

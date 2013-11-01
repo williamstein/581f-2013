@@ -1,3 +1,28 @@
+# Mon Nov 4, 2013
+
+## Lecture
+
+- modularity of elliptic curves over real quadratic fields
+- computing elliptic curves using modular symbols
+
+# Fri, Nov 1, 2013
+
+## Status Reports
+
+ - Simon: Moving house, so absent
+ - Andrew: traveling to a Sage Days, so absent
+ - Hao:
+ - Yannick:
+ - Bharath:
+ - Travis:
+ - Igor:
+ - Keith:
+
+## Lecture
+
+- finish talking about Serre's conjecture
+- what it means for an elliptic curve to be modular over QQ
+
 # Wed, Oct 30, 2013
 
 ## Status Reports
@@ -13,7 +38,7 @@
 
 ## Conductors
 
-- 
+-
 
 # Monday, Oct 28, 2013
 
