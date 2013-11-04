@@ -11,17 +11,18 @@
 
  - Simon: Moving house, so absent
  - Andrew: traveling to a Sage Days, so absent
- - Hao:
- - Yannick:
- - Bharath:
- - Travis:
- - Igor:
- - Keith:
+ - Yannick: conductors for number fields; do it locally at each prime.
+            - so for char(p) >= 5, the exponent is <= 2.
+ - Hao: debug computation of Chow-Heegner points on E/Q. DEBUG.
+ - Bharath: mathoverflow on defn of conductor.
+ - Travis: stein-watkins tables E/Q...; making explicit the proof that ABC==>finitely many curves of bounded disc.
+ - Igor: absent-- one demerit
 
 ## Lecture
 
-- finish talking about Serre's conjecture
+- finish talking about Serre's conjecture & conductor
 - what it means for an elliptic curve to be modular over QQ
+
 
 # Wed, Oct 30, 2013
 

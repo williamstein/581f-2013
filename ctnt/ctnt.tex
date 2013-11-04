@@ -2196,7 +2196,67 @@ of the Serre levels of the $\mod\ell$ Galois representations associated to the
 elliptic curve.
 \end{quote}
 
+% Yannick
+\subsection{The conductor of E over a number field}
 
+Then
+$$
+N = \prod_{\mathfrak{p}} \mathfrak{p}^{f(E/K_{\mathfrak{p}})}
+$$
+where the product runs over all nonzero prime ideals $\mathfrak{p}$
+of $\O_K$ and
+$$
+f(E/K_\mathfrak{p}) = \left\{\begin{array}{ll}
+0 & \text{if $E/K_{\mathfrak{p}}$ has good reduction at $\mathfrak{p}$} \\
+1 & \text{if $E/K_{\mathfrak{p}}$ has multiplicative
+reduction at $\mathfrak{p}$} \\
+2 & \text{if $\mathfrak{p}|p \geq 5$ and $E/K_{\mathfrak{p}}$
+has additive reduction at $\mathfrak{p}$} \\
+\end{array}\right.
+$$
+and
+$$
+2 \leq f(E/K_{\mathfrak{p}}) \leq 2 + 3 \, \mathrm{ord}_{\mathfrak{p}}(3)
+ + 6 \, \mathrm{ord}_{\mathfrak{p}}(2)
+$$
+if $\mathfrak{p}|p$ for $p \in \{2, 3\}$ and $E/K_{\mathfrak{p}}$ has
+additive reduction at $\mathfrak{p}$ (Note that only one of
+$\mathrm{ord}_{\mathfrak{p}}(3)$ and $\mathrm{ord}_{\mathfrak{p}}(2)$ is
+nonzero).
+
+\begin{lstlisting}
+sage: E = EllipticCurve('256a')
+sage: print E
+sage: for n in range(1,8):
+sage:     K.<alpha> = NumberField(x^n - 2)
+sage:     EK = E.base_extend(K);
+sage:     print n, EK.conductor().factor()
+Elliptic Curve defined by y^2 = x^3 + x^2 - 3*x + 1 over Rational Field
+(Fractional ideal (2))^8
+(Fractional ideal (alpha))^10
+(Fractional ideal (alpha))^20
+(Fractional ideal (alpha))^8
+(Fractional ideal (-alpha))^32
+(Fractional ideal (2, alpha))^26
+(Fractional ideal (2, alpha))^44
+\end{lstlisting}
+
+\begin{lstlisting}
+sage: E = EllipticCurve('243a');
+sage: print E
+sage: for n in range(1,8):
+sage:     K.<alpha> = NumberField(x^n - 3)
+sage:     EK = E.base_extend(K);
+sage:     print EK.conductor().factor()
+Elliptic Curve defined by y^2 + y = x^3 - 1 over Rational Field
+(Fractional ideal (3))^5
+(Fractional ideal (alpha))^8
+(Fractional ideal (alpha))^3
+(Fractional ideal (alpha))^14
+(Fractional ideal (-alpha))^17
+(Fractional ideal (3, alpha))^4
+(Fractional ideal (3, alpha))^23
+\end{lstlisting}
 
 \section{Modularity of elliptic curves over the rational numbers}
 Barry Mazur once wrote a great article entitled {\em Number Theory as Gadfly}
