@@ -6,6 +6,7 @@
 \and Yannick Van Huele}
 
 \usepackage{macros}
+\usepackage{hyperref}
 
 \begin{document}
 \maketitle
@@ -25,6 +26,7 @@ your tools.  That is the mission of the book you are looking at.
 
 
 \section{Prime Numbers}
+
 The prime numbers $2,3,5,7,11,\ldots, $ have fascinated
 mathematicians for thousands of years.  Euclid proved there
 are infinitely many: if $p_1,\ldots, p_n$ are primes,
@@ -116,7 +118,8 @@ In the special case when $K=\Q$, we have $R=\Z$.
 %Yannick: Added a sketch of proof.  Still need to include the reference and
 %merge with the preceding paragraph.  It may also be worth discussing
 %$\bar{\Q}$ in a little more detail.
-As the name suggests, the ring of integers of a number field is in fact a ring.
+As the name suggests, the ring
+of integers of a number field is in fact a ring.
 (Note, for example, that when $K = \Q$, the ring of integers is simply
 $\O_K = \Z$.)
 A sketch of the proof is given below.
@@ -1750,6 +1753,29 @@ and there are only finitely many pairs of nonnegative integers whose sum is
 less than or equal to $1728M$.
 \end{proof}
 
+%Added by Travis Scholl
+By iterating through curves with bounded discrimant we can
+actually see the bounds proved in \ref{thm:abcdisc}. Figure
+\ref{fig:abcdiscplot} shows the quality of an elliptic curve as
+a function of $c_6$. It was made by iterating over curves with
+$|\Delta| < 10^{10}$, $\Delta < 0$, $c_4>0$, and
+$\gcd(c_4^3,-1728\Delta)=1$. This corresponds to the second case
+in the proof above. Each dot represents an elliptic curve
+satisfying the requirements with height given by the quality as
+defined in the proof, $q(c_4^3,-1728\Delta,c_6^2)$. The line
+represents the llbound
+$\frac{2\log(|c_6|}{\log(6M) + \frac{5}{3}\log(|c_6|)}$.
+
+\begin{center}
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{pics/c6_quality_plot.pdf}
+    \caption{Quality as a function of $c_6$}
+    \label{fig:abcdiscplot}
+\end{figure}
+\end{center}
+
+
+
 Of course, due to Andrew Ohana's observations,
 I have failed to convince you
 that the strong ABC conjecture is actually true (see Section~\ref{sec:abchome}),
@@ -1881,6 +1907,14 @@ of an elliptic curve.  I don't know of any simple
 recipe for $v_p$ when $p=2,3$ is
 a prime of additive reduction is complicated.
 
+\begin{remark}
+See Section~\ref{sec:condnf} below for a generalization (with
+examples) of the above formula to number fields, where you will
+find out whether
+$v_\mathfrak{p}\leq 2$ for $\text{char}(\mathfrak{p})\geq 5$
+and if $v_\mathfrak{p}$ can be arbitrarily large.
+\end{remark}
+
 The (partial) definition above is pretty arbitrary, lacking any
 conceptual insight.   How does it generalize to elliptic curves
 over numbers fields?  What does it have to do
@@ -1914,9 +1948,9 @@ $$
 $$
 The modularity theorem also implies that there is a unique integer
 $N$ and sign $\epsilon\in \{1,-1\}$ such that $\Lambda(E,s)$ satisfies the following functional equation:
-$$
+\begin{equation}\label{eqn:fe}
 \Lambda(E,s) = \epsilon \cdot N^{1-s} \Lambda(E,2-s).
-$$
+\end{equation}
 The number $N$ is the {\em conductor of $E$}.
 
 
@@ -1926,7 +1960,11 @@ The number $N$ is the {\em conductor of $E$}.
 naturally in the functional equation for the $L$-series of $E$.
 \end{quote}
 
-\subsection{Definition using modular forms}\label{sec:condmodform}
+\subsection{(*) Definition using modular forms}\label{sec:condmodform}
+This section gets a star because it is how I think about
+the conductor.
+
+
 Expand the Euler product for
 $L(E,s)$ from Section~\ref{sec:condfe}
 to obtain a Dirichlet Series
@@ -2192,12 +2230,12 @@ in which the relevant modular form must live.
 
 \begin{quote}
 {\bf Summary:} The conductor of an elliptic curve is the least common multiple
-of the Serre levels of the $\mod\ell$ Galois representations associated to the
+of the Serre levels of the mod $\ell$ Galois representations associated to the
 elliptic curve.
 \end{quote}
 
 % Yannick
-\subsection{The conductor of E over a number field}
+\subsection{The conductor of E over a number field}\label{sec:condnf}
 
 Then
 $$
@@ -2220,7 +2258,7 @@ $$
  + 6 \, \mathrm{ord}_{\mathfrak{p}}(2)
 $$
 if $\mathfrak{p}|p$ for $p \in \{2, 3\}$ and $E/K_{\mathfrak{p}}$ has
-additive reduction at $\mathfrak{p}$ (Note that only one of
+additive reduction at $\mathfrak{p}$ (note that only one of
 $\mathrm{ord}_{\mathfrak{p}}(3)$ and $\mathrm{ord}_{\mathfrak{p}}(2)$ is
 nonzero).
 
@@ -2258,7 +2296,7 @@ Elliptic Curve defined by y^2 + y = x^3 - 1 over Rational Field
 (Fractional ideal (3, alpha))^23
 \end{lstlisting}
 
-\section{Modularity of elliptic curves over the rational numbers}
+\section{Modularity of elliptic curves over $\Q$}
 Barry Mazur once wrote a great article entitled {\em Number Theory as Gadfly}
 which is about what it means for an elliptic curve
 over $\Q$ to be {\em modular}.
@@ -2269,9 +2307,10 @@ Every elliptic curve over $\Q$ is modular.
 This theorem is incredibly
 important to numerous algorithms for computing with elliptic curves.
 As with the definition of conductor, there
-are numerous ways of viewing modularity, with deep connections between them.
+are many
+ways of viewing modularity, with deep connections between them.
 
-\subsection{Definition in terms of modular forms}
+\subsection{Definition using modular forms}
 
 Let $E$ be an elliptic curve.
 In Section~\ref{sec:condmodform} we defined a function
@@ -2284,11 +2323,20 @@ $$
   \h = \{z \in \C : \Im(z) > 0\} \subset \C.
 $$
 We then defined the conductor $N$ as the smallest positive
-integer so that $f(z)dz = \frac{f(q)}{q} dq$ is invariant
+integer so that
+$$f(z)dz = \frac{f(q)}{q} dq$$
+is invariant
 under the action of the congruence subgroup
 $\Gamma_0(N)$.   Theorem~\ref{thm:modularity} is  the assertion
 that there is {\em some} $N$ such that $f$ is invariant under $\Gamma_0(N)$.
-Then $f$ is modular forms level $N$ and weight $2$.
+The function~$f$ is then a normalized cuspidal
+modular eigenforms level $N$ and weight $2$, and we write
+$$
+ f \in S_2(\Gamma_0(N))_{\new}
+$$
+
+
+
 
 \begin{quote}
 {\bf Summary:} An elliptic curve $E$ over $\Q$ is modular if
@@ -2296,16 +2344,53 @@ the function $f(q) = \sum a_n q^n$, with $a_p = p+1-\#E(\F_p)$
 is a modular form.
 \end{quote}
 
+\subsection{(*) Definition using systems of Hecke eigenvalues}\label{sec:modhecke}
+This section gets a star because it is how I think about
+modularity.
+
+The {\em Hecke algebra} is a commutative ring $\T$ that acts on
+the space $S_2(\Gamma_0(N))$ of cusp forms. The Hecke algebra
+is generated by Hecke operators $T_n$, one for each integer $n$
+$$
+  \T = \Z[T_1, T_2, T_3, \ldots].
+$$
+That $f=\sum a_n q^n$ is a normalized eigenform means that  for each
+integer $n$, we have
+$$
+  T_n(f) = a_n \cdot f,
+$$
+i.e., the coefficients of $f$ are the eigenvalues of the linear
+transformations $T_n$.  There are also recurrences satisfied
+by the $T_n$, so that knowing them for prime $n$ determines
+all of them.
+Thus alternatively, $E$ is modular if there is some eigenvector
+$v \in S_2(\Gamma_0(N))$ such that for all primes $p$ we have
+$$
+  T_p(v) = (p+1 - \# E(\F_p)) \cdot v.
+$$
+
+\begin{quote}
+{\bf Summary:} An elliptic curve $E$ over $\Q$ is modular if
+the point counts $\# E(\F_p)$ are encoded in the system
+of Hecke eigenvalues of some eigenvector in $S_2(\Gamma_0(N))$.
+\end{quote}
+
+  Moreover, and this is key, one can replace $S_2(\Gamma_0(N))$ by any $\T$-module that is isomorphic
+to it.
+
 
 \subsection{Definition in terms of modular curves}
 
 Let $E$ be an elliptic curve over $\Q$, let $N$
-be the conductor of $E$, and consider the action
-of$\Gamma_0(N)$ on the extended upper half plane
+be the conductor of $E$, and consider the left action
+of $\Gamma_0(N)$ on the extended upper half plane
 $$
 \h^*=\h\cup\Q\cup\{i\infty\}
 $$
-by linear fractional transformations.
+by linear fractional transformations:
+$$
+\mtwo{a}{b}{c}{d}(z) = \frac{az+b}{cz+d}.
+$$
 The modular curve of level $\Gamma_0(N)$ is the compact Riemann {\em surface}
 $$
   X_0(N)(\C) = \Gamma_0(N) \backslash \h^*.
@@ -2331,6 +2416,47 @@ $X_0(N)$ defined over $\Q$ (or even over $\Z$ -- see Katz-Mazur!).
 Theorem~\ref{thm:modularity} then asserts that there is a surjective
 morphism of algebraic curves $X_0(N)\to E$.
 
+\begin{remark}
+Fun and useless fact:
+There are modular curves $X_0(N)$ of genus $g$ for each $g\leq 149$,
+but there is no modular curve of genus $150$.  See Csirik, et al.
+\end{remark}
+
+\subsection{Definition in terms of $L$-series}
+
+In Section~\ref{sec:condfe} we defined the conductor of $E$
+as a constant that arises in the functional equation
+for $L(E,s)$.   The assertion that $E$ is modular is
+{\em a priori} a {\em stronger} statement than the assertion
+that $L(E,s)$ is entire and satisfies the functional
+equation \eqref{eqn:fe}.  If $E$ is modular, than $L(E,s)=L(f,s)$
+is indeed entire and satisfies the functional equation;
+however, as $f$ is a modular form, we also have for
+every Dirichlet character $\chi$,  that
+$L(f^{\chi},s)$ is also entire and satisfies a functional
+equation.  There is a {\em converse theorem}, due to Weil,
+which asserts that if $L(E,s)$ is entire and satisfies
+a functional equation, {\em and} so do ``all of its twists'', then
+$L(E,s)=L(f,s)$ for some modular form $f$.
+{\em Warning: I don't know the precise formulation
+of this statement -- exercise for a student in class to fill
+this in.}
+
+The above converse theorem was considered for a long time to be
+the best evidence for the modularity conjecture before
+it was proved.  This might be why the modularity statement
+has had (at least) the following names:
+\begin{enumerate}
+\item The conjecture of Weil
+\item The Taniyama-Shimura-Weil conjecture
+\item The Taniyama-Weil conjecture:\\ page 341 of {\em A Course in Number Theory}, By H. E. Rose
+\item The Shimura-Taniyama conjecture:\\ \url{http://www.ams.org/notices/199511/forum.pdf}
+\item The Modularity theorem:\\ \url{http://en.wikipedia.org/wiki/Modularity_theorem}
+\end{enumerate}
+
+\section{Converse theorems}
+
+
 \section{Modularity over real quadratic fields}
 
 The following huge result appeared on the arxiv a few days ago (see
@@ -2342,11 +2468,140 @@ Part of their motivation was FLT over real quadratic fields, which
 is the subject of another paper they just posted at \url{http://arxiv.org/abs/1307.3162}.
 
 
+\subsection{Definition in terms of Hilbert modular forms}
+
+We sketch what it means for an elliptic curve $E$
+over a real quadratic field $K=\Q(\sqrt{d})$ to be
+{\em modular}.
+
+Let $\n$ be an ideal in the ring $\O_K$ of integers of $K$,
+and fix two embeddings $\iota_1:K\hookrightarrow \R$
+and $\iota_2:K\hookrightarrow\R$.
+Let $\GL_2^+(\O_K)$ be the group of $2\times 2$ matrices
+$\gamma$ with entries in $\O_K$ such that
+both $\iota_1(\det(\gamma))>0$ and
+$\iota_2(\det(\gamma))>0$.
+The analogue over $K$ of the congruence subgroup $\Gamma_0(N)\subset\SL_2(\Z)$ is
+$$
+\Gamma_0(\n)
+ = \left\{
+\mtwo{a}{b}{c}{d} \in \GL_2^+(\O_K)  :
+  c \in \n
+   \right\}.
+$$
+For $\gamma=\mtwo{a}{b}{c}{d}\in \Gamma_0(\n)$,
+we let $a_i,b_i,c_i,d_i\in\R$ denote the entries
+of $\iota_i(\gamma)$, for $i=1,2$.
+
+A {\em holomorphic function} on
+an open subset of $\C\times \C$ is a complex-valued function
+that is continuous and holomorphic in each of its variables.
+A {\em Hilbert modular form} over $K$ of parallel weight $(2,2)$
+and level $\n$
+is a holomorphic function
+$$
+f = f(z_1,z_2):\h\times \h \to \C
+$$
+on the product of two copies of the upper half plane such that
+for all $\gamma \in \Gamma_0(\n)$, we have
+$$
+  f(\gamma_1(z_1), \gamma_2(z_2))
+     = \frac{(c_1 z_1 + d_1)^2}{\det \gamma_1}
+       \cdot  \frac{(c_2 z_2 + d_2)^2}{\det \gamma_2}
+       \cdot f(z_1, z_2).
+$$
+Let $M_{(2,2)}(\Gamma_0(\n))$ denote the space of Hilbert modular forms,
+as above.
+
+For simplicity, assume that $K$ has narrow class number $1$.
+As in Section~\ref{sec:modhecke}, there are commuting Hecke operators
+$\T_\fp$ acting on $M_{(2,2)}(\Gamma_0(\n))$,
+for each nonzero prime ideal $\fp$ of $\O_K$.
+The elliptic curve $E$ over $K$ is {\em modular} if there
+is an eigenvector $f \in M_{(2,2)}(\Gamma_0(\n))$ such that
+for all $\fp$ we have
+$$
+  T_\fp(f) = (\text{Norm}(\fp) + 1 - \#E(\F_\fp)) \cdot f.
+$$
+
+
+
+
+
 \section{Computing all elliptic curves over the rational numbers using modular symbols}
 
+Cremona's book {\em Algorithms for Modular Elliptic Curves} is about the following:
 
-\section{Compute all elliptic curves over real quadratic fields using
-quaternion algebras}
+\begin{quote}
+\noindent{\bf Problem: }
+Given an integer $N$, find all elliptic curves over $\Q$
+of conductor $N$.
+\end{quote}
+
+Recall from Section~\ref{sec:modhecke} that for an elliptic
+curve $E$ to be modular means that the integers
+$$
+  a_p = a_p(E) = p + 1 - \#E(\F_p) \in \Z,
+$$
+for $p$ prime, are also the eigenvalues of the
+Hecke operators $T_p$ acting on some eigenvector
+in the space of cusp forms $S_2(\Gamma_0(N))$.
+
+To solve the above problem, we have the following
+strategy:
+\begin{enumerate}
+\item Compute a $\T$-module $V$ such that for every
+elliptic curve of conductor $N$, the system of
+eigenvalues $\{a_p(E)\}$ is guaranteed to occur in $V$.
+For example, one could take $V=S_2(\Gamma_0(N))$.
+\item Given finitely many of the integers $\{a_p(E)\}$,
+find an equation for a curve $E$ with those $a_p$.
+\item Find the finitely many curves isogenous to $E$.
+\end{enumerate}
+
+\subsection{Computing systems of eigenvalues}
+Modular symbols is one
+powerful systematic approach to finding all systems
+of rational Hecke eigenvalues $a_p(E)$ corresponding
+to elliptic curves of conductor $N$.
+The basic idea is to explicitly compute the homology group
+$$
+  H_1(X_0(N),\Q),
+$$
+which is equipped with an action of Hecke operators $T_p$.
+Then we do linear algebra with these matrices
+to compute the systems of Hecke eigenvalues.
+
+Recall that $X_0(N)=\Gamma_0(N)\backslash \h\cup \{\Q\}\cup\{\infty\}$,
+where the {\em cusps} are the elements of
+$$
+\P^1(\Q) = \{\Q\}\cup\{\infty\}.
+$$
+To compute $H_1(X_0(N),\Q)$, we consider the slightly
+bigger relative homology group
+$$
+H_1(X_0(N),\Q) \subset H_1(X_0(N),\Q; \{\text{cusps}\}).
+$$
+One can prove that $H_1(X_0(N),\Q; \{\text{cusps}\})$ is
+generated by all geodesic paths $\{\alpha,\beta\}$
+between elements $\alpha,\beta \in \P^1(\Q)$.  Note that
+the notation $\{\alpha,\beta\}$ means the path {\em from}
+$\alpha$ to $\beta$, i.e., it is {\em ordered}, despite looking
+like a set -- this is a historical accident, I guess.
+
+\subsubsection{Manin's trick}
+Manin observed using continued fractions that
+there is an explicit
+finite subset of paths $\{\alpha,\beta\}$
+that generate $H_1(X_0(N),\Q; \{\text{cusps}\})$.
+
+
+\subsection{Computing a curve $E$ with given $a_p$}
+
+\subsection{Finding all curves isogenous to $E$}
+
+
+\section{Compute all elliptic curves over real quadratic fields using quaternion algebras}
 
 \section{Integral points and discriminant equations}
 
@@ -2422,4 +2677,4 @@ Important unsolved problem: how difficult is the discrete log problem?
 
 \end{document}
 
-%sagemathcloud={"zoom_width":145}
+%sagemathcloud={"zoom_width":150}

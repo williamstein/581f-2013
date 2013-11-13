@@ -1,9 +1,74 @@
-# Mon Nov 4, 2013
+# Friday, Nov 13, 2013
+
+ - Andrew:
+ - Yannick:
+ - Hao:
+ - Bharath:
+ - Travis:
+ - Igor:
+ - Simon:
 
 ## Lecture
 
+ - modular symbols, part 2
+
+
+# Wednesday, Nov 13, 2013
+
+ - Andrew:
+ - Yannick:
+ - Hao:
+ - Bharath:
+ - Travis:
+ - Igor:
+ - Simon:
+
+## Lecture
+
+ - modular symbols, part 1
+
+# Friday Nov 8, 2013
+ - Andrew: (at conference)
+ - Yannick: conductors of curves over K; which gives maximal power of 3.
+ - Hao: at a Sage Days in Florida
+ - Bharath: preparing yet another talk on... Selmer groups attached to big repn; giving Tuesday.
+ - Travis: plot confusion.  working on understanding curve enumeration by disc and abc -- see  <https://cloud.sagemath.com/projects/c88745bc-89ac-42c8-967e-0578ef27d929/files/ctnt/worksheets/2013-10-23-124452.sagews>
+ - Igor: investigating ABC and primes of the form 2^i+3^j: <https://cloud.sagemath.com/projects/c88745bc-89ac-42c8-967e-0578ef27d929/files/ctnt/worksheets/abc_primes.sagews>
+ - Simon: exponential decay can't possibly model the ABC quality distribution, unfortunately; it undershoots in the limit.  William no longer convinced that ABC is true :-(.
+
+## Lecture
+
+ - L-series, hilbert modular forms
+ - modular symbols, part 1
+
+# Wed Nov 6, 2013
+
+ - Andrew: (at conference)
+ - Yannick: added brumer-kramer
+ - Hao: at a Sage Days in Florida
+ - Bharath: investigating moduli theoretic intepretation of the cusps (Deligne-Rapaport)
+ - Travis: reading ANT book about decomposition and inertia; pictures of limit
+ - Igor: interviews! (hire me)
+ - Simon: very interesting abc update -- now we toward strong ABC... :-)
+
+## Lecture
+
+ - modularity, part 2: modular curves, L-series, hilbert modular forms
+
+# Mon Nov 4, 2013
+
+ - Andrew: at sage days in Davis, CA
+ - Yannick: info about conductor bounds over number fields.
+ - Hao: preparing for a talk on "atkin-lehner fixed points" tomorrow
+ - Bharath: galois cohomology.
+ - Travis: other classes (complex); graph abc triple, bounded disc; going up slowly... toward 1.2
+ - Igor: did algebra
+ - Simon: plotted pictures --
+
+## Lecture
+
+- what it means for an elliptic curve to be modular over QQ
 - modularity of elliptic curves over real quadratic fields
-- computing elliptic curves using modular symbols
 
 # Fri, Nov 1, 2013
 
@@ -21,7 +86,6 @@
 ## Lecture
 
 - finish talking about Serre's conjecture & conductor
-- what it means for an elliptic curve to be modular over QQ
 
 
 # Wed, Oct 30, 2013

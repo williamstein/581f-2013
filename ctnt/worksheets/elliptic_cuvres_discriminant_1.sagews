@@ -5,20 +5,11 @@ R.<x,y,z> = QQ[]
 cubic = y^2 - 4*x^3 - (1)*x^2 - 2*(-11/24)*x - (-35/432)
 show(cubic)
 cubic(x = 5/12,y = 0)
-︡54df69bd-ee3e-455e-a9fb-815a445bd4c2︡{"tex":{"tex":"-4 x^{3} -  x^{2} + y^{2} + \\frac{11}{12} x + \\frac{35}{432}","display":true}}︡{"stdout":"0\n"}︡
-︠48b43440-9f67-4392-b86c-06f45d2d9850︠
+︡ac1ece27-8c04-48c3-9e8e-06704a90fb8a︡{"tex":{"tex":"-4 x^{3} -  x^{2} + y^{2} + \\frac{11}{12} x + \\frac{35}{432}","display":true}}︡{"stdout":"0\n"}︡
+︠35ff9607-b195-4ca1-b9be-5be5fb2e2f3c︠
 EllipticCurve_from_cubic(cubic.homogenize(z),[5/12,0,1])
-︡ee7761e7-0bcc-49c3-be36-bd9aa334e941︡{"stderr":"Error in lines 1-1\nTraceback (most recent call last):\n  File \"/mnt/home/uHNlUmEE/.sagemathcloud/sage_server.py\", line 633, in execute\n    exec compile(block+'\\n', '', 'single') in namespace, locals\n  File \"\", line 1, in <module>\n  File \"/mnt/home/uHNlUmEE/sage-5.12.rc0/local/lib/python2.7/site-packages/sage/schemes/elliptic_curves/constructor.py\", line 786, in EllipticCurve_from_cubic\n    F4 = F3/a\n  File \"element.pyx\", line 1813, in sage.structure.element.RingElement.__div__ (sage/structure/element.c:15216)\n  File \"coerce.pyx\", line 799, in sage.structure.coerce.CoercionModel_cache_maps.bin_op (sage/structure/coerce.c:7287)\n  File \"action.pyx\", line 259, in sage.categories.action.InverseAction._call_ (sage/categories/action.c:4557)\n  File \"rational.pyx\", line 2256, in sage.rings.rational.Rational.__invert__ (sage/rings/rational.c:17897)\nZeroDivisionError: rational division by zero\n"}︡
-︠66373baa-ea07-455c-915c-b64ff800fab6︠
-
-
-
-
-
-
-
-
-
+︡107e3b6c-8a68-43cf-ab14-7a28a4f6045e︡{"stderr":"Error in lines 1-1\nTraceback (most recent call last):\n  File \"/mnt/home/uHNlUmEE/.sagemathcloud/sage_server.py\", line 633, in execute\n    exec compile(block+'\\n', '', 'single') in namespace, locals\n  File \"\", line 1, in <module>\n  File \"/mnt/home/uHNlUmEE/sage-5.12.rc0/local/lib/python2.7/site-packages/sage/schemes/elliptic_curves/constructor.py\", line 786, in EllipticCurve_from_cubic\n    F4 = F3/a\n  File \"element.pyx\", line 1813, in sage.structure.element.RingElement.__div__ (sage/structure/element.c:15216)\n  File \"coerce.pyx\", line 799, in sage.structure.coerce.CoercionModel_cache_maps.bin_op (sage/structure/coerce.c:7287)\n  File \"action.pyx\", line 259, in sage.categories.action.InverseAction._call_ (sage/categories/action.c:4557)\n  File \"rational.pyx\", line 2256, in sage.rings.rational.Rational.__invert__ (sage/rings/rational.c:17897)\nZeroDivisionError: rational division by zero\n"}︡
+︠c60eae82-a8e6-4b37-ae7d-1c0c603ebed1︠
 
 ︠04462e20-8151-4d56-ae2b-2aedb4a39313︠
 #If we allow rational a's, discriminant 1 can happen!
