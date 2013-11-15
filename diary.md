@@ -4,9 +4,9 @@
  - Yannick:
  - Hao:
  - Bharath:
- - Travis:
- - Igor:
- - Simon:
+ - Travis: continuing from last time; discriminant comps and reading.
+ - Igor: ppp -- in particular, 2^i+3^j...
+ - Simon: c<470,000; triples with a+b+c, coprimes.  quality histogram.
 
 ## Lecture
 
@@ -15,13 +15,13 @@
 
 # Wednesday, Nov 13, 2013
 
- - Andrew:
- - Yannick:
- - Hao:
- - Bharath:
- - Travis:
- - Igor:
- - Simon:
+ - Andrew: trying to catch up from trip...
+ - Yannick: reading Number theory as Gadfly; really funny; pre-Wiles; "geometric interpretation of modularity"
+ - Hao: playing with X0(43) -- get defining equation.
+ - Bharath: converse theorems.
+ - Travis: continuing from last time; discriminant comps and reading.
+ - Igor: ppp -- in particular, 2^i+3^j...
+ - Simon: c<470,000; triples with a+b+c, coprimes.  quality histogram.
 
 ## Lecture
 
