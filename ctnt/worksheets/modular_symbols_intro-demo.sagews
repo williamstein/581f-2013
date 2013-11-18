@@ -18,6 +18,10 @@ points([(P[0],P[1]) for P in E.change_ring(GF(97)).points() if P[2]], size=100)
 ︠02dc50ba-92cc-456b-a9b6-7ff414eeaae0︠
 E.aplist(100)
 ︡5878ba81-d29b-4fe3-b604-2d37c8fdc969︡{"stdout":"[-2, -1, 1, -2, 1, 4, -2, 0, -1, 0, 7, 3, -8, -6, 8, -6, 5, 12, -7, -3, 4, -10, -6, 15, -7]\n"}︡
+︠ed4f7cc3-bf0c-432b-adb7-68c20ccb6899i︠
+%md
+# Modular symbols
+︡204e0aa7-1a3f-440e-b19a-65fdf351c532︡{"html":"<h1>Modular symbols</h1>\n"}︡
 ︠3e35a541-80c4-4bca-b3ce-b065e8cdcc60︠
 M = ModularSymbols(11); M
 ︡4c951ff8-2d71-4836-b3d5-1c9e785a5043︡{"stdout":"Modular Symbols space of dimension 3 for Gamma_0(11) of weight 2 with sign 0 over Rational Field\n"}︡
@@ -68,6 +72,15 @@ for N in primes(100):
     print N, X.supersingular_points()[0]
 ︡812e6c28-3841-4484-b05b-7645caf2f0d9︡{"stdout":"2 [0]\n3 [0]\n5 [0]\n7 [6]\n11 [1, 0]\n13 [5]\n17 [0, 8]\n19 "}︡{"stdout":"[18, 7]\n23 [3, 19, 0]\n29 [25, 2, 0]\n31 [23, 2, 4]\n37 [8, 27*a + 23, 10*a + 20]\n41 [0, 3, 32, 28]\n43 "}︡{"stdout":"[8, 41, 39*a + 14, 4*a + 10]\n47 [36, 44, 0, 10, 9]\n53 [50, 44*a + 46, 9*a + 10, 46, 0]\n59 [17, 48, 28, 15, 0, 47]\n61 "}︡{"stdout":"[9, 41*a + 52, 20*a + 32, 50, 41]\n67"}︡{"stdout":" [53, 66, 37*a + 38, 30*a + 52, 35*a + 60, 32*a + 66]\n71 [24, 17, 41, 40, 66, 0, 48]\n73 [9, 56, 72*a + 4, a + 1, 22*a + 48, 51*a + 41]\n79 "}︡{"stdout":"[69, 15, 64, 21, 56*a + 44, 23*a + 21, 17]\n83 [68, 67, 54*a + 11, 29*a + 65, 17, 50, 0, 28]\n89 [0, 66, 70*a + 9, 19*a + 54, 13, 6, 52, 7]\n97 "}︡{"stdout":"[1, 20, 81*a + 84, 16*a + 68, 20*a + 35, 77*a + 55, 12*a + 75, 85*a + 87]\n"}︡
 ︠25d158fe-0b1e-467f-84f8-65f439124dd6︠
+
+
+
+sigma = matrix(2,[0,-1,1,0])
+tau = matrix(2,[1,-1,1,0])
+sigma^4
+tau^6
+︡bfb7c6f0-20b9-4a31-9cd8-15f7bf951a3c︡{"stdout":"[1 0]\n[0 1]\n"}︡{"stdout":"[1 0]\n[0 1]\n"}︡
+︠cba24e19-2373-4925-be91-b146ce2c2e75︠
 
 
 

@@ -1,16 +1,33 @@
-# Friday, Nov 13, 2013
+# Monday, Nov 18, 2013
+
+## Student status reports.
 
  - Andrew:
  - Yannick:
  - Hao:
  - Bharath:
- - Travis: continuing from last time; discriminant comps and reading.
- - Igor: ppp -- in particular, 2^i+3^j...
- - Simon: c<470,000; triples with a+b+c, coprimes.  quality histogram.
+ - Travis:
+ - Igor:
+ - Simon:
 
 ## Lecture
 
- - modular symbols, part 2
+ - Using Sage to compute with modular symbols.
+
+# Friday, Nov 15, 2013
+
+
+## Student status reports.
+
+- [ ] simon: talk for next tuesday; bounding zero density for L(E,s); explicit explicit formula; applications.   technical talk.
+- [ ] hao: investigating models for modular curves and explicit maps to elliptic curves.
+- [ ] yannick: writing up exercise about Hermite's theorem that there are only finitely many number fields of bounded discriminant.
+- [ ] bharath: converse theorems. done.
+- [ ] travis: lost voice...
+
+## Lecture
+
+ - modular symbols, part 2 -- computing them
 
 
 # Wednesday, Nov 13, 2013
