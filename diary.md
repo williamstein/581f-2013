@@ -1,6 +1,8 @@
-# Monday, Nov 18, 2013
+# NOTE: no class on MONDAY, Nov 25 (?), YES class on Wednesday, Nov 27.
 
-## Student status reports.
+# Friday, Nov 22, 2013
+
+## Status reports.
 
  - Andrew:
  - Yannick:
@@ -9,13 +11,50 @@
  - Travis:
  - Igor:
  - Simon:
+ - William: I fixed the bug that was preventing us from editing ctnt.tex. 
 
 ## Lecture
 
- - Using Sage to compute with modular symbols.
+- GOAL: How to find the elliptic curve attached to a modular form, final part.
+
+
+# Wednesday, Nov 20, 2013
+
+## Student status reports.
+
+ - Andrew:  mysteriously absent; probably working on Sage too late :-)
+ - Yannick: added exercise about Hermite's theorem about number fields of bounded discriminant; serre's letter defending Weil's honor against Lang's attack.
+ - Hao: reading the notes for this class.
+ - Bharath: reading cremona's book to enumerate curves in an isogeny class.  Mazur & Swinnerton-Dyer: X_0(37).  many good questions.
+ - Travis: p ramifies <==> inertia nontrivial; writing up computation of cond of 27a1 from galois repn defn; computing galois group... need william to install kash?
+ - Igor: gone
+ - Simon: E, bound below number of zeros of L(E,s) with imag part in [a,a+b], a in R, b>1.... want a NONTRIVIAL lower bound.
+
+
+## Lecture
+
+- GOAL: How to find the Weierstrass equation of elliptic curve attached to a modular form.
+
+
+# Monday, Nov 18, 2013
+
+## Student status reports.
+
+ - Andrew: porting sage to OS X 10.9...
+ - Yannick: ctnt.tex online editing trouble...  more stuff on hermite
+ - Hao: next talk in nts is about something called "even index", and i'm working on improving my results...?
+ - Bharath: typing up research, but not thesis.  selmer groups.
+ - Travis: computing serre level of fermat cubic.  2-torsion is easy to find.  But what about 3-torsion?  5-torsion?  "division polynomials"
+    E.division_[tab]  ?
+ - Igor: interviewing (real world...)
+ - Simon: nts talk prep on proofs bounding zeros on critical line for elliptic curve L-series, as function of conductor N.
+
+
+## Lecture
+
+ - computing all elliptic curves of conductor N: skat: 1-page sketch of the algorithm
 
 # Friday, Nov 15, 2013
-
 
 ## Student status reports.
 
