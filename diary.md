@@ -4,14 +4,16 @@
 
 ## Status reports.
 
- - Andrew:
- - Yannick:
- - Hao:
- - Bharath:
- - Travis:
- - Igor:
+ - William: I fixed the bug that was preventing us from editing ctnt.tex.   at 9am today.
+ - Andrew: mysteriously absent; probably working on Sage too late :-)
+ - Yannick: use sage/kash to compute number field; magma -- http://magma.maths.usyd.edu.au/magma/simons/
+ - Hao: sage's "integral period mapping" takes "forever".
+ - Bharath: downloaded videos using Sagemath Cloud; hacking around stupid DRM to watch a math video...
+ - Travis: write up stuff about example; not working.
+ - Igor: unrelated... book sharing: <https://tailib.com/>
  - Simon:
- - William: I fixed the bug that was preventing us from editing ctnt.tex. 
+    (1) ABC quality hist; breaking the 1.0 bearing: <https://cloud.sagemath.com/projects/d616d97a-44d9-4779-a294-253bf6da01df/files/quality_nonabc_histogram_plotter.sagews>
+    (2) MRC: huge database of elliptic curves... sqlite database.
 
 ## Lecture
 
