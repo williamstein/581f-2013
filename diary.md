@@ -1,4 +1,52 @@
-# NOTE: no class on MONDAY, Nov 25 (?), YES class on Wednesday, Nov 27.
+# Dec 4
+
+## Status reports
+
+ - Andrew: reading Elkies's "ABC=>Faltings"
+ - Yannick: reading Mazur's passage from local to global.
+ - Hao: got M. Daub's ph.d. thesis
+ - Bharath: put reference to mathoverflow question about selmer's curve 3x^3+4y^3+5z^3=0...
+ - Travis: read wikipedia about homomorphic encryption.  based on lattices.
+ - Igor: not here
+ - Simon: abc!
+
+## Lecture
+
+ - BSD conjecture examples
+
+
+# Dec 2
+
+## Status reports
+
+ - Andrew: not here!
+ - Yannick: nothing related to this class... but local better than global except not as mature in sage.
+ - Hao: explained about computing non-cuspidal period integrals; come to my number theory seminar talk tomorrow on Chow-Heegner points! p = u^2 + 64 ==> cl(Q(sqrt(-p))) is divisible by 4... which follows from something I will prove using modular curves.
+ - Bharath: shakes head
+ - Travis: cohen's book is interesting. full of fun.
+ - Igor: more grad schools...
+ - Simon: abc stuff; explicit bounds; doing difficult integrals.
+
+## Lecture
+
+ - BSD conjecture
+
+# Wednesday, Nov 27
+
+## Status reports.
+
+ - William: wrote lecture, reorganized the book -- show off the new TOC; after totally real fields, we'll do something with the Riemann Hypothesis...
+ - Andrew: oral prelim on "the ABC conjecture". upgraded sage. reviewed tickets.
+ - Yannick: magma simons and got intimidated by the lawyers.  ron will sign it.
+ - Hao: uploaded pdf (i wrote) about computing period mapping.
+ - Bharath: absent.
+ - Travis: wrote up example/exercise about computing galois repn defn of serre level of Fermat cubic.  Read about group cohomology in ANT.  What next? Cohen GTM "computational number theory".
+ - Igor: grad schools.
+ - Simon: read Terry Tau's blog post. And do more ABC curve fitting: <https://cloud.sagemath.com/projects/d616d97a-44d9-4779-a294-253bf6da01df/files/quality_1+_curve_fitter.sagews>
+
+## Lecture
+
+ - elliptic curves over totally real fields
 
 # Friday, Nov 22, 2013
 
