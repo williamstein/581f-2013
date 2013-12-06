@@ -84,7 +84,6 @@
 \newcommand{\ncisom}{\approx}
 \newcommand{\onto}{\twoheadrightarrow}%  Surjection arrow
 
-
 \usepackage{listings}
 \lstdefinelanguage{Sage}[]{Python}
 {morekeywords={True,False,sage,singular},
@@ -93,24 +92,24 @@ sensitive=true}
   showtabs=False,
   showspaces=False,
   showstringspaces=False,
-  commentstyle={\ttfamily\color{dredcolor}},
+  commentstyle={\ttfamily\color{dbrowncolor}},
   keywordstyle={\ttfamily\color{dbluecolor}\bfseries},
   stringstyle ={\ttfamily\color{dgraycolor}\bfseries},
-  language = Sage,
-  basicstyle={\scriptsize \ttfamily},
-  aboveskip=1em,
-  belowskip=1em,
   backgroundcolor=\color{lightyellow},
-  frame=single
+  language = Sage,
+  basicstyle={\ttfamily},
+  aboveskip=1em,
+  belowskip=0.1em,
+  breaklines=true,
+  prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\backslash}},
+  %frame=single
 }
-
 \usepackage{color}
-
-
-\definecolor{lightyellow}{rgb}{1,1,.86}
+\definecolor{lightyellow}{rgb}{1,1,.92}
 \definecolor{dblackcolor}{rgb}{0.0,0.0,0.0}
 \definecolor{dbluecolor}{rgb}{.01,.02,0.7}
-\definecolor{dredcolor}{rgb}{0.8,0,0}
+\definecolor{dredcolor}{rgb}{1,0,0}
+\definecolor{dbrowncolor}{rgb}{0.625,0.3125,0}
 \definecolor{dgraycolor}{rgb}{0.30,0.3,0.30}
 \definecolor{graycolor}{rgb}{0.35,0.35,0.35}
 

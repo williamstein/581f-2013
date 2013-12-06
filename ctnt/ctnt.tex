@@ -3483,19 +3483,20 @@ in Section~\ref{sec:neronogg} when defining the conductor.
 The torsion subgroup $E(\Q)_{\tor}$ in the denominator
 is simply the subgroup of elements of finite order in the
 abelian group $E(\Q)$; a theorem of Mazur \cite{mazur:eisenstein}
-classifies the 16 possibilities for $E(\Q)$.
-The real number $\Reg_E$ is the absolute value of the discriminant
-of the N\'eron-Tate canonical
-height pairing matrix on a basis for $E(\Q)/\tor$,
-where if $P,Q\in E(\Q)$, then [[this might be totally wrong or off
-by a factor of 2 -- somebody volunteer to fix it and make sure
-what you get is consistent with Sage]]
+classifies the 16 possibilities for $E(\Q)$. \\
+
+The real number $\Reg_E$ is the absolute value of the discriminant of the N\'eron-Tate canonical
+height pairing matrix on a basis for $E(\Q)/\tor$.
+Specifically, if $P\in E(\Q)$, we define the (N\'eron-Tate) canonical height $h(P)$ via a na\"{i}ve logarithmic height function on points in $E(\Q)$:
 $$
-h(P,Q) =??= \log\left(\lim_{n\to\infty} \frac{H(x([n](P-Q)))}{n^2}\right),
+h(P) = \lim_{n\to\infty} \left(\frac{\widehat{h}(nP)}{n^2}\right)
 $$
-where $x(R)$ is the $x$-coordinate of a point $R$
-and the naive height $H$ of a rational number is the maximum of the number
-of digits of the numerator and denominator.
+There are many choices of na\"{i}ve logarithmic height functions that result in the same canonical height function (hence its name); one of the simplest that works is taking $\widehat{h}(Q)$ to be the natural logarithm of the denominator of the $x$-coordinate of $Q$ (see Advanced Silverman, chapter 6 for a more complete discussion of height functions). The canonical height function defines a quadratic form on points in $E(\Q)$:
+$$
+\left< P,Q \right> := \frac{h(P+Q)-h(P)-h(Q)}{2}
+$$
+The regulator $\Reg_E$ is the absolute value of the matrix $\left(\left< P,Q \right>\right)$, where $P$ and $Q$ range over a basis of generators of the free part of $E(\Q)$.\\
+
 Finally, the Shafarevich-Tate group $\Sha(E)$, pronounced ``Sha'' for
 the first letter of Shafarevich's name, is the kernel
 \begin{align*}
@@ -3514,8 +3515,6 @@ equation $x^3 + y^3 + 60z^3$.   Then the curve
 $3x^3 + 4y^3 + 5z^3 =0$ defines an element of $\Sha(E)$,
 as explained in Mazur's {\em On the passage from local to global in number theory}.
 \end{example}
-
-\section{Computing with some examples}
 
 
 
@@ -3633,9 +3632,325 @@ short paper (or not -- it really depends on the difficulty).
 %\subsection{Mazur-Tate-Teitelbaum: $p$-adic Analogues}
 
 
+\section{Computing with some examples}
+
+
+{News flash: BSD is false!}
+\begin{lstlisting}
+From: Jennifer S Balakrishnan xxx
+Date: Wed, Dec 4, 2013 at 12:01 PM
+Subject: Magma elliptic curve rank bug
+To: Mark Watkins xxx
+
+Hi Mark,
+
+Magma seems to think that this elliptic curve has algebraic rank 1
+(and analytic rank 2!):
+
+E:=EllipticCurve([0, 1, 0, -39, -83]);
+Rank(E);
+1
+P := Generators(E)[1];
+P;
+(-3 : 4 : 1)
+AnalyticRank(E);
+2 8.0466
+\end{lstlisting}
+
+{(just kidding  in fact this is a bug in Magma).}
+
+\begin{lstlisting}
+E = EllipticCurve([0, 1, 0, -39, -83])
+E.rank()
+E.conductor().factor()
+\end{lstlisting}$$2$$$$2^{8} \cdot 59^{2}$$
+\begin{lstlisting}
+E.conductor()
+\end{lstlisting}$$891136$$
+
+\subsection{The curve 11a of rank 0}
+
+\begin{lstlisting}
+E = EllipticCurve('11a'); E
+\end{lstlisting}$$y^2 + y = x^{3} -  x^{2} - 10 x - 20 $$
+\begin{lstlisting}
+L = E.lseries(); print(L)
+\end{lstlisting}
+\begin{verbatim}
+Complex L-series of the Elliptic Curve defined by
+y^2 + y = x^3 - x^2 - 10*x - 20 over Rational Field
+\end{verbatim}
+\begin{lstlisting}
+L(2+5*I)
+\end{lstlisting}
+$$1.49538417460974 - 0.434431555743826i$$
+\begin{lstlisting}
+L(1)
+\end{lstlisting}$$0.253841860855911$$
+\begin{lstlisting}
+L.taylor_series(1, 5)     # about 1 so z=(s-1)
+\end{lstlisting}$$0.25 + 0.31z + 0.011z^{2} - 0.037z^{3} + 0.0088z^{4} + 0.00076z^{5} + O(z^{6})$$
+\begin{lstlisting}
+E.rank()
+\end{lstlisting}$$0$$
+\begin{lstlisting}
+lstar = L(1); lstar
+\end{lstlisting}$$0.253841860855911$$
+\begin{lstlisting}
+L(1+I)
+\end{lstlisting}$$0.252329844312245 + 0.345912342362107i$$
+\begin{lstlisting}
+E.period_lattice().basis()
+\end{lstlisting}$$\left(1.26920930427955, 0.634604652139777 + 1.45881661693850i\right)$$
+\begin{lstlisting}
+omega = E.period_lattice().omega(); omega
+\end{lstlisting}$$1.26920930427955$$
+\begin{lstlisting}
+c11 = E.tamagawa_number(11); c11
+\end{lstlisting}$$5$$
+\begin{lstlisting}
+Reg = E.regulator();  Reg   # exactly one, since rank = 0
+\end{lstlisting}$$1.00000000000000$$
+\begin{lstlisting}
+T = E.torsion_order(); T
+\end{lstlisting}$$5$$
+\begin{lstlisting}
+sha = E.sha(); print(sha)
+\end{lstlisting}\begin{verbatim}Tate-Shafarevich group for the Elliptic Curve defined by y^2 + y = x^3 - x^2 - 10*x - 20
+over Rational Field\end{verbatim}
+\begin{lstlisting}
+sha.bound()   # means only 2,3,5 can divide order
+\end{lstlisting}$$\left[2, 3, 5\right]$$
+\begin{lstlisting}
+sha.an()     # conjectural order if you solve for it in BSD.
+\end{lstlisting}$$1$$
+\begin{lstlisting}
+S = 1
+\end{lstlisting}
+\begin{lstlisting}
+lstar
+\end{lstlisting}$$0.253841860855911$$
+\begin{lstlisting}
+(omega * c11 * Reg * S) / T^2
+\end{lstlisting}$$0.253841860855911$$
+
+
+\begin{lstlisting}
+\end{lstlisting}\subsection{The curve 37a of rank 1}
+
+\begin{lstlisting}
+E = EllipticCurve('37a'); E
+\end{lstlisting}$$y^2 + y = x^{3} -  x $$
+\begin{lstlisting}
+E.rank()
+\end{lstlisting}$$1$$
+\begin{lstlisting}
+L = E.lseries(); print(L)
+\end{lstlisting}\begin{verbatim}Complex L-series of the Elliptic Curve defined by y^2 + y = x^3 - x over Rational Field\end{verbatim}
+\begin{lstlisting}
+L.taylor_series(1,100,10)  # r_an = 1
+\end{lstlisting}$$0.00000000000000000000000000000 + 0.30599977383405230182048368332z + 0.18654779726816196417381736878z^{2} - 0.13679146309718766630258221643z^{3} + 0.016106646849640053505097729457z^{4} + 0.018595517539880219615300779472z^{5} - 0.011815619832614466303556313944z^{6} + 0.0032632569120762634561786706023z^{7} - 0.00018033754779936743478345006461z^{8} - 0.00024611138597486162556659985584z^{9} + O(z^{10})$$
+\begin{lstlisting}
+E.analytic_rank()
+\end{lstlisting}$$1$$
+\begin{lstlisting}
+E.period_lattice().basis()   # rectangular period lattice
+\end{lstlisting}$$\left(2.99345864623196, 2.45138938198679i\right)$$
+\begin{lstlisting}
+omega = E.period_lattice().omega(); omega
+\end{lstlisting}$$5.98691729246392$$
+\begin{lstlisting}
+c37 = E.tamagawa_number(37); c37
+\end{lstlisting}$$1$$
+\begin{lstlisting}
+E.gens()  # rank 1 mw group
+\end{lstlisting}$$\left[\left(0 : 0 : 1\right)\right]$$
+\begin{lstlisting}
+Reg = E.regulator(); Reg
+\end{lstlisting}$$0.0511114082399688$$
+\begin{lstlisting}
+E.gens()[0].height()
+\end{lstlisting}$$0.0511114082399688$$
+\begin{lstlisting}
+sha = E.sha().an(); sha   # trivial sha
+\end{lstlisting}$$1$$
+\begin{lstlisting}
+S = 1
+\end{lstlisting}
+\begin{lstlisting}
+T = E.torsion_order(); T
+\end{lstlisting}$$1$$
+\begin{lstlisting}
+lstar = L.dokchitser().derivative(1,1); lstar   # first derivative at 1
+\end{lstlisting}$$0.305999773834052$$
+\begin{lstlisting}
+(omega * c37 * Reg * S) / T^2
+\end{lstlisting}$$0.305999773834052$$
+
+\begin{lstlisting}
+\end{lstlisting}\subsection{The curve 389a of rank 2}
+
+
+\begin{lstlisting}
+E = EllipticCurve('389a'); E
+\end{lstlisting}$$y^2 + y = x^{3} + x^{2} - 2 x $$
+\begin{lstlisting}
+E.rank()
+\end{lstlisting}$$2$$
+\begin{lstlisting}
+L = E.lseries(); print(L)
+\end{lstlisting}\begin{verbatim}Complex L-series of the Elliptic Curve defined by y^2 + y = x^3 + x^2 - 2*x over Rational
+Field\end{verbatim}
+\begin{lstlisting}
+L.taylor_series(1,53)  # r_an = 2,  z=(s-1)
+\end{lstlisting}$$-2.69129566562797 \times 10^{-23} + \left(1.52514901968783 \times 10^{-23}\right)z + 0.759316500288427z^{2} - 0.430302337583362z^{3} - 0.193509313829981z^{4} + 0.459971558373642z^{5} + O(z^{6})$$
+\begin{lstlisting}
+E.analytic_rank()
+\end{lstlisting}$$2$$
+\begin{lstlisting}
+E.period_lattice().basis()   # rectangular period lattice
+\end{lstlisting}$$\left(2.49021256085505, 1.97173770155165i\right)$$
+\begin{lstlisting}
+omega = E.period_lattice().omega(); omega
+\end{lstlisting}$$4.98042512171011$$
+\begin{lstlisting}
+c = E.tamagawa_number(389); c
+\end{lstlisting}$$1$$
+\begin{lstlisting}
+E.gens()  # rank 2 mw group
+\end{lstlisting}$$\left[\left(-1 : 1 : 1\right), \left(0 : 0 : 1\right)\right]$$
+\begin{lstlisting}
+Reg = E.regulator(); Reg
+\end{lstlisting}$$0.152460177943144$$
+\begin{lstlisting}
+sha = E.sha().an(); sha   # trivial sha (?) -- we don't know!  we don't know this is even finite!
+\end{lstlisting}$$1.00000000000000$$
+\begin{lstlisting}
+S = 1
+\end{lstlisting}
+\begin{lstlisting}
+T = E.torsion_order(); T
+\end{lstlisting}$$1$$
+\begin{lstlisting}
+lstar = L.dokchitser().derivative(1,2)/2; lstar   # second derivative at 1, divided by 2
+\end{lstlisting}$$0.759316500288427$$
+\begin{lstlisting}
+(omega * c * Reg * S) / T^2
+\end{lstlisting}$$0.759316500288426$$
+
+
+\begin{lstlisting}
+\end{lstlisting}\subsection{The curve 5077a of rank 3}
+
+\begin{lstlisting}
+E = EllipticCurve('5077a'); E
+\end{lstlisting}$$y^2 + y = x^{3} - 7 x + 6 $$
+\begin{lstlisting}
+E.rank()
+\end{lstlisting}$$3$$
+\begin{lstlisting}
+L = E.lseries(); print(L)
+\end{lstlisting}\begin{verbatim}Complex L-series of the Elliptic Curve defined by y^2 + y = x^3 - 7*x + 6 over Rational
+Field\end{verbatim}
+\begin{lstlisting}
+L.taylor_series(1,5)  # r_an = 3
+\end{lstlisting}$$0.00 + \left(2.2 \times 10^{-7}\right)z + \left(-4.0 \times 10^{-7}\right)z^{2} + 1.8z^{3} - 3.2z^{4} + 2.8z^{5} + O(z^{6})$$
+\begin{lstlisting}
+E.analytic_rank()
+\end{lstlisting}$$3$$
+\begin{lstlisting}
+E.period_lattice().basis()   # rectangular period lattice
+\end{lstlisting}$$\left(2.07584399154347, 1.48054826824141i\right)$$
+\begin{lstlisting}
+omega = E.period_lattice().omega(); omega
+\end{lstlisting}$$4.15168798308693$$
+\begin{lstlisting}
+c = E.tamagawa_number(5077); c
+\end{lstlisting}$$1$$
+\begin{lstlisting}
+E.gens()  # rank 2 mw group
+\end{lstlisting}$$\left[\left(-2 : 3 : 1\right), \left(-1 : 3 : 1\right), \left(0 : 2 : 1\right)\right]$$
+\begin{lstlisting}
+Reg = E.regulator(); Reg
+\end{lstlisting}$$0.417143558758384$$
+\begin{lstlisting}
+sha=1  # trivial sha (?) -- we don't know!  we don't know this is even finite!
+\end{lstlisting}
+\begin{lstlisting}
+T = E.torsion_order(); T
+\end{lstlisting}$$1$$
+\begin{lstlisting}
+lstar = L.dokchitser().derivative(1,3)/factorial(3); lstar   # second derivative at 1, divided by 3!
+\end{lstlisting}$$1.73184990011930$$
+\begin{lstlisting}
+(omega * c * Reg * S) / T^2
+\end{lstlisting}$$1.73184990011930$$
+
+\begin{lstlisting}
+\end{lstlisting}\subsection{The rank 0 curve 681b with Sha of order 9}
+
+\begin{lstlisting}
+factor(681)
+\end{lstlisting}$$3 \cdot 227$$
+\begin{lstlisting}
+
+E = EllipticCurve('681b'); E
+\end{lstlisting}$$y^2 + x y = x^{3} + x^{2} - 1154 x - 15345 $$
+\begin{lstlisting}
+E.rank()
+\end{lstlisting}$$0$$
+\begin{lstlisting}
+L = E.lseries(); print(L)
+\end{lstlisting}\begin{verbatim}Complex L-series of the Elliptic Curve defined by y^2 + x*y = x^3 + x^2 - 1154*x - 15345
+over Rational Field\end{verbatim}
+\begin{lstlisting}
+L.taylor_series(1)  # r_an = 0
+\end{lstlisting}$$1.84481520612682 - 1.56198367532152z + 1.27184630002575z^{2} + 0.0355857020468455z^{3} - 1.23910487517717z^{4} + 1.56171745903846z^{5} + O(z^{6})$$
+\begin{lstlisting}
+E.analytic_rank()
+\end{lstlisting}$$0$$
+\begin{lstlisting}
+E.period_lattice().basis()   # rectangular period lattice, yet again!
+\end{lstlisting}$$\left(0.409958934694849, 0.712395770891159i\right)$$
+\begin{lstlisting}
+omega = E.period_lattice().omega(); omega
+\end{lstlisting}$$0.819917869389698$$
+\begin{lstlisting}
+c3 = E.tamagawa_number(3); c3
+c227 = E.tamagawa_number(227); c227
+\end{lstlisting}$$2$$$$2$$
+\begin{lstlisting}
+Reg = 1
+\end{lstlisting}
+\begin{lstlisting}
+sha = E.sha().an(); sha   # of order 9.
+S = 9
+\end{lstlisting}$$9$$
+\begin{lstlisting}
+T = E.torsion_order(); T
+\end{lstlisting}$$4$$
+\begin{lstlisting}
+lstar = L(1); lstar
+\end{lstlisting}$$1.84481520612682$$
+\begin{lstlisting}
+(omega * c3 * c227 * Reg * S) / T^2
+\end{lstlisting}$$1.84481520612682$$
+\begin{lstlisting}
+E.sha().bound()
+\end{lstlisting}$$\left[2, 3\right]$$
+\begin{lstlisting}
+EllipticCurve('681c').rank()
+\end{lstlisting}$$2$$
+\begin{lstlisting}
+Visibility of Sha.
+\end{lstlisting}
+
+
+
+
 \bibliographystyle{amsalpha}
 \bibliography{biblio}
 
 \end{document}
 
-%sagemathcloud={"zoom_width":145,"latex_command":"pdflatex -synctex=1 -interact=nonstopmode ctnt.tex"}
+%sagemathcloud={"zoom_width":135,"latex_command":"pdflatex -synctex=1 -interact=nonstopmode ctnt.tex"}
