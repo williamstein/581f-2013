@@ -9,7 +9,7 @@ show(sage.plot.plot3d.shapes.Torus(1,.5, color='green'), frame=False)
 ︠64730a88-5136-4165-a7f7-e11788e8ff56︠
 u = var('u')
 revolution_plot3d((cos(u),sin(u)),(u,0,2*pi),axis=(2,0),color='green', opacity=.7, mesh=True, frame=False)
-︡09ce2f58-927f-44db-9fc0-fba991cef62f︡{"html":"<div id=a35e9ce7-7beb-4551-a431-16c6f2a8a881 style='border:1px solid grey'></div>"}︡{"obj":"{\"foreground\": null, \"camera_distance\": 9.974079495174752, \"height\": null, \"width\": null, \"renderer\": null, \"background\": null}","javascript":{"coffeescript":false,"code":"$('#a35e9ce7-7beb-4551-a431-16c6f2a8a881').salvus_threejs(obj)"},"once":false}︡
+︡2a3bd260-66ce-4ead-a4b6-59f7007c3ad3︡{"html":"<div id=fa50c609-3ec6-4520-b9f0-415c53681ff5 style='border:1px solid grey'></div>"}︡{"obj":"{\"foreground\": null, \"camera_distance\": 9.974079495174752, \"height\": null, \"width\": null, \"renderer\": null, \"background\": null}","javascript":{"coffeescript":false,"code":"$('#fa50c609-3ec6-4520-b9f0-415c53681ff5').salvus_threejs(obj)"},"once":false}︡
 ︠09609251-428a-4656-9ea3-aa5a6e190ccf︠
 ︠92623848-6262-41ab-8bdc-e8c1af635304︠
 

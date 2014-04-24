@@ -1,3 +1,24 @@
+# Dec 6 -- last day of class
+
+-- [x] get evaluations (+volunteer)
+
+## Status reports
+
+ - Andrew: not much
+ - Yannick: read mazur's paper more: need algebraic geometry
+ - Hao: daub's thesis... has a more general argument that CH point is torsion under certain hypothesis
+ - Bharath: smc questions... writing up why rho_tau is red mod 691.
+ - Travis: complex analysis; animations in sage.
+ - Igor: interviews
+ - Simon: 
+
+## Lecture
+
+ - BSD conjecture: overview of theorems
+
+
+
+
 # Dec 4
 
 ## Status reports

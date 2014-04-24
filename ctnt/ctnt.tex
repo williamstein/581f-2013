@@ -3489,7 +3489,7 @@ The real number $\Reg_E$ is the absolute value of the discriminant of the N\'ero
 height pairing matrix on a basis for $E(\Q)/\tor$.
 Specifically, if $P\in E(\Q)$, we define the (N\'eron-Tate) canonical height $h(P)$ via a na\"{i}ve logarithmic height function on points in $E(\Q)$:
 $$
-h(P) = \lim_{n\to\infty} \left(\frac{\widehat{h}(nP)}{n^2}\right)
+h(P) = \lim_{n\to\infty} \frac{\widehat{h}(nP)}{n^2}
 $$
 There are many choices of na\"{i}ve logarithmic height functions that result in the same canonical height function (hence its name); one of the simplest that works is taking $\widehat{h}(Q)$ to be the natural logarithm of the denominator of the $x$-coordinate of $Q$ (see Advanced Silverman, chapter 6 for a more complete discussion of height functions). The canonical height function defines a quadratic form on points in $E(\Q)$:
 $$
@@ -3502,11 +3502,12 @@ the first letter of Shafarevich's name, is the kernel
 \begin{align*}
 \Sha(E) &= \ker\left( H^1(\Q,E) \to \prod_{p\leq \infty}
       H^1(\Q_p,E)\right),\\
-        &= \left\{\text{curves }X/\Q\text{ with }
-             X_{\Qbar} \ncisom E_{\Qbar} \text{ and } X(\Q_p) \neq \emptyset
-             \text{ all } p\leq \infty \right\}/\sim.
+        &= \left\{\text{ }(X/\Q, \iota)\text{ with }
+             E\times X \xrightarrow{\iota} X \text{ and } X(\Q_p) \neq \emptyset
+             \text{ all } p\leq \infty \right\}/\sim,
 \end{align*}
-where $\Q_\infty=\R$.  This $\Sha(E)$ is an abelian group,
+where $\iota$ is a simply transitive action and
+$\Q_\infty=\R$.  Thus $\Sha(E)$ is an abelian group,
 and $\#\Sha(E)$ is its order.
 
 \begin{example}
@@ -3532,16 +3533,18 @@ best advice from the old masters is:
 \end{quote}
 
 \subsection{The Rank}
-When $r_{\an}\leq 1$, the Gross-Zagier work on Heegner points
+When $r_{\an}\leq 1$, work of Gross-Zagier  on Heegner points (and
+some analytic work on $L$-functions by Murty-Murty or Waldspurger
+or Bump-Friedberg-Hoffstein, and of course Wiles et al.)
 combined with Kolyvagin's theorems about Euler systems yields
 extensive results.  In particular, we have
-\begin{theorem}[Kolyvagin, Gross-Zagier]
+\begin{theorem}[mainly Kolyvagin, Gross-Zagier]
 Suppose that $E$ is an elliptic curve over $\Q$
 and $r_{\an}\leq 1$.  Then $r_{\an}(E) = r_{\alg}(E)$.
 \end{theorem}
-We can also computationally construct many examples of
+We can also computationally construct many specific examples of
 curves $E$  of rank $2$ or $3$ such that
-$r_{\an}(E) = r_{\alg}(E)$ (see Section~\ref{} below).
+$r_{\an}(E) = r_{\alg}(E)$.
 However, beyond rank $3$ we are completely ignorant, in the following
 sense:
 \begin{openproblem}
@@ -3549,11 +3552,23 @@ Prove that there is at least one elliptic curve over
 $\Q$ such that $r_{\an}(E) \geq 4$.
 \end{openproblem}
 
+The smallest conductor of a rank $4$ curve is 234446, and
+the curve is
+$$
+y^2 + x y = x^{3} -  x^{2} - 79 x + 289.
+$$
+
+
 
 \subsection{The Shafarevich-Tate group $\Sha$}
-It is implicit in the statement of Conjecture~\ref{conj:bsd}
-that the group $\Sha(E/\Q)$ is finite.  In fact,
-due to the same work of Kolyvagin and Gross-Zagier mentioned
+The group $\Sha(E/\Q)$ is a subgroup of
+$H^1(\Q,E)$, which is an enormous torsion group; in
+fact, one can prove that it has
+infinitely many elements of all order (see \cite{lang-tate,stein:index})).
+
+An implicit assertion of Conjecture~\ref{conj:bsd}
+is that the group $\Sha(E/\Q)$ is finite.  In fact,
+due to the work of Kolyvagin and Gross-Zagier mentioned
 above, we know this in some generality:
 
 \begin{theorem}[Kolyvagin, Gross-Zagier]
@@ -3562,18 +3577,22 @@ with $r_{\an}\leq 1$ then $\Sha(E/\Q)$ is a finite group.
 \end{theorem}
 
 Not only is $\Sha(E/\Q)$ finite when $r_{\an}\leq 1$, but there
-is an algorithm to compute it, which has been made viable in many cases
+is an algorithm to compute $\Sha(E/\Q)$ when $r_{\an}\leq 1$, which has been made {\em pratical} in many cases
 (see Section \ref{sec:bsdfull}).
-However, our knowledge stops the moment we discard this hypothesis.
+However, our knowledge stops the moment we discard the
+hypothesis that $r_{\an}\leq 1$.
 
 \begin{openproblem}\label{open:shafinite}
 Prove that there is an elliptic curve $E$ over $\Q$
 with $r_{\an}\geq 2$ such that $\Sha(E/\Q)$ is finite.
 \end{openproblem}
-In an attempt to numerically convince myself that
+In an attempt to computationally convince myself that
 $\Sha(E/\Q)$ is finite for the curve $E$ with label 389a of rank
 $2$, I verified that $\Sha(E/\Q)[p]=0$ for all
-but 19 primes $p\leq 48859$ (see \cite{stein-wuthrich}).
+but 19 primes $p\leq 48859$ (see \cite{stein-wuthrich}),
+the 19 primes are excluded because they are either bad,
+supersingular, or a $p$-adic $L$-function vanishes
+to higher order making certain computations more difficult.
 
 \subsection{The Analytic order of $\Sha$}
 
@@ -3584,6 +3603,7 @@ $$
 \frac{L^*(E,1) \cdot \# E(\Q)_{\tor}^2}{\Omega_E \cdot \prod_{p\mid N} c_p \cdot \Reg_E } \in \R.
 $$
 For curves of analytic rank at most $1$, we know a lot
+about the real number $\Sha_{\an}(E)$
 due to work of Birch and Gross-Zagier,  which is reflected
 in the following theorem:
 \begin{theorem}[Birch, Gross-Zagier]
@@ -3598,13 +3618,14 @@ of the Gross-Zagier formula.
 
 \begin{openproblem}
 Prove that there is some elliptic curve $E$ of rank at least $2$
-such that $\Sha_{\an}(E)$ is rational number.
+such that $\Sha_{\an}(E)$ is not transcendental.
 \end{openproblem}
 
 \subsection{The Full conjecture}\label{sec:bsdfull}
 Combining
 everything that is known with very extensive machine
-computations, many people proved the following theorem:
+computations, Robert Miller, ..., and Stein,
+proved the following theorem:
 \begin{theorem}
 Suppose $E$ is an elliptic curve over $\Q$ with conductor $N\leq 5000$ and the rank of $E$ is either $0$ or $1$.  Then
 Conjecture~\ref{conj:bsd} is true for $E$.
@@ -3613,7 +3634,8 @@ Conjecture~\ref{conj:bsd} is true for $E$.
 
 In theory one could verify that $r_{\an}(E)=r_{\alg}(E)$
 for all curves of conductor less than $234446$, since
-Cremona has enumerated all these curves and $r_{\alg}(E)\leq 3$.
+Cremona has enumerated all these curves and $r_{\alg}(E)\leq 3$
+for these curves.
 The difficult part would
 be verifying that for each curve with algebraic rank $3$
 the Heegner point is torsion, which by the Gross-Zagier
@@ -3657,7 +3679,7 @@ AnalyticRank(E);
 2 8.0466
 \end{lstlisting}
 
-{(just kidding  in fact this is a bug in Magma).}
+{\bf Just kidding---in fact this is a bug in Magma.}
 
 \begin{lstlisting}
 E = EllipticCurve([0, 1, 0, -39, -83])
@@ -3953,4 +3975,4 @@ Visibility of Sha.
 
 \end{document}
 
-%sagemathcloud={"zoom_width":135,"latex_command":"pdflatex -synctex=1 -interact=nonstopmode ctnt.tex"}
+%sagemathcloud={"zoom_width":160,"latex_command":"pdflatex -synctex=1 -interact=nonstopmode ctnt.tex"}
